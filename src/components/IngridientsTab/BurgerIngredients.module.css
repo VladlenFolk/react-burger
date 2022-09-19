@@ -1,0 +1,32 @@
+.burgerIngridirnets {
+  max-width: 600px;
+  margin: 0 0 40px 380px;
+}
+
+.scroll {
+  max-height: 80vh;
+  overflow-y: auto;
+  margin-top: 40px;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+  height: 30px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
+
+.ingridientComposition {
+  display: grid;
+  grid-template-columns: 272px 272px;
+  grid-column-gap: 24px;
+  grid-row-gap: 57px;
+  justify-content: center;
+  margin: 20px 0 66px;
+}

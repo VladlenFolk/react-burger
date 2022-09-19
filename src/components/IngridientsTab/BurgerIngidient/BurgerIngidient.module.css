@@ -1,0 +1,22 @@
+.ingridientsComponent {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 272px;
+  text-align: center;
+  margin: -1px 0 0 12px;
+ 
+}
+
+.image {
+  max-width: 240px;
+  max-height: 120px;
+  cursor: pointer;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}

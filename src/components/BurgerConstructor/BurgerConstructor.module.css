@@ -1,0 +1,52 @@
+.container {
+  margin: 0 0 0 56px;
+  min-height: 656px;
+}
+
+.elementTopList {
+  margin: 0;
+  margin-left: 32px;
+}
+
+.elementBotList {
+  margin: 6px 0 0 32px;
+}
+
+.scroll {
+  max-height: 56.6vh;
+  overflow-y: auto;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  list-style: none;
+  padding-inline-start: 0;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.counter {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-top: 40px;
+  margin-right: 18px;
+}
+
+.counter:nth-child(1) {
+  margin-right: -5px;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #8585ad;
+}
