@@ -1,12 +1,11 @@
 import styleApp from "./App.module.css";
-import AppHeader from "./components/AppHeader/AppHeader";
-import Title from "./components/Title/Title";
-import BurgerConstructor from "./components/BurgerConstructor/BurgerConstructor";
+import AppHeader from "../AppHeader/AppHeader";
+import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import { useState, useEffect } from "react";
-import IngridientsTab from "./components/IngridientsTab/IngridientsTab";
-import Modal from "./components/ModalOverlay/ModalOverlay";
-import OrderDetails from "./components/ModalOverlay/OrderDetails/OrderDetails";
-import IngridientDetails from "./components/ModalOverlay/IngridientDetails/IngridientDetails";
+import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import Modal from "../ModalOverlay/ModalOverlay";
+import OrderDetails from "../BurgerConstructor/OrderDetails/OrderDetails";
+import IngredientDetails from "../BurgerIngredients/BurgerIngredient/IngredientDetails/IngredientDetails";
 
 function App() {
   // Работаем с загрузкой API
@@ -16,13 +15,16 @@ function App() {
     hasError: false,
     data: [],
   });
+const checkResponse = (res) => {
+  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+};
 
   useEffect(() => {
     const getData = async () => {
       setState({ ...state, hasError: false, isLoading: true });
       fetch(url)
-        .then((res) => res.json())
-        .then((data) => setState({ ...state, data: data, isLoading: false }))
+        .then((res) => checkResponse(res))
+        .then((data) => setState({ ...state, data, isLoading: false }))
         .catch((e) => {
           setState({ ...state, hasError: true, isLoading: false });
         });
@@ -33,24 +35,28 @@ function App() {
 
   // Стейты для модалок
   const [modalActive, setModalActive] = useState(false);
-  const [ingridientOpen, setIngridientOpen] = useState(false);
+  const [ingredientOpen, setIngredientOpen] = useState(false);
   const [price, openPrice] = useState(false);
   const [animate, setAnimate] = useState(false);
   // Стейт для хранения id
-  const [ingridientId, setingridientId] = useState(null);
+  const [ingredientId, setIngredientId] = useState(null);
 
   return (
     <>
       <AppHeader />
-      <Title />
+      
       {!isLoading && !hasError && data.length !== 0 && (
+        <>
+        <div className={styleApp.title}>
+        <h1 className="title_text text text_type_main-large">Соберите бургер </h1>
+        </div>
         <div className={styleApp.App}>
-          <IngridientsTab
-            setingridientId={setingridientId}
-            ingridientId={ingridientId}
+          <BurgerIngredients
+            setIngredientId={setIngredientId}
+            ingredientId={ingredientId}
             setAnimate={setAnimate}
             data={data.data}
-            setOpen={setIngridientOpen}
+            setOpen={setIngredientOpen}
             openModal={setModalActive}
           />
           <BurgerConstructor
@@ -60,26 +66,27 @@ function App() {
             openModal={setModalActive}
           />
         </div>
+        </>
       )}
-      {modalActive && (
+      {/* {modalActive && (
         <Modal
           open={modalActive}
           close={setModalActive}
-          closeIngridient={setIngridientOpen}
+          closeIngredient={setIngredientOpen}
           animate={animate}
           setAnimate={setAnimate}
           closePrice={openPrice}
         >
           {price && <OrderDetails price={price} />}
-          {ingridientOpen && (
-            <IngridientDetails
+          {ingredientOpen && (
+            <IngredientDetails
               data={data.data}
-              ingridientId={ingridientId}
-              ingridientOpen={ingridientOpen}
+              ingredientId={ingredientId}
+              ingredientOpen={ingredientOpen}
             />
           )}
         </Modal>
-      )}
+      )} */}
     </>
   );
 }

@@ -1,10 +1,11 @@
-.burgerIngridirnets {
+.burgerIngredirnets {
   max-width: 600px;
-  margin: 0 0 40px 380px;
+  margin-left: 11px;
+  margin-top: 2px;
 }
 
 .scroll {
-  max-height: 80vh;
+  max-height: 66vh;
   overflow-y: auto;
   margin-top: 40px;
 }
@@ -22,11 +23,15 @@
   background: #8585ad;
 }
 
-.ingridientComposition {
+.ingredientComposition {
   display: grid;
   grid-template-columns: 272px 272px;
   grid-column-gap: 24px;
   grid-row-gap: 57px;
   justify-content: center;
   margin: 20px 0 66px;
+}
+
+.tab {
+  display: flex;
 }

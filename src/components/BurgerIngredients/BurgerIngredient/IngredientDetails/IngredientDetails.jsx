@@ -1,12 +1,10 @@
-import style from "./IngridientDetails.module.css";
+import style from "./IngredientDetails.module.css";
 import PropTypes from "prop-types";
 
-const IngridientDetails = ({ data, ingridientOpen, ingridientId }) => {
-  const currentId = data.filter((current) => {
-    return current._id === ingridientId;
-  })[0];
+const ingredientDetails = ({ data, ingredientOpen, ingredientId }) => {
+const currentIngredient = data.filter(current => current._id === ingredientId)[0];
 
-  if (ingridientOpen) {
+  if (ingredientOpen) {
     return (
       <>
         <div className={style.header}>
@@ -15,34 +13,34 @@ const IngridientDetails = ({ data, ingridientOpen, ingridientId }) => {
         {data !== undefined && (
           <>
             <img
-              src={currentId.image_large}
-              alt={currentId.name}
+              src={currentIngredient.image_large}
+              alt={currentIngredient.name}
               className={style.image}
             />
             <div className={style.description}>
-              <p className="text text_type_main-medium">{currentId.name}</p>
+              <p className="text text_type_main-medium">{currentIngredient.name}</p>
             </div>
             <div className={style.energy}>
               <div className={style.consistence}>
                 <p className={style.consisText}>Калории,ккал</p>
                 <p className="text text_type_digits-default">
-                  {currentId.calories}
+                  {currentIngredient.calories}
                 </p>
               </div>
               <div className={style.consistence}>
                 <p className={style.consisText}>Белки, г</p>
                 <p className="text text_type_digits-default">
-                  {currentId.proteins}{" "}
+                  {currentIngredient.proteins}{" "}
                 </p>
               </div>
               <div className={style.consistence}>
                 <p className={style.consisText}>Жиры, г</p>
-                <p className="text text_type_digits-default">{currentId.fat}</p>
+                <p className="text text_type_digits-default">{currentIngredient.fat}</p>
               </div>
               <div className={style.consistence}>
                 <p className={style.consisText}>Углеводы, г</p>
                 <p className="text text_type_digits-default">
-                  {currentId.carbohydrates}
+                  {currentIngredient.carbohydrates}
                 </p>
               </div>
             </div>
@@ -52,11 +50,16 @@ const IngridientDetails = ({ data, ingridientOpen, ingridientId }) => {
     );
   }
 };
+export default ingredientDetails;
 
-export default IngridientDetails;
-
-IngridientDetails.propTypes = {
-  data: PropTypes.array.isRequired,
-  ingridientOpen: PropTypes.bool.isRequired,
-  ingridientId: PropTypes.string.isRequired,
+ingredientDetails.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.shape({
+    proteins: PropTypes.number,
+    _id: PropTypes.string,
+    fat: PropTypes.number,
+    carbohydrates: PropTypes.number,
+    calories: PropTypes.number,
+  })).isRequired,
+    ingredientId: PropTypes.string.isRequired,
+    ingredientOpen: PropTypes.bool.isRequired
 };

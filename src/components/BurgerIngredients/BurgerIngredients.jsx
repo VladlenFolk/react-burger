@@ -1,18 +1,19 @@
-import React, { useRef } from "react";
+import  { useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
-import BurgerIngredient from "./BurgerIngidient/BurgerIngidient";
+import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
 import PropTypes from "prop-types";
 
-const IngridientsTab = ({
+
+const BurgerIngredients = ({
   data,
   setOpen,
   openModal,
   setAnimate,
-  setingridientId,
-  ingridientId,
+  setIngredientId,
+  ingredientId,
 }) => {
-  const [current, setCurrent] = React.useState("one");
+  const [current, setCurrent] = useState("one");
   const sauces = data.filter((current) => {
     return current.type === "sauce";
   });
@@ -23,6 +24,7 @@ const IngridientsTab = ({
     return current.type === "main";
   });
 
+  
   // нахожу якоря для скрола в DOM
   const bun = useRef(null);
   const sauce = useRef(null);
@@ -31,10 +33,11 @@ const IngridientsTab = ({
   const goToBuns = () => bun.current.scrollIntoView({ behavior: "smooth" });
   const goToSauce = () => sauce.current.scrollIntoView({ behavior: "smooth" });
   const goToMain = () => main.current.scrollIntoView({ behavior: "smooth" });
+   
 
   return (
-    <section className={burgerStyle.burgerIngridirnets}>
-      <div style={{ display: "flex" }}>
+    <section className={burgerStyle.burgerIngredirnets}>
+      <div className={burgerStyle.tab}>
         <div onClick={goToBuns}>
           <Tab value="one" active={current === "one"} onClick={setCurrent}>
             Булки
@@ -55,59 +58,61 @@ const IngridientsTab = ({
         <h2 className="text text_type_main-medium mb-6" ref={bun}>
           Булки
         </h2>
-        <div className={burgerStyle.ingridientComposition}>
+        <div className={burgerStyle.ingredientComposition}>
           {buns.map((bun) => (
             <BurgerIngredient
               key={bun._id}
               count={1}
               image={bun.image}
               price={bun.price}
-              ingridient={bun.name}
+              ingredient={bun.name}
               setOpen={setOpen}
               openModal={openModal}
               setAnimate={setAnimate}
               id={bun._id}
-              setingridientId={setingridientId}
+              setIngredientId={setIngredientId}
+              data={data}
             />
           ))}
         </div>
         <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauce}>
           Соусы
         </h2>
-        <div className={burgerStyle.ingridientComposition}>
+        <div className={burgerStyle.ingredientComposition}>
           {sauces.map((sauce) => (
             <BurgerIngredient
               key={sauce._id}
               count={1}
               image={sauce.image}
               price={sauce.price}
-              ingridient={sauce.name}
+              ingredient={sauce.name}
               id={sauce._id}
               setOpen={setOpen}
               openModal={openModal}
               setAnimate={setAnimate}
-              setingridientId={setingridientId}
-              ingridientId={ingridientId}
+              setIngredientId={setIngredientId}
+              ingredientId={ingredientId}
+              data={data}
             />
           ))}
         </div>
         <h2 className="text text_type_main-medium mt-10 mb-6" ref={main}>
           Начинки
         </h2>
-        <div className={burgerStyle.ingridientComposition}>
+        <div className={burgerStyle.ingredientComposition}>
           {mains.map((main) => (
             <BurgerIngredient
               key={main._id}
               count={1}
               image={main.image}
               price={main.price}
-              ingridient={main.name}
+              ingredient={main.name}
               setOpen={setOpen}
               openModal={openModal}
               setAnimate={setAnimate}
               id={main._id}
-              setingridientId={setingridientId}
-              ingridientId={ingridientId}
+              setIngredientId={setIngredientId}
+              ingredientId={ingredientId}
               data={data}
             />
           ))}
@@ -116,11 +121,13 @@ const IngridientsTab = ({
     </section>
   );
 };
-export default IngridientsTab;
+export default BurgerIngredients;
 
-BurgerIngredient.propTypes = {
-  setingridientId: PropTypes.func.isRequired,
-  ingridientId: PropTypes.string,
-  data: PropTypes.array,
+BurgerIngredients.propTypes = {
+  setIngredientId: PropTypes.func.isRequired,
+  ingredientId: PropTypes.string,
+  openModal: PropTypes.func.isRequired,
+  setOpen: PropTypes.func.isRequired,
+  setAnimate: PropTypes.func.isRequired,
+  data: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
-

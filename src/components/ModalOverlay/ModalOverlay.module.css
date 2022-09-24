@@ -12,6 +12,7 @@
   align-items: center;
   opacity: 0;
   visibility: hidden;
+  /* transition:  .3s linear; */
   animation: close 0.3s forwards;
 }
 
@@ -91,4 +92,9 @@
     opacity: 1;
     visibility: visible;
   }
+}
+
+.modalmodalOpen{
+  opacity: 1;
+  visibility: visible;
 }

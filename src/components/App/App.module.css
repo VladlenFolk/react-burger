@@ -1,0 +1,13 @@
+.App {
+  background-color: #131316;
+  display: flex;
+  color: white;
+  max-width: 1253px;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.title{
+  max-width: 1225px;
+  margin: 0 auto 19px;
+}

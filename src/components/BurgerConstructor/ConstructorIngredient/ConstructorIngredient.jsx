@@ -3,9 +3,9 @@ import {
   ConstructorElement,
   DragIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import constructorStyle from "./ConstructorIngridient.module.css";
+import constructorStyle from "./ConstructorIngredient.module.css";
 
-const ConstructorIngridient = ({ text, price, thumbnail }) => {
+const ConstructorIngredient = ({ text, price, thumbnail }) => {
   return (
     <li className={constructorStyle.elementList}>
       <DragIcon type="primary" />
@@ -14,9 +14,9 @@ const ConstructorIngridient = ({ text, price, thumbnail }) => {
   );
 };
 
-export default ConstructorIngridient;
+export default ConstructorIngredient;
 
-ConstructorIngridient.propTypes = {
+ConstructorIngredient.propTypes = {
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,

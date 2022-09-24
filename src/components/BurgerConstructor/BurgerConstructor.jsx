@@ -2,16 +2,26 @@ import {
   ConstructorElement,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import ConstructorIngridient from "./ConstructorIngridient/ConstructorIngridient";
+import Constructoringredient from "./ConstructorIngredient/ConstructorIngredient";
 import constructorStyle from "./BurgerConstructor.module.css";
 import diamond from "../../images/diamond.svg";
 import PropTypes from "prop-types";
+import Modal from "../ModalOverlay/ModalOverlay";
+import OrderDetails from "./OrderDetails/OrderDetails";
+import { useState, useEffect } from "react";
 
-const BurgerConstructor = ({ data, openModal, openPrice, setAnimate }) => {
-  const ingridients = data.filter((current) => {
+
+const BurgerConstructor = ({ data, openModal, }) => {
+  const ingredients = data.filter((current) => {
     return current.type !== "bun";
   });
-  return (
+  const [modalActive, setModalActive] = useState(false);
+  const [price, openPrice] = useState(false);
+
+
+  
+
+  return (<>
     <div className={constructorStyle.container}>
       <ul className={constructorStyle.list}>
         <li className={constructorStyle.elementTopList}>
@@ -25,12 +35,12 @@ const BurgerConstructor = ({ data, openModal, openPrice, setAnimate }) => {
         </li>
         <div className={constructorStyle.scroll}>
           {/* Сейчас добавляем все элементы кроме булок, потом будем добавлять с помощью перетаскивания */}
-          {ingridients.map((ingridient) => (
-            <ConstructorIngridient
-              key={ingridient._id}
-              text={ingridient.name}
-              thumbnail={ingridient.image}
-              price={ingridient.price}
+          {ingredients.map((ingredient) => (
+            <Constructoringredient
+              key={ingredient._id}
+              text={ingredient.name}
+              thumbnail={ingredient.image}
+              price={ingredient.price}
             />
           ))}
         </div>
@@ -51,22 +61,36 @@ const BurgerConstructor = ({ data, openModal, openPrice, setAnimate }) => {
           type="primary"
           size="large"
           onClick={() => {
-            openPrice(true);
+            setModalActive(true);
+            // openPrice(true);
             openModal(true);
-            setAnimate(true);
           }}
         >
           Оформить заказ
         </Button>
       </div>
     </div>
+   {modalActive && <Modal
+          // open={modalActive}
+          onClose={setModalActive}
+          // closeIngredient={setIngredientOpen}
+          closePrice={openPrice}
+        >
+         <OrderDetails price={price} />
+        </Modal>
+        }
+    </>
   );
 };
 
 export default BurgerConstructor;
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.array.isRequired,
+  data: PropTypes.arrayOf(PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    image: PropTypes.string.isRequired,
+  })).isRequired,
   openModal: PropTypes.func.isRequired,
   openPrice: PropTypes.func.isRequired,
   setAnimate: PropTypes.func.isRequired,

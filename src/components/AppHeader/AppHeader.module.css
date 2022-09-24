@@ -1,10 +1,11 @@
-.nav {
-  margin: 40px;
-  max-width: 1920px;
+.header {
+  margin-bottom: 40px;
+  width: 100%;
   min-height: 88px;
   background-color: #1c1c21;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 
 .component {
@@ -44,17 +45,21 @@
 .constructor {
   display: flex;
   align-items: center;
-  margin: 0 48px 0 340px;
+  margin-right: 48px;
+  margin-left: 13px;
 }
 
 .list {
   display: flex;
   align-items: center;
-  margin-right: 132px;
 }
 
 .profile {
   display: flex;
   align-items: center;
-  margin-left: 308px;
+}
+
+.logo{
+  margin-right: 309px ;
+  margin-left: 130px;
 }
