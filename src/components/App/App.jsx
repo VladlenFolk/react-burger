@@ -3,9 +3,6 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import { useState, useEffect } from "react";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
-import Modal from "../ModalOverlay/ModalOverlay";
-import OrderDetails from "../BurgerConstructor/OrderDetails/OrderDetails";
-import IngredientDetails from "../BurgerIngredients/BurgerIngredient/IngredientDetails/IngredientDetails";
 
 function App() {
   // Работаем с загрузкой API
@@ -13,81 +10,46 @@ function App() {
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
-    data: [],
+    ingredients: [],
   });
-const checkResponse = (res) => {
-  return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-};
+  const checkResponse = (res) => {
+    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  };
 
   useEffect(() => {
     const getData = async () => {
       setState({ ...state, hasError: false, isLoading: true });
       fetch(url)
         .then((res) => checkResponse(res))
-        .then((data) => setState({ ...state, data, isLoading: false }))
+        .then((data) =>
+          setState({ ...state, ingredients: data, isLoading: false })
+        )
         .catch((e) => {
           setState({ ...state, hasError: true, isLoading: false });
         });
     };
     getData();
   }, []);
-  const { data, isLoading, hasError } = state;
 
-  // Стейты для модалок
-  const [modalActive, setModalActive] = useState(false);
-  const [ingredientOpen, setIngredientOpen] = useState(false);
-  const [price, openPrice] = useState(false);
-  const [animate, setAnimate] = useState(false);
-  // Стейт для хранения id
-  const [ingredientId, setIngredientId] = useState(null);
+  const { ingredients, isLoading, hasError } = state;
 
   return (
-    <>
+    <div className={styleApp.text}>
       <AppHeader />
-      
-      {!isLoading && !hasError && data.length !== 0 && (
+      {!isLoading && !hasError && ingredients.length !== 0 && (
         <>
-        <div className={styleApp.title}>
-        <h1 className="title_text text text_type_main-large">Соберите бургер </h1>
-        </div>
-        <div className={styleApp.App}>
-          <BurgerIngredients
-            setIngredientId={setIngredientId}
-            ingredientId={ingredientId}
-            setAnimate={setAnimate}
-            data={data.data}
-            setOpen={setIngredientOpen}
-            openModal={setModalActive}
-          />
-          <BurgerConstructor
-            setAnimate={setAnimate}
-            data={data.data}
-            openPrice={openPrice}
-            openModal={setModalActive}
-          />
-        </div>
+          <div className={styleApp.title}>
+            <h1 className="title_text text text_type_main-large">
+              Соберите бургер
+            </h1>
+          </div>
+          <main className={styleApp.App}>
+            <BurgerIngredients ingredients={ingredients.data} />
+            <BurgerConstructor data={ingredients.data} />
+          </main>
         </>
       )}
-      {/* {modalActive && (
-        <Modal
-          open={modalActive}
-          close={setModalActive}
-          closeIngredient={setIngredientOpen}
-          animate={animate}
-          setAnimate={setAnimate}
-          closePrice={openPrice}
-        >
-          {price && <OrderDetails price={price} />}
-          {ingredientOpen && (
-            <IngredientDetails
-              data={data.data}
-              ingredientId={ingredientId}
-              ingredientOpen={ingredientOpen}
-            />
-          )}
-        </Modal>
-      )} */}
-    </>
+    </div>
   );
 }
 

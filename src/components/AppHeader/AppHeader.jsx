@@ -10,21 +10,21 @@ const AppHeader = () => {
   return (
     <header>
       <nav className={headerStyle.header}>
-        <div className={headerStyle.constructor}>
+        <a href="x" className={headerStyle.constructor}>
           <BurgerIcon type="primary" />
-          <div className={headerStyle.text}>Конструктор</div>
-        </div>
-        <div className={headerStyle.list}>
+          <p className={headerStyle.text}>Конструктор</p>
+        </a>
+        <a href="x" className={headerStyle.list}>
           <ListIcon type="secondary" />
           <p className={headerStyle.text_type_secondary}>Лента заказов</p>
-        </div>
+        </a>
         <div className={headerStyle.logo}>
-        <Logo />
+          <Logo />
         </div>
-        <div className={headerStyle.profile}>
+        <a href="x" className={headerStyle.profile}>
           <ProfileIcon type="secondary" />
           <p className={headerStyle.text_type_profile}>Личный кабинет</p>
-        </div>
+        </a>
       </nav>
     </header>
   );

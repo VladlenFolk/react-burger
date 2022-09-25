@@ -1,30 +1,21 @@
-import  { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
 import PropTypes from "prop-types";
 
-
-const BurgerIngredients = ({
-  data,
-  setOpen,
-  openModal,
-  setAnimate,
-  setIngredientId,
-  ingredientId,
-}) => {
-  const [current, setCurrent] = useState("one");
-  const sauces = data.filter((current) => {
+const BurgerIngredients = ({ ingredients }) => {
+  const [ingridientType, setingridientType] = useState("one");
+  const sauces = ingredients.filter((current) => {
     return current.type === "sauce";
   });
-  const buns = data.filter((current) => {
+  const buns = ingredients.filter((current) => {
     return current.type === "bun";
   });
-  const mains = data.filter((current) => {
+  const mains = ingredients.filter((current) => {
     return current.type === "main";
   });
 
-  
   // нахожу якоря для скрола в DOM
   const bun = useRef(null);
   const sauce = useRef(null);
@@ -33,23 +24,34 @@ const BurgerIngredients = ({
   const goToBuns = () => bun.current.scrollIntoView({ behavior: "smooth" });
   const goToSauce = () => sauce.current.scrollIntoView({ behavior: "smooth" });
   const goToMain = () => main.current.scrollIntoView({ behavior: "smooth" });
-   
 
   return (
     <section className={burgerStyle.burgerIngredirnets}>
       <div className={burgerStyle.tab}>
         <div onClick={goToBuns}>
-          <Tab value="one" active={current === "one"} onClick={setCurrent}>
+          <Tab
+            value="one"
+            active={ingridientType === "one"}
+            onClick={setingridientType}
+          >
             Булки
           </Tab>
         </div>
         <div className={burgerStyle.sauce} onClick={goToSauce}>
-          <Tab value="two" active={current === "two"} onClick={setCurrent}>
+          <Tab
+            value="two"
+            active={ingridientType === "two"}
+            onClick={setingridientType}
+          >
             Соусы
           </Tab>
         </div>
         <div onClick={goToMain}>
-          <Tab value="three" active={current === "three"} onClick={setCurrent}>
+          <Tab
+            value="three"
+            active={ingridientType === "three"}
+            onClick={setingridientType}
+          >
             Начинки
           </Tab>
         </div>
@@ -66,12 +68,8 @@ const BurgerIngredients = ({
               image={bun.image}
               price={bun.price}
               ingredient={bun.name}
-              setOpen={setOpen}
-              openModal={openModal}
-              setAnimate={setAnimate}
               id={bun._id}
-              setIngredientId={setIngredientId}
-              data={data}
+              ingredients={ingredients}
             />
           ))}
         </div>
@@ -87,12 +85,7 @@ const BurgerIngredients = ({
               price={sauce.price}
               ingredient={sauce.name}
               id={sauce._id}
-              setOpen={setOpen}
-              openModal={openModal}
-              setAnimate={setAnimate}
-              setIngredientId={setIngredientId}
-              ingredientId={ingredientId}
-              data={data}
+              ingredients={ingredients}
             />
           ))}
         </div>
@@ -107,13 +100,8 @@ const BurgerIngredients = ({
               image={main.image}
               price={main.price}
               ingredient={main.name}
-              setOpen={setOpen}
-              openModal={openModal}
-              setAnimate={setAnimate}
               id={main._id}
-              setIngredientId={setIngredientId}
-              ingredientId={ingredientId}
-              data={data}
+              ingredients={ingredients}
             />
           ))}
         </div>
@@ -124,10 +112,5 @@ const BurgerIngredients = ({
 export default BurgerIngredients;
 
 BurgerIngredients.propTypes = {
-  setIngredientId: PropTypes.func.isRequired,
-  ingredientId: PropTypes.string,
-  openModal: PropTypes.func.isRequired,
-  setOpen: PropTypes.func.isRequired,
-  setAnimate: PropTypes.func.isRequired,
-  data: PropTypes.arrayOf(PropTypes.object).isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
 };
