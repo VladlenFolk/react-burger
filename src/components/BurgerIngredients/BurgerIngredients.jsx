@@ -5,7 +5,7 @@ import burgerStyle from "./BurgerIngredients.module.css";
 import PropTypes from "prop-types";
 
 const BurgerIngredients = ({ ingredients }) => {
-  const [ingridientType, setingridientType] = useState("one");
+  const [ingredientType, setIngredientType] = useState("one");
   const sauces = ingredients.filter((current) => {
     return current.type === "sauce";
   });
@@ -24,15 +24,15 @@ const BurgerIngredients = ({ ingredients }) => {
   const goToBuns = () => bun.current.scrollIntoView({ behavior: "smooth" });
   const goToSauce = () => sauce.current.scrollIntoView({ behavior: "smooth" });
   const goToMain = () => main.current.scrollIntoView({ behavior: "smooth" });
-
+ 
   return (
     <section className={burgerStyle.burgerIngredirnets}>
       <div className={burgerStyle.tab}>
         <div onClick={goToBuns}>
           <Tab
             value="one"
-            active={ingridientType === "one"}
-            onClick={setingridientType}
+            active={ingredientType === "one"}
+            onClick={setIngredientType}
           >
             Булки
           </Tab>
@@ -40,8 +40,8 @@ const BurgerIngredients = ({ ingredients }) => {
         <div className={burgerStyle.sauce} onClick={goToSauce}>
           <Tab
             value="two"
-            active={ingridientType === "two"}
-            onClick={setingridientType}
+            active={ingredientType === "two"}
+            onClick={setIngredientType}
           >
             Соусы
           </Tab>
@@ -49,8 +49,8 @@ const BurgerIngredients = ({ ingredients }) => {
         <div onClick={goToMain}>
           <Tab
             value="three"
-            active={ingridientType === "three"}
-            onClick={setingridientType}
+            active={ingredientType === "three"}
+            onClick={setIngredientType}
           >
             Начинки
           </Tab>
@@ -112,5 +112,10 @@ const BurgerIngredients = ({ ingredients }) => {
 export default BurgerIngredients;
 
 BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.object).isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.shape({
+    image: PropTypes.string,
+    price: PropTypes.number,
+    name: PropTypes.string,
+    _id: PropTypes.string
+  })).isRequired,
 };

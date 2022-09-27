@@ -1,7 +1,7 @@
 import style from "./IngredientDetails.module.css";
 import PropTypes from "prop-types";
 
-const ingredientDetails = ({ selectedIngredient }) => {
+const IngredientDetails = ({ selectedIngredient }) => {
   return (
     <>
       <img
@@ -41,9 +41,9 @@ const ingredientDetails = ({ selectedIngredient }) => {
     </>
   );
 };
-export default ingredientDetails;
+export default IngredientDetails;
 
-ingredientDetails.propTypes = {
+IngredientDetails.propTypes = {
   selectedIngredient: PropTypes.shape({
     proteins: PropTypes.number,
     _id: PropTypes.string,

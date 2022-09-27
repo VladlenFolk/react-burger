@@ -31,7 +31,7 @@
   font-weight: 400;
 }
 
-.modalOpen {
+.modal_open {
   position: fixed;
   top: 0;
   bottom: 0;

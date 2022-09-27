@@ -25,7 +25,7 @@ const Modal = ({ onClose, children, title }) => {
 
   return createPortal(
     <div
-      className={animate ? style.modal : style.modalOpen}
+      className={animate ? style.modal : style.modal_open}
       onClick={() => closeModal(300)}
     >
       <ModalOverlay />

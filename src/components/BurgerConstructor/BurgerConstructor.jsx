@@ -2,7 +2,7 @@ import {
   ConstructorElement,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import Constructoringredient from "./ConstructorIngredient/ConstructorIngredient";
+import ConstructorIngredient from "./ConstructorIngredient/ConstructorIngredient";
 import constructorStyle from "./BurgerConstructor.module.css";
 import diamond from "../../images/diamond.svg";
 import PropTypes from "prop-types";
@@ -32,7 +32,7 @@ const BurgerConstructor = ({ data }) => {
           <div className={constructorStyle.scroll}>
             {/* Сейчас добавляем все элементы кроме булок, потом будем добавлять с помощью перетаскивания */}
             {ingredients.map((ingredient) => (
-              <Constructoringredient
+              <ConstructorIngredient
                 key={ingredient._id}
                 text={ingredient.name}
                 thumbnail={ingredient.image}
