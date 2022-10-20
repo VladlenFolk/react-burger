@@ -6,6 +6,7 @@ import {
 import constructorStyle from "./ConstructorIngredient.module.css";
 
 const ConstructorIngredient = ({ text, price, thumbnail }) => {
+  
   return (
     <li className={constructorStyle.elementList}>
       <DragIcon type="primary" />

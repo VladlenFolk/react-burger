@@ -5,16 +5,42 @@ import {
 import ConstructorIngredient from "./ConstructorIngredient/ConstructorIngredient";
 import constructorStyle from "./BurgerConstructor.module.css";
 import diamond from "../../images/diamond.svg";
-import PropTypes from "prop-types";
 import Modal from "../Modal/Modal";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import { useState } from "react";
+import { IngredientContext } from "../../services/ingredientsContext";
+import { useContext } from "react";
+import { apiOrder } from "../../utils/api";
 
-const BurgerConstructor = ({ data }) => {
+const BurgerConstructor = () => {
+  const data = useContext(IngredientContext);
+
+  const [modalActive, setModalActive] = useState(false);
+  const [modalData, setModalData] = useState([]);
+
   const ingredients = data.filter((current) => {
     return current.type !== "bun";
   });
-  const [modalActive, setModalActive] = useState(false);
+
+  //получаем все id ингредиентов
+  const idIngredients = ingredients.map((item) => item._id);
+
+  //сумма товаров в конструкторе
+  const amount = (arrOfIngredients) => {
+    return (
+      arrOfIngredients
+        .map((prev) => prev.price)
+        .reduce((prev, curr) => prev + curr) +
+      data[0].price * 2
+    );
+  };
+
+  //функция для получения номера заказа и открытия молального окна
+  const handleOrderClick = (ingredientsId) => {
+    apiOrder(ingredientsId)
+      .then((answer) => setModalData(answer))
+      .then(() => setModalActive(true));
+  };
 
   return (
     <>
@@ -51,13 +77,13 @@ const BurgerConstructor = ({ data }) => {
           </li>
         </ul>
         <div className={constructorStyle.counter}>
-          <p className="text text_type_digits-medium">610</p>
+          <p className="text text_type_digits-medium">{amount(ingredients)}</p>
           <img src={diamond} alt="Бриллиант" className="mr-10 ml-2" />
           <Button
             type="primary"
             size="large"
             onClick={() => {
-              setModalActive(true);
+              handleOrderClick(idIngredients);
             }}
           >
             Оформить заказ
@@ -66,7 +92,7 @@ const BurgerConstructor = ({ data }) => {
       </section>
       {modalActive && (
         <Modal onClose={setModalActive}>
-          <OrderDetails />
+          <OrderDetails orderNumber={modalData.order.number} />
         </Modal>
       )}
     </>
@@ -74,13 +100,3 @@ const BurgerConstructor = ({ data }) => {
 };
 
 export default BurgerConstructor;
-
-BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-    })
-  ).isRequired,
-};

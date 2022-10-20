@@ -1,10 +1,12 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
 import PropTypes from "prop-types";
+import { IngredientContext } from "../../services/ingredientsContext";
 
-const BurgerIngredients = ({ ingredients }) => {
+const BurgerIngredients = () => {
+  const ingredients = useContext(IngredientContext);
   const [ingredientType, setIngredientType] = useState("one");
   const sauces = ingredients.filter((current) => {
     return current.type === "sauce";
@@ -15,6 +17,7 @@ const BurgerIngredients = ({ ingredients }) => {
   const mains = ingredients.filter((current) => {
     return current.type === "main";
   });
+
 
   // нахожу якоря для скрола в DOM
   const bun = useRef(null);

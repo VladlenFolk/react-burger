@@ -3,31 +3,27 @@ import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
 import { useState, useEffect } from "react";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
+import { IngredientContext } from "../../services/ingredientsContext";
+import { getData } from "../../utils/api";
 
 function App() {
   // Работаем с загрузкой API
-  const url = "https://norma.nomoreparties.space/api/ingredients";
   const [state, setState] = useState({
     isLoading: false,
     hasError: false,
     ingredients: [],
   });
-  const checkResponse = (res) => {
-    return res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
-  };
 
   useEffect(() => {
-    const getData = async () => {
-      setState({ ...state, hasError: false, isLoading: true });
-      fetch(url)
-        .then((res) => checkResponse(res))
-        .then((data) =>
-          setState({ ...state, ingredients: data, isLoading: false })
-        )
-        .catch((e) => {
-          setState({ ...state, hasError: true, isLoading: false });
-        });
-    };
+    setState({ ...state, hasError: false, isLoading: true });
+    getData()
+      .then((data) =>
+        setState({ ...state, ingredients: data, isLoading: false })
+      )
+      .catch((e) => {
+        setState({ ...state, hasError: true, isLoading: false });
+      });
+
     getData();
   }, []);
 
@@ -44,8 +40,10 @@ function App() {
             </h1>
           </div>
           <main className={styleApp.App}>
-            <BurgerIngredients ingredients={ingredients.data} />
-            <BurgerConstructor data={ingredients.data} />
+            <IngredientContext.Provider value={ingredients.data}>
+              <BurgerIngredients ingredients={ingredients.data} />
+              <BurgerConstructor />
+            </IngredientContext.Provider>
           </main>
         </>
       )}
