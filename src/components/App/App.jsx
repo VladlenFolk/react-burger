@@ -41,7 +41,7 @@ function App() {
           </div>
           <main className={styleApp.App}>
             <IngredientContext.Provider value={ingredients.data}>
-              <BurgerIngredients ingredients={ingredients.data} />
+              <BurgerIngredients  />
               <BurgerConstructor />
             </IngredientContext.Provider>
           </main>
