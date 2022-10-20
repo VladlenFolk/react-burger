@@ -1,0 +1,11 @@
+.elementList {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  margin-right: 9px;
+}
+
+.elementList:nth-child(1) {
+  margin-top: 6px;
+}
