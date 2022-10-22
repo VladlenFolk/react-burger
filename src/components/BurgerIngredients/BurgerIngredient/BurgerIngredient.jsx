@@ -3,11 +3,11 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerStyle from "./BurgerIngredient.module.css";
-import PropTypes from "prop-types";
 import { useContext, useState } from "react";
 import Modal from "../../Modal/Modal";
 import IngredientDetails from "./IngredientDetails/IngredientDetails";
 import { IngredientContext } from "../../../services/ingredientsContext";
+import { ingredientType } from "../../../utils/types";
 
 const BurgerIngredient = ({ count, image, price, ingredient, id }) => {
   const ingredients = useContext(IngredientContext);
@@ -52,10 +52,4 @@ const BurgerIngredient = ({ count, image, price, ingredient, id }) => {
 };
 export default BurgerIngredient;
 
-BurgerIngredient.propTypes = {
-  count: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  ingredient: PropTypes.string.isRequired,
-  id: PropTypes.string.isRequired,
-};
+BurgerIngredient.propTypes = ingredientType;
