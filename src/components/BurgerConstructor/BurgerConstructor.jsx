@@ -39,7 +39,8 @@ const BurgerConstructor = () => {
   const handleOrderClick = (ingredientsId) => {
     apiOrder(ingredientsId)
       .then((answer) => setModalData(answer))
-      .then(() => setModalActive(true));
+      .then(() => setModalActive(true))
+      .catch((eror) => console.log(eror));
   };
 
   return (

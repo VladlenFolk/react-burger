@@ -2,7 +2,6 @@ import { useRef, useState, useContext } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
-import PropTypes from "prop-types";
 import { IngredientContext } from "../../services/ingredientsContext";
 
 const BurgerIngredients = () => {
@@ -18,7 +17,6 @@ const BurgerIngredients = () => {
     return current.type === "main";
   });
 
-
   // нахожу якоря для скрола в DOM
   const bun = useRef(null);
   const sauce = useRef(null);
@@ -27,7 +25,7 @@ const BurgerIngredients = () => {
   const goToBuns = () => bun.current.scrollIntoView({ behavior: "smooth" });
   const goToSauce = () => sauce.current.scrollIntoView({ behavior: "smooth" });
   const goToMain = () => main.current.scrollIntoView({ behavior: "smooth" });
- 
+
   return (
     <section className={burgerStyle.burgerIngredirnets}>
       <div className={burgerStyle.tab}>
@@ -113,12 +111,3 @@ const BurgerIngredients = () => {
   );
 };
 export default BurgerIngredients;
-
-BurgerIngredients.propTypes = {
-  ingredients: PropTypes.arrayOf(PropTypes.shape({
-    image: PropTypes.string,
-    price: PropTypes.number,
-    name: PropTypes.string,
-    _id: PropTypes.string
-  })).isRequired,
-};

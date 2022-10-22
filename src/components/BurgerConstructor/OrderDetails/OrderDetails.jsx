@@ -2,8 +2,7 @@ import style from "./OrderDetails.module.css";
 import done from "../../../images/done.svg";
 import PropTypes from "prop-types";
 
-const OrderDetails = ({orderNumber}) => {
-  console.log(orderNumber)
+const OrderDetails = ({ orderNumber }) => {
   return (
     <div className={style.container}>
       <p className="text text_type_digits-large">{orderNumber}</p>
@@ -18,5 +17,5 @@ const OrderDetails = ({orderNumber}) => {
 export default OrderDetails;
 
 OrderDetails.propTypes = {
-  orderNumber : PropTypes.number.isRequired
-}
+  orderNumber: PropTypes.number.isRequired,
+};
