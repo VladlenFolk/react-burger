@@ -8,7 +8,6 @@ import diamond from "../../images/diamond.svg";
 import Modal from "../Modal/Modal";
 import OrderDetails from "./OrderDetails/OrderDetails";
 import { useState, useMemo } from "react";
-import { apiOrder } from "../../utils/api";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks/useDrop";
 import {
@@ -18,26 +17,18 @@ import {
 import { nanoid } from "nanoid";
 import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
 import { getOrder } from "../../services/actions/order";
-import { getIngredients } from "../../services/actions/ingredients";
+
 const BurgerConstructor = () => {
-  const { ingredients } = useSelector((state) => state.ingredients);
   const [modalActive, setModalActive] = useState(false);
-  const [modalData, setModalData] = useState([]);
-
-  const ingredientsConstructor = useMemo(() => {
-    return ingredients.filter((current) => {
-      return current.type !== "bun";
-    });
-  }, [ingredients]);
-
+  const bun = useSelector((state) => state.burgerConstructor.bun);
   const constructorIngredients = useSelector(
     (state) => state.burgerConstructor.otherIngredients
   );
-  const constructorBuns = useSelector(
-    (state) => state.burgerConstructor.bun
-  );
+  const constructorBuns = useSelector((state) => state.burgerConstructor.bun);
+  const orderNumber = useSelector((data) => data.order.number);
   const dispatch = useDispatch();
 
+  //Функция добавления перемещенного элемента
   const addItem = (item) => {
     const ingredient = {
       item,
@@ -50,8 +41,6 @@ const BurgerConstructor = () => {
     }
   };
 
-  const bun = useSelector((state) => state.burgerConstructor.bun);
-
   //сумма товаров в конструкторе
   const price = useMemo(() => {
     return (
@@ -62,6 +51,7 @@ const BurgerConstructor = () => {
     );
   }, [bun, constructorIngredients]);
 
+  //Логика целевых элементов с и без ингредиентов
   const [, dropTarget] = useDrop({
     accept: "ingredients",
     drop(item) {
@@ -77,23 +67,19 @@ const BurgerConstructor = () => {
 
   //получаем все id ингредиентов
   const idIngredients = useMemo(() => {
-    let constructorIngredientsArr = constructorIngredients.map((item) => item.item._id);
+    let constructorIngredientsArr = constructorIngredients.map(
+      (item) => item.item._id
+    );
     const constructorBunsArr = constructorBuns._id;
-    return constructorIngredientsArr =  constructorIngredientsArr.concat([constructorBunsArr]);
-
+    return (constructorIngredientsArr = constructorIngredientsArr.concat([
+      constructorBunsArr,
+    ]));
   }, [constructorIngredients, constructorBuns._id]);
 
-  // const data = useSelector(data => data.order.order.number )
-
-  // функция для получения номера заказа и открытия молального окна
-  // const handleOrderClick = (ingredientsId) => {
-  //   apiOrder(ingredientsId)
-  //     .then((answer) => console.log((answer)))
-  //     .then(() => setModalActive(true))
-  //     .catch((eror) => console.log(eror));
-  // };
-  const handleOrderClick = (idIngredients) => {
+  //Запрос на получение заказа
+  const handleOrderClick = () => {
     dispatch(getOrder(idIngredients));
+    setModalActive(true);
   };
 
   return (
@@ -103,7 +89,6 @@ const BurgerConstructor = () => {
           <ConstructorContainer />
         </div>
       )}
-
       <section className={constructorStyle.container} ref={dropTarget1}>
         <ul className={constructorStyle.list}>
           {bun.length !== 0 && (
@@ -151,19 +136,16 @@ const BurgerConstructor = () => {
             <Button
               type="primary"
               size="large"
-              onClick={() => {
-                handleOrderClick(idIngredients);
-              }}
+              onClick={handleOrderClick}
             >
               Оформить заказ
             </Button>
           </div>
         )}
       </section>
-
       {modalActive && (
         <Modal onClose={setModalActive}>
-          <OrderDetails orderNumber={1} />
+          <OrderDetails orderNumber={orderNumber} />
         </Modal>
       )}
     </>

@@ -22,11 +22,10 @@ export function getIngredients() {
           });
         }
       })
-      .catch((err) => {
+      .catch(() => {
         dispatch({
           type: GET_INGREDIENTS_FAILED,
         });
       });
   };
 }
-

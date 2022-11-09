@@ -3,10 +3,12 @@ import { tabReducer } from './tab';
 import { ingredients } from './ingredients';
 import { constructorReducer } from './constructorIngredientsReducer';
 import { orderReducer } from './order';
+import { ingredientInfoReducer } from './ingredientsInfoReducer';
 
 export const rootReducer = combineReducers({
     tab: tabReducer,
     ingredients,
     burgerConstructor: constructorReducer,
-    order: orderReducer
+    order: orderReducer,
+    ingredientInfo: ingredientInfoReducer,
 }); 

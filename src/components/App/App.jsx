@@ -21,6 +21,8 @@ function App() {
   return (
     <div className={styleApp.text}>
       <AppHeader />
+      {ingredientsRequest && "Загрузка..."}
+      {ingredientsFailed && "Произошла ошибка"}
       {!ingredientsRequest && !ingredientsFailed && ingredients.length !== 0 && (
         <>
           <div className={styleApp.title}>

@@ -12,6 +12,7 @@ import {
   SORT_INGREDIENTS,
 } from "../../../services/actions/constructor";
 import { useRef } from "react";
+import { ingredientType } from "../../../utils/types";
 
 const ConstructorIngredient = ({
   text,
@@ -85,4 +86,7 @@ ConstructorIngredient.propTypes = {
   text: PropTypes.string.isRequired,
   price: PropTypes.number.isRequired,
   thumbnail: PropTypes.string.isRequired,
+  id: PropTypes.number,
+  ingredient: ingredientType,
+  index: PropTypes.number.isRequired,
 };

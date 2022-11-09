@@ -38,4 +38,3 @@ export const ingredients = (state = initialState, action) => {
     }
   }
 };
-

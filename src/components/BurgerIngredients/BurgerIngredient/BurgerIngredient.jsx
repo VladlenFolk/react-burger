@@ -3,15 +3,20 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerStyle from "./BurgerIngredient.module.css";
-import { useState, useMemo } from "react";
+import { useState, useCallback } from "react";
 import Modal from "../../Modal/Modal";
 import IngredientDetails from "./IngredientDetails/IngredientDetails";
-// import { ingredientType } from "../../../utils/types";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
-import { DELETE_CONSTRUCTOR_INGREDIENT } from "../../../services/actions/constructor";
+import { GET_INGREDIENT_INFO } from "../../../services/actions/ingredientInfo";
 import { useDispatch } from "react-redux";
+import PropTypes from "prop-types";
+import { ingredientType } from "../../../utils/types";
+
 const BurgerIngredient = ({ count, item }) => {
+  const dispatch = useDispatch();
+  const [modalActive, setModalActive] = useState(false);
+  const ingredient = useSelector((state) => state.ingredientInfo.item);
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients",
     item,
@@ -20,21 +25,10 @@ const BurgerIngredient = ({ count, item }) => {
     }),
   });
 
-  const { ingredients } = useSelector((state) => state.ingredients);
- 
-  const onClickImage = () => {
-    // setIngredientId(e.target.id);
+  const onClickImage = useCallback(() => {
+    dispatch({ type: GET_INGREDIENT_INFO, item });
     setModalActive(true);
-  };
-
-
-  const [modalActive, setModalActive] = useState(false);
-  //Получаем массив с данными ингридиента, по которому кликнули
-  const selectedIngredient = useMemo(() => {
-    return ingredients.find((el) => el._id === item._id);
-  }, [ingredients]);
-  
-
+  }, [dispatch, item]);
 
   return (
     <>
@@ -57,14 +51,16 @@ const BurgerIngredient = ({ count, item }) => {
         </div>
         <p className="text text_type_main-default mt-2">{item.name}</p>
       </div>
-      {modalActive && (
-        <Modal onClose={setModalActive} title={"Детали ингредиента"}>
-          <IngredientDetails selectedIngredient={selectedIngredient} />
+      {modalActive && ingredient && (
+        <Modal title={"Детали ингредиента"} onClose={setModalActive}>
+          <IngredientDetails />
         </Modal>
       )}
     </>
   );
 };
 export default BurgerIngredient;
-
-// BurgerIngredient.propTypes = ingredientType;
+BurgerIngredient.propTypes = {
+  count: PropTypes.number,
+  item: ingredientType,
+};

@@ -76,17 +76,13 @@ const BurgerIngredients = () => {
   }
 
   const burger = useSelector((state) => state.burgerConstructor);
-
   const counterIngredients = useMemo(() => {
     const { bun, otherIngredients } = burger;
     const counters = {};
-    console.log(otherIngredients)
     otherIngredients.forEach((otherIngredient) => {
-      
       if (!counters[otherIngredient.item._id])
         counters[otherIngredient.item._id] = 0;
       counters[otherIngredient.item._id] += 1;
-
     });
     if (bun) counters[bun._id] = bunsAmount;
     return counters;
@@ -150,4 +146,5 @@ const BurgerIngredients = () => {
     </section>
   );
 };
+
 export default BurgerIngredients;

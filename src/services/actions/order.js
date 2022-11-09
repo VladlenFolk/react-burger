@@ -1,7 +1,7 @@
 import { apiOrder } from "../../utils/api";
-export const GET_ORDER_REQUEST = "GET_INGREDIENTS_REQUEST";
-export const GET_ORDER_SUCCESS = "GET_INGREDIENTS_SUCCESS";
-export const GET_ORDER_FAILED = "GET_INGREDIENTS_FAILED";
+export const GET_ORDER_REQUEST = "GET_ORDER_REQUEST";
+export const GET_ORDER_SUCCESS = "GET_ORDER_SUCCESS";
+export const GET_ORDER_FAILED = "GET_ORDER_FAILED";
 
 export function getOrder(orderInfo) {
   return function (dispatch) {

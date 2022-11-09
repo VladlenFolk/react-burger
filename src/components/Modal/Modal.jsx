@@ -5,12 +5,16 @@ import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import useKey from "../../hooks/useKey";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
+import { useDispatch } from "react-redux";
+import { DELETE_INGREDIENT_INFO } from "../../services/actions/ingredientInfo";
 const modalRootElement = document.getElementById("reactModals");
 
 const Modal = ({ onClose, children, title }) => {
+  const dispatch = useDispatch();
   // Функция закрытия модального окна
   function close() {
     onClose(false);
+    dispatch({ type: DELETE_INGREDIENT_INFO });
   }
 
   //Создаем анимацию
