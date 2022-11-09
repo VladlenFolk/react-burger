@@ -3,19 +3,15 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerStyle from "./BurgerIngredient.module.css";
-import PropTypes from "prop-types";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import Modal from "../../Modal/Modal";
 import IngredientDetails from "./IngredientDetails/IngredientDetails";
+import { IngredientContext } from "../../../services/ingredientsContext";
+import { ingredientType } from "../../../utils/types";
 
-const BurgerIngredient = ({
-  count,
-  image,
-  price,
-  ingredient,
-  ingredients,
-  id,
-}) => {
+const BurgerIngredient = ({ count, image, price, ingredient, id }) => {
+  const ingredients = useContext(IngredientContext);
+
   const onClickImage = (e) => {
     setIngredientId(e.target.id);
     setModalActive(true);
@@ -56,19 +52,4 @@ const BurgerIngredient = ({
 };
 export default BurgerIngredient;
 
-BurgerIngredient.propTypes = {
-  count: PropTypes.number.isRequired,
-  image: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  ingredient: PropTypes.string.isRequired,
-  ingredients: PropTypes.arrayOf(
-    PropTypes.shape({
-      proteins: PropTypes.number,
-      _id: PropTypes.string,
-      fat: PropTypes.number,
-      carbohydrates: PropTypes.number,
-      calories: PropTypes.number,
-    })
-  ).isRequired,
-  id: PropTypes.string.isRequired,
-};
+BurgerIngredient.propTypes = ingredientType;

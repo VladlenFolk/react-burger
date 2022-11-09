@@ -15,23 +15,23 @@ const Modal = ({ onClose, children, title }) => {
 
   //Создаем анимацию
   const [animate, setAnimate] = useState(true);
-  function closeModal(time) {
+  function closeModal() {
     setAnimate(false);
-    setTimeout(close, time);
+    setTimeout(close, 300);
   }
 
   //Слушатель нажатия кнопки
-  useKey("Escape", () => closeModal(300));
+  useKey("Escape", closeModal);
 
   return createPortal(
     <div
       className={animate ? style.modal : style.modal_open}
-      onClick={() => closeModal(300)}
+      onClick={closeModal}
     >
       <ModalOverlay />
       <div className={style.container} onClick={(e) => e.stopPropagation()}>
         <div className={style.closeWrapper}>
-          <CloseIcon type="primary" onClick={() => closeModal(300)} />
+          <CloseIcon type="primary" onClick={closeModal} />
         </div>
         {title && (
           <div className={style.title}>
@@ -48,4 +48,6 @@ export default Modal;
 
 Modal.propTypes = {
   onClose: PropTypes.func.isRequired,
+  title: PropTypes.string,
+  children: PropTypes.element.isRequired,
 };
