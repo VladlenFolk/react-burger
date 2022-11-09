@@ -7,93 +7,163 @@ import constructorStyle from "./BurgerConstructor.module.css";
 import diamond from "../../images/diamond.svg";
 import Modal from "../Modal/Modal";
 import OrderDetails from "./OrderDetails/OrderDetails";
-import { useState } from "react";
-import { IngredientContext } from "../../services/ingredientsContext";
-import { useContext } from "react";
+import { useState, useMemo } from "react";
 import { apiOrder } from "../../utils/api";
-
+import { useDispatch, useSelector } from "react-redux";
+import { useDrop } from "react-dnd/dist/hooks/useDrop";
+import {
+  ADD_OTHER_INGREDIENTS,
+  ADD_BUNS,
+} from "../../services/actions/constructor";
+import { nanoid } from "nanoid";
+import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
+import { getOrder } from "../../services/actions/order";
+import { getIngredients } from "../../services/actions/ingredients";
 const BurgerConstructor = () => {
-  const data = useContext(IngredientContext);
-
+  const { ingredients } = useSelector((state) => state.ingredients);
   const [modalActive, setModalActive] = useState(false);
   const [modalData, setModalData] = useState([]);
 
-  const ingredients = data.filter((current) => {
-    return current.type !== "bun";
+  const ingredientsConstructor = useMemo(() => {
+    return ingredients.filter((current) => {
+      return current.type !== "bun";
+    });
+  }, [ingredients]);
+
+  const constructorIngredients = useSelector(
+    (state) => state.burgerConstructor.otherIngredients
+  );
+  const constructorBuns = useSelector(
+    (state) => state.burgerConstructor.bun
+  );
+  const dispatch = useDispatch();
+
+  const addItem = (item) => {
+    const ingredient = {
+      item,
+      id: nanoid(),
+    };
+    if (item.type === "bun") {
+      dispatch({ type: ADD_BUNS, bun: item });
+    } else {
+      dispatch({ type: ADD_OTHER_INGREDIENTS, otherIngredients: ingredient });
+    }
+  };
+
+  const bun = useSelector((state) => state.burgerConstructor.bun);
+
+  //сумма товаров в конструкторе
+  const price = useMemo(() => {
+    return (
+      (bun ? bun.price * 2 : 0) +
+      (constructorIngredients
+        ? constructorIngredients.reduce((prev, cur) => prev + cur.item.price, 0)
+        : 0)
+    );
+  }, [bun, constructorIngredients]);
+
+  const [, dropTarget] = useDrop({
+    accept: "ingredients",
+    drop(item) {
+      addItem(item);
+    },
+  });
+  const [, dropTarget1] = useDrop({
+    accept: "ingredients",
+    drop(item) {
+      addItem(item);
+    },
   });
 
   //получаем все id ингредиентов
-  const idIngredients = ingredients.map((item) => item._id);
+  const idIngredients = useMemo(() => {
+    let constructorIngredientsArr = constructorIngredients.map((item) => item.item._id);
+    const constructorBunsArr = constructorBuns._id;
+    return constructorIngredientsArr =  constructorIngredientsArr.concat([constructorBunsArr]);
 
-  //сумма товаров в конструкторе
-  const amount = (arrOfIngredients) => {
-    return (
-      arrOfIngredients
-        .map((prev) => prev.price)
-        .reduce((prev, curr) => prev + curr) +
-      data[0].price * 2
-    );
-  };
+  }, [constructorIngredients, constructorBuns._id]);
 
-  //функция для получения номера заказа и открытия молального окна
-  const handleOrderClick = (ingredientsId) => {
-    apiOrder(ingredientsId)
-      .then((answer) => setModalData(answer))
-      .then(() => setModalActive(true))
-      .catch((eror) => console.log(eror));
+  // const data = useSelector(data => data.order.order.number )
+
+  // функция для получения номера заказа и открытия молального окна
+  // const handleOrderClick = (ingredientsId) => {
+  //   apiOrder(ingredientsId)
+  //     .then((answer) => console.log((answer)))
+  //     .then(() => setModalActive(true))
+  //     .catch((eror) => console.log(eror));
+  // };
+  const handleOrderClick = (idIngredients) => {
+    dispatch(getOrder(idIngredients));
   };
 
   return (
     <>
-      <section className={constructorStyle.container}>
-        <ul className={constructorStyle.list}>
-          <li className={constructorStyle.elementTopList}>
-            <ConstructorElement
-              type="top"
-              isLocked={true}
-              text={data[0].name + " (верх)"}
-              price={data[0].price}
-              thumbnail={data[0].image}
-            />
-          </li>
-          <div className={constructorStyle.scroll}>
-            {/* Сейчас добавляем все элементы кроме булок, потом будем добавлять с помощью перетаскивания */}
-            {ingredients.map((ingredient) => (
-              <ConstructorIngredient
-                key={ingredient._id}
-                text={ingredient.name}
-                thumbnail={ingredient.image}
-                price={ingredient.price}
-              />
-            ))}
-          </div>
-          <li className={constructorStyle.elementBotList}>
-            <ConstructorElement
-              type="bottom"
-              isLocked={true}
-              text={data[0].name + " (низ)"}
-              price={data[0].price}
-              thumbnail={data[0].image}
-            />
-          </li>
-        </ul>
-        <div className={constructorStyle.counter}>
-          <p className="text text_type_digits-medium">{amount(ingredients)}</p>
-          <img src={diamond} alt="Бриллиант" className="mr-10 ml-2" />
-          <Button
-            type="primary"
-            size="large"
-            onClick={() => {
-              handleOrderClick(idIngredients);
-            }}
-          >
-            Оформить заказ
-          </Button>
+      {bun.length === 0 && constructorIngredients.length === 0 && (
+        <div ref={dropTarget}>
+          <ConstructorContainer />
         </div>
+      )}
+
+      <section className={constructorStyle.container} ref={dropTarget1}>
+        <ul className={constructorStyle.list}>
+          {bun.length !== 0 && (
+            <li className={constructorStyle.elementTopList}>
+              <ConstructorElement
+                type="top"
+                isLocked={true}
+                text={bun.name + " (верх)"}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </li>
+          )}
+          {constructorIngredients.length !== 0 && (
+            <div className={constructorStyle.scroll}>
+              {constructorIngredients.map((ingredient, index) => (
+                <ConstructorIngredient
+                  key={ingredient.id}
+                  text={ingredient.item.name}
+                  thumbnail={ingredient.item.image}
+                  price={ingredient.item.price}
+                  type="items"
+                  ingredient={ingredient}
+                  index={index}
+                />
+              ))}
+            </div>
+          )}
+          {bun.length !== 0 && (
+            <li className={constructorStyle.elementBotList}>
+              <ConstructorElement
+                type="bottom"
+                isLocked={true}
+                text={bun.name + " (низ)"}
+                price={bun.price}
+                thumbnail={bun.image}
+              />
+            </li>
+          )}
+        </ul>
+        {bun.length !== 0 && constructorIngredients.length !== 0 && (
+          <div className={constructorStyle.counter}>
+            <p className="text text_type_digits-medium">{price}</p>
+            <img src={diamond} alt="Бриллиант" className="mr-10 ml-2" />
+            <Button
+              type="primary"
+              size="large"
+              onClick={() => {
+                handleOrderClick(idIngredients);
+              }}
+            >
+              Оформить заказ
+            </Button>
+          </div>
+        )}
       </section>
+
       {modalActive && (
         <Modal onClose={setModalActive}>
-          <OrderDetails orderNumber={modalData.order.number} />
+          <OrderDetails orderNumber={1} />
         </Modal>
       )}
     </>

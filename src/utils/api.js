@@ -9,16 +9,18 @@ const checkResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(res);
 };
 
-export const getData = async () => {
-  const res = await fetch(`${apiConfig.baseURL}ingredients`);
-  return checkResponse(res);
+export const getData =  () => {
+  return fetch(`${apiConfig.baseURL}ingredients`,{
+  method: "GET",
+  headers: apiConfig.headers,
+}).then(checkResponse);
 };
 
-export const apiOrder = async (orderInfo) => {
-  const res = await fetch(`${apiConfig.baseURL}orders`, {
+export const apiOrder =  (orderInfo) => {
+ return fetch(`${apiConfig.baseURL}orders`, {
     method: "POST",
     headers: apiConfig.headers,
     body: JSON.stringify({ ingredients: orderInfo }),
-  });
-  return checkResponse(res);
+  })
+  .then(checkResponse);
 };

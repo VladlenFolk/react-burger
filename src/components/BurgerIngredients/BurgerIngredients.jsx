@@ -1,108 +1,148 @@
-import { useRef, useState, useContext } from "react";
+import { useRef, useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
-import { IngredientContext } from "../../services/ingredientsContext";
+import { useDispatch, useSelector } from "react-redux";
+import { bunsAmount } from "../../utils/constants";
+import {
+  CHOOSE_BUN,
+  CHOOSE_MAIN,
+  CHOOSE_SAUCE,
+} from "../../services/actions/tab";
 
 const BurgerIngredients = () => {
-  const ingredients = useContext(IngredientContext);
-  const [ingredientType, setIngredientType] = useState("one");
-  const sauces = ingredients.filter((current) => {
-    return current.type === "sauce";
-  });
-  const buns = ingredients.filter((current) => {
-    return current.type === "bun";
-  });
-  const mains = ingredients.filter((current) => {
-    return current.type === "main";
-  });
+  const dispatch = useDispatch();
+  const ingredientType = useSelector((state) => state.tab.typeIngredient);
+  // Активация для табов
+  const setBun = () => {
+    dispatch({ type: CHOOSE_BUN });
+  };
+  const setMain = () => {
+    dispatch({ type: CHOOSE_MAIN });
+  };
+  const setSauce = () => {
+    dispatch({ type: CHOOSE_SAUCE });
+  };
+
+  //получаем ингридиенты из стора
+  const { ingredients } = useSelector((state) => state.ingredients);
+
+  //Фильтруем элементы, делаем массивы по типу
+  const sauces = useMemo(() => {
+    return ingredients.filter((current) => {
+      return current.type === "sauce";
+    });
+  }, [ingredients]);
+
+  const buns = useMemo(() => {
+    return ingredients.filter((current) => {
+      return current.type === "bun";
+    });
+  }, [ingredients]);
+
+  const mains = useMemo(() => {
+    return ingredients.filter((current) => {
+      return current.type === "main";
+    });
+  }, [ingredients]);
 
   // нахожу якоря для скрола в DOM
-  const bun = useRef(null);
-  const sauce = useRef(null);
-  const main = useRef(null);
+  const bun = useRef();
+  const sauce = useRef();
+  const main = useRef();
+
   // функции для переключения по якорям на клавиши "таба"
   const goToBuns = () => bun.current.scrollIntoView({ behavior: "smooth" });
   const goToSauce = () => sauce.current.scrollIntoView({ behavior: "smooth" });
   const goToMain = () => main.current.scrollIntoView({ behavior: "smooth" });
 
+  //получаю координаты списков и активирую таб с помощью вычислений относительно меню табов
+  function getPoints() {
+    const menu = document.getElementById("menu").getBoundingClientRect().top;
+    const bunSection = document
+      .getElementById("bunsList")
+      .getBoundingClientRect().top;
+    const sauceSection = document
+      .getElementById("sauceList")
+      .getBoundingClientRect().top;
+    const mainSection = document
+      .getElementById("mainList")
+      .getBoundingClientRect().top;
+    Math.abs(menu - bunSection) < Math.abs(menu - sauceSection)
+      ? setBun()
+      : Math.abs(menu - sauceSection) > Math.abs(menu - mainSection)
+      ? setMain()
+      : setSauce();
+  }
+
+  const burger = useSelector((state) => state.burgerConstructor);
+
+  const counterIngredients = useMemo(() => {
+    const { bun, otherIngredients } = burger;
+    const counters = {};
+    console.log(otherIngredients)
+    otherIngredients.forEach((otherIngredient) => {
+      
+      if (!counters[otherIngredient.item._id])
+        counters[otherIngredient.item._id] = 0;
+      counters[otherIngredient.item._id] += 1;
+
+    });
+    if (bun) counters[bun._id] = bunsAmount;
+    return counters;
+  }, [burger]);
+
   return (
     <section className={burgerStyle.burgerIngredirnets}>
-      <div className={burgerStyle.tab}>
-        <div onClick={goToBuns}>
-          <Tab
-            value="one"
-            active={ingredientType === "one"}
-            onClick={setIngredientType}
-          >
-            Булки
-          </Tab>
-        </div>
-        <div className={burgerStyle.sauce} onClick={goToSauce}>
-          <Tab
-            value="two"
-            active={ingredientType === "two"}
-            onClick={setIngredientType}
-          >
-            Соусы
-          </Tab>
-        </div>
-        <div onClick={goToMain}>
-          <Tab
-            value="three"
-            active={ingredientType === "three"}
-            onClick={setIngredientType}
-          >
-            Начинки
-          </Tab>
-        </div>
+      <div id="menu" className={burgerStyle.tab}>
+        <Tab value="one" active={ingredientType === "one"} onClick={goToBuns}>
+          Булки
+        </Tab>
+        <Tab value="two" active={ingredientType === "two"} onClick={goToSauce}>
+          Соусы
+        </Tab>
+        <Tab
+          value="three"
+          active={ingredientType === "three"}
+          onClick={goToMain}
+        >
+          Начинки
+        </Tab>
       </div>
-      <div className={burgerStyle.scroll}>
+      <div onScroll={getPoints} className={burgerStyle.scroll}>
         <h2 className="text text_type_main-medium mb-6" ref={bun}>
           Булки
         </h2>
-        <div className={burgerStyle.ingredientComposition}>
+        <div id="bunsList" className={burgerStyle.ingredientComposition}>
           {buns.map((bun) => (
             <BurgerIngredient
               key={bun._id}
-              count={1}
-              image={bun.image}
-              price={bun.price}
-              ingredient={bun.name}
-              id={bun._id}
-              ingredients={ingredients}
+              item={bun}
+              count={counterIngredients[bun._id]}
             />
           ))}
         </div>
         <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauce}>
           Соусы
         </h2>
-        <div className={burgerStyle.ingredientComposition}>
+        <div id="sauceList" className={burgerStyle.ingredientComposition}>
           {sauces.map((sauce) => (
             <BurgerIngredient
               key={sauce._id}
-              count={1}
-              image={sauce.image}
-              price={sauce.price}
-              ingredient={sauce.name}
-              id={sauce._id}
-              ingredients={ingredients}
+              item={sauce}
+              count={counterIngredients[sauce._id]}
             />
           ))}
         </div>
         <h2 className="text text_type_main-medium mt-10 mb-6" ref={main}>
           Начинки
         </h2>
-        <div className={burgerStyle.ingredientComposition}>
+        <div id="mainList" className={burgerStyle.ingredientComposition}>
           {mains.map((main) => (
             <BurgerIngredient
               key={main._id}
-              count={1}
-              image={main.image}
-              price={main.price}
-              ingredient={main.name}
-              id={main._id}
-              ingredients={ingredients}
+              item={main}
+              count={counterIngredients[main._id]}
             />
           ))}
         </div>
