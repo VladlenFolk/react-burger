@@ -1,18 +1,19 @@
 import styleApp from "./App.module.css";
 import AppHeader from "../AppHeader/AppHeader";
 import BurgerConstructor from "../BurgerConstructor/BurgerConstructor";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import BurgerIngredients from "../BurgerIngredients/BurgerIngredients";
 import { useSelector, useDispatch } from "react-redux";
 import { getIngredients } from "../../services/actions/ingredients";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import Loader from "../Modal/Loader/Loader";
 
 function App() {
   const { ingredients, ingredientsRequest, ingredientsFailed } = useSelector(
     (state) => state.ingredients
   );
-  
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getIngredients());
@@ -21,7 +22,7 @@ function App() {
   return (
     <div className={styleApp.text}>
       <AppHeader />
-      {ingredientsRequest && "Загрузка..."}
+      {ingredientsRequest && <Loader />}
       {ingredientsFailed && "Произошла ошибка"}
       {!ingredientsRequest && !ingredientsFailed && ingredients.length !== 0 && (
         <>

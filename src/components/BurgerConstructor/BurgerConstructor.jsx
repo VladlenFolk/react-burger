@@ -82,6 +82,10 @@ const BurgerConstructor = () => {
     setModalActive(true);
   };
 
+  function onClose() {
+    setModalActive(false);
+  }
+  const orderRequest = useSelector(state => state.order.orderRequest);
   return (
     <>
       {bun.length === 0 && constructorIngredients.length === 0 && (
@@ -143,9 +147,12 @@ const BurgerConstructor = () => {
           </div>
         )}
       </section>
+      
       {modalActive && (
-        <Modal onClose={setModalActive}>
+        <Modal onClose={onClose}>
+   
           <OrderDetails orderNumber={orderNumber} />
+          
         </Modal>
       )}
     </>

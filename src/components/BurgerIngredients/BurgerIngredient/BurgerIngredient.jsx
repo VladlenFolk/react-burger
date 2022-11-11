@@ -8,7 +8,10 @@ import Modal from "../../Modal/Modal";
 import IngredientDetails from "./IngredientDetails/IngredientDetails";
 import { useSelector } from "react-redux";
 import { useDrag } from "react-dnd/dist/hooks";
-import { GET_INGREDIENT_INFO } from "../../../services/actions/ingredientInfo";
+import {
+  GET_INGREDIENT_INFO,
+  DELETE_INGREDIENT_INFO,
+} from "../../../services/actions/ingredientInfo";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../../utils/types";
@@ -29,6 +32,12 @@ const BurgerIngredient = ({ count, item }) => {
     dispatch({ type: GET_INGREDIENT_INFO, item });
     setModalActive(true);
   }, [dispatch, item]);
+
+  // Функция закрытия модального окна
+  function onClose() {
+    setModalActive(false);
+    dispatch({ type: DELETE_INGREDIENT_INFO });
+  }
 
   return (
     <>
@@ -52,7 +61,7 @@ const BurgerIngredient = ({ count, item }) => {
         <p className="text text_type_main-default mt-2">{item.name}</p>
       </div>
       {modalActive && ingredient && (
-        <Modal title={"Детали ингредиента"} onClose={setModalActive}>
+        <Modal title={"Детали ингредиента"} onClose={onClose}>
           <IngredientDetails />
         </Modal>
       )}

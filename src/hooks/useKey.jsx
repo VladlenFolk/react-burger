@@ -13,7 +13,7 @@ import { useRef, useEffect } from "react";
         }
       }
       document.addEventListener("keydown", handle);
-      return () => document.removeEventListener("keyup", handle);
+      return () => document.removeEventListener("keydown", handle);
     }, [key]);
   }
 
