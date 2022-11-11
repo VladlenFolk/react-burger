@@ -1,9 +1,12 @@
-import { useRef, useMemo } from "react";
+import { useRef, useMemo, useState } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { bunsAmount } from "../../utils/constants";
+import Modal from "../Modal/Modal";
+import IngredientDetails from "./BurgerIngredient/IngredientDetails/IngredientDetails";
+import { DELETE_INGREDIENT_INFO } from "../../services/actions/ingredientInfo";
 import {
   CHOOSE_BUN,
   CHOOSE_MAIN,
@@ -88,7 +91,23 @@ const BurgerIngredients = () => {
     return counters;
   }, [burger]);
 
+
+  const [modalActive, setModalActive] = useState(false);
+  const ingredient = useSelector((state) => state.ingredientInfo.item);
+  
+  // Функция закрытия модального окна
+  function onClose() {
+    setModalActive(false);
+    dispatch({ type: DELETE_INGREDIENT_INFO });
+  }
+
+  function openModal() {
+    setModalActive(true);
+  }
+
+
   return (
+    <>
     <section className={burgerStyle.burgerIngredirnets}>
       <div id="menu" className={burgerStyle.tab}>
         <Tab value="one" active={ingredientType === "one"} onClick={goToBuns}>
@@ -114,6 +133,7 @@ const BurgerIngredients = () => {
             <BurgerIngredient
               key={bun._id}
               item={bun}
+              open = {openModal}
               count={counterIngredients[bun._id]}
             />
           ))}
@@ -125,6 +145,7 @@ const BurgerIngredients = () => {
           {sauces.map((sauce) => (
             <BurgerIngredient
               key={sauce._id}
+              open = {openModal}
               item={sauce}
               count={counterIngredients[sauce._id]}
             />
@@ -137,6 +158,7 @@ const BurgerIngredients = () => {
           {mains.map((main) => (
             <BurgerIngredient
               key={main._id}
+              open = {openModal}
               item={main}
               count={counterIngredients[main._id]}
             />
@@ -144,6 +166,12 @@ const BurgerIngredients = () => {
         </div>
       </div>
     </section>
+       {modalActive && ingredient && (
+        <Modal title={"Детали ингредиента"}  onClose={onClose}>
+          <IngredientDetails />
+        </Modal>
+      )}
+      </>
   );
 };
 
