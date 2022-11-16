@@ -5,41 +5,40 @@ import PropTypes from "prop-types";
 import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import useKey from "../../hooks/useKey";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
+import { useSelector } from "react-redux";
+import Loader from "./Loader/Loader";
 const modalRootElement = document.getElementById("reactModals");
 
 const Modal = ({ onClose, children, title }) => {
-  // Функция закрытия модального окна
-  function close() {
-    onClose(false);
-  }
-
   //Создаем анимацию
   const [animate, setAnimate] = useState(true);
   function closeModal() {
     setAnimate(false);
-    setTimeout(close, 300);
+    setTimeout(onClose, 300);
   }
+  const orderRequest = useSelector((state) => state.order.orderRequest);
 
   //Слушатель нажатия кнопки
   useKey("Escape", closeModal);
 
   return createPortal(
-    <div
-      className={animate ? style.modal : style.modal_open}
-      onClick={closeModal}
-    >
-      <ModalOverlay />
-      <div className={style.container} onClick={(e) => e.stopPropagation()}>
-        <div className={style.closeWrapper}>
-          <CloseIcon type="primary" onClick={closeModal} />
-        </div>
-        {title && (
-          <div className={style.title}>
-            <h2 className="text text_type_main-large">{title}</h2>
+    <div className={animate ? style.modal : style.modal_open}>
+      <ModalOverlay onClose={closeModal} />
+      {orderRequest ? (
+        <Loader />
+      ) : (
+        <div className={style.container} onClick={(e) => e.stopPropagation()}>
+          <div className={style.closeWrapper}>
+            <CloseIcon type="primary" onClick={closeModal} />
           </div>
-        )}
-        {children}
-      </div>
+          {title && (
+            <div className={style.title}>
+              <h2 className="text text_type_main-large">{title}</h2>
+            </div>
+          )}
+          {children}
+        </div>
+      )}
     </div>,
     modalRootElement
   );

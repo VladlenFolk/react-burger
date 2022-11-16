@@ -6,13 +6,13 @@
   max-width: 272px;
   text-align: center;
   margin: -1px 0 0 12px;
- 
+  cursor: pointer;
 }
 
 .image {
   max-width: 240px;
   max-height: 120px;
-  cursor: pointer;
+ 
 }
 
 .price {
