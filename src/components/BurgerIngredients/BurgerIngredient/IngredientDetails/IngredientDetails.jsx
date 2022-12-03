@@ -1,30 +1,38 @@
 import style from "./IngredientDetails.module.css";
 import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const IngredientDetails = () => {
-  const item = useSelector((state) => state.ingredientInfo.item);
+  const { idCard } = useParams();
+  const { ingredients } = useSelector((state) => state.ingredients);
+  const ingredient = ingredients.find(
+    (ingredient) => ingredient._id === idCard
+  );
+  const { image_large, name, calories, proteins, fat, carbohydrates } =
+    ingredient;
+
   return (
     <>
-      <img src={item.image_large} alt={item.name} className={style.image} />
+      <img src={image_large} alt={name} className={style.image} />
       <div className={style.description}>
-        <p className="text text_type_main-medium">{item.name}</p>
+        <p className="text text_type_main-medium">{name}</p>
       </div>
       <div className={style.energy}>
         <div className={style.consistence}>
           <p className={style.consisText}>Калории,ккал</p>
-          <p className="text text_type_digits-default">{item.calories}</p>
+          <p className="text text_type_digits-default">{calories}</p>
         </div>
         <div className={style.consistence}>
           <p className={style.consisText}>Белки, г</p>
-          <p className="text text_type_digits-default">{item.proteins} </p>
+          <p className="text text_type_digits-default">{proteins} </p>
         </div>
         <div className={style.consistence}>
           <p className={style.consisText}>Жиры, г</p>
-          <p className="text text_type_digits-default">{item.fat}</p>
+          <p className="text text_type_digits-default">{fat}</p>
         </div>
         <div className={style.consistence}>
           <p className={style.consisText}>Углеводы, г</p>
-          <p className="text text_type_digits-default">{item.carbohydrates}</p>
+          <p className="text text_type_digits-default">{carbohydrates}</p>
         </div>
       </div>
     </>

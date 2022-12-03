@@ -1,0 +1,61 @@
+.container {
+  display: flex;
+  justify-content: center;
+  margin: 116px 0 0 -360px;
+}
+
+.links > p {
+  cursor: pointer;
+}
+
+.form {
+  width: 485px;
+  margin-left: 160px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  position: relative;
+}
+
+.form :nth-child(1) {
+  width: 100%;
+}
+
+.text {
+  font-family: "JetBrainsMono", Arial, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #8585ad;
+  width: 320px;
+  margin: 0;
+  margin: 35px 0 0 348px;
+}
+
+.string {
+  margin: 0;
+  color: #8585ad;
+  margin-left: -9px;
+}
+
+.buttonContainer {
+  position: absolute;
+  bottom: -80px;
+  display: flex;
+  align-items: center;
+  margin-right: 5px;
+  gap: 28px;
+}
+
+.buttonContainer :nth-child(1) {
+  margin: 0;
+  font-family: "JetBrainsMono", Arial, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  margin: 3px 0 0 230px;
+  color: #4c4cff;
+  cursor: pointer;
+}

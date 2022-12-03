@@ -1,12 +1,9 @@
-import { useRef, useMemo, useState } from "react";
+import { useRef, useMemo } from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { bunsAmount } from "../../utils/constants";
-import Modal from "../Modal/Modal";
-import IngredientDetails from "./BurgerIngredient/IngredientDetails/IngredientDetails";
-import { DELETE_INGREDIENT_INFO } from "../../services/actions/ingredientInfo";
 import {
   CHOOSE_BUN,
   CHOOSE_MAIN,
@@ -91,87 +88,71 @@ const BurgerIngredients = () => {
     return counters;
   }, [burger]);
 
-
-  const [modalActive, setModalActive] = useState(false);
-  const ingredient = useSelector((state) => state.ingredientInfo.item);
-  
-  // Функция закрытия модального окна
-  function onClose() {
-    setModalActive(false);
-    dispatch({ type: DELETE_INGREDIENT_INFO });
-  }
-
-  function openModal() {
-    setModalActive(true);
-  }
-
-
   return (
     <>
-    <section className={burgerStyle.burgerIngredirnets}>
-      <div id="menu" className={burgerStyle.tab}>
-        <Tab value="one" active={ingredientType === "one"} onClick={goToBuns}>
-          Булки
-        </Tab>
-        <Tab value="two" active={ingredientType === "two"} onClick={goToSauce}>
-          Соусы
-        </Tab>
-        <Tab
-          value="three"
-          active={ingredientType === "three"}
-          onClick={goToMain}
-        >
-          Начинки
-        </Tab>
-      </div>
-      <div onScroll={getPoints} className={burgerStyle.scroll}>
-        <h2 className="text text_type_main-medium mb-6" ref={bun}>
-          Булки
-        </h2>
-        <div id="bunsList" className={burgerStyle.ingredientComposition}>
-          {buns.map((bun) => (
-            <BurgerIngredient
-              key={bun._id}
-              item={bun}
-              open = {openModal}
-              count={counterIngredients[bun._id]}
-            />
-          ))}
+      <section className={burgerStyle.burgerIngredirnets}>
+        <div id="menu" className={burgerStyle.tab}>
+          <Tab value="one" active={ingredientType === "one"} onClick={goToBuns}>
+            Булки
+          </Tab>
+          <Tab
+            value="two"
+            active={ingredientType === "two"}
+            onClick={goToSauce}
+          >
+            Соусы
+          </Tab>
+          <Tab
+            value="three"
+            active={ingredientType === "three"}
+            onClick={goToMain}
+          >
+            Начинки
+          </Tab>
         </div>
-        <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauce}>
-          Соусы
-        </h2>
-        <div id="sauceList" className={burgerStyle.ingredientComposition}>
-          {sauces.map((sauce) => (
-            <BurgerIngredient
-              key={sauce._id}
-              open = {openModal}
-              item={sauce}
-              count={counterIngredients[sauce._id]}
-            />
-          ))}
+        <div onScroll={getPoints} className={burgerStyle.scroll}>
+          <h2 className="text text_type_main-medium mb-6" ref={bun}>
+            Булки
+          </h2>
+          <div id="bunsList" className={burgerStyle.ingredientComposition}>
+            {buns.map((bun) => (
+              <BurgerIngredient
+                key={bun._id}
+                id={bun._id}
+                item={bun}
+                count={counterIngredients[bun._id]}
+              />
+            ))}
+          </div>
+          <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauce}>
+            Соусы
+          </h2>
+          <div id="sauceList" className={burgerStyle.ingredientComposition}>
+            {sauces.map((sauce) => (
+              <BurgerIngredient
+                key={sauce._id}
+                id={sauce._id}
+                item={sauce}
+                count={counterIngredients[sauce._id]}
+              />
+            ))}
+          </div>
+          <h2 className="text text_type_main-medium mt-10 mb-6" ref={main}>
+            Начинки
+          </h2>
+          <div id="mainList" className={burgerStyle.ingredientComposition}>
+            {mains.map((main) => (
+              <BurgerIngredient
+                key={main._id}
+                id={main._id}
+                item={main}
+                count={counterIngredients[main._id]}
+              />
+            ))}
+          </div>
         </div>
-        <h2 className="text text_type_main-medium mt-10 mb-6" ref={main}>
-          Начинки
-        </h2>
-        <div id="mainList" className={burgerStyle.ingredientComposition}>
-          {mains.map((main) => (
-            <BurgerIngredient
-              key={main._id}
-              open = {openModal}
-              item={main}
-              count={counterIngredients[main._id]}
-            />
-          ))}
-        </div>
-      </div>
-    </section>
-       {modalActive && ingredient && (
-        <Modal title={"Детали ингредиента"}  onClose={onClose}>
-          <IngredientDetails />
-        </Modal>
-      )}
-      </>
+      </section>
+    </>
   );
 };
 

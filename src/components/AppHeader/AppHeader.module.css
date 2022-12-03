@@ -6,6 +6,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: "JetBrainsMono", Arial, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
 }
 
 .component {
@@ -15,11 +20,9 @@
 
 .text {
   margin-left: 9px;
-  color: #fff;
 }
 
 .text_type_profile {
-  color: #8585ad;
   margin-left: 7px;
 }
 
@@ -34,6 +37,7 @@
   align-items: center;
   margin-right: 48px;
   margin-left: 13px;
+  color: #8585ad;
 }
 
 .list {
@@ -46,6 +50,14 @@
   text-decoration: none;
   display: flex;
   align-items: center;
+  color: #8585ad;
+}
+
+.active {
+  color: #fff;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .logo {
