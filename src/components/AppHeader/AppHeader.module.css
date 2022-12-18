@@ -1,5 +1,4 @@
 .header {
-  margin-bottom: 40px;
   width: 100%;
   min-height: 88px;
   background-color: #1c1c21;
@@ -26,7 +25,7 @@
   margin-left: 7px;
 }
 
-.text_type_secondary {
+.secondary {
   color: #8585ad;
   margin-left: 9px;
 }
@@ -35,8 +34,7 @@
   text-decoration: none;
   display: flex;
   align-items: center;
-  margin-right: 48px;
-  margin-left: 13px;
+  margin: 0 48px 0 13px;
   color: #8585ad;
 }
 
@@ -60,7 +58,12 @@
   text-decoration: none;
 }
 
+.activeFeed {
+  color: #fff;
+  margin-left: 9px;
+}
+
 .logo {
-  margin-right: 309px;
-  margin-left: 130px;
+  margin: 0 309px 0 130px;
+  cursor: pointer;
 }

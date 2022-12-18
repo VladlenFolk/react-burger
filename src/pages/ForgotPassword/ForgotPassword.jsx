@@ -50,7 +50,6 @@ function ForgotPassword() {
             errorText={"Ошибка"}
             size={"default"}
             extraClass="ml-1"
-            className={styleForgot.input}
           />
           <div className={styleForgot.button}>
             <Button

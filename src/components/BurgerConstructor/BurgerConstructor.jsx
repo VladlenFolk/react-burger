@@ -17,11 +17,9 @@ import {
 import { nanoid } from "nanoid";
 import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
 import { getOrder } from "../../services/actions/order";
-import { useHistory } from "react-router-dom";
+import Loader from "../Loader/Loader";
 
 const BurgerConstructor = () => {
-  const { isAuthChecked } = useSelector((state) => state.user);
-  const history = useHistory();
   const [modalActive, setModalActive] = useState(false);
   const bun = useSelector((state) => state.burgerConstructor.bun);
   const constructorIngredients = useSelector(
@@ -29,6 +27,7 @@ const BurgerConstructor = () => {
   );
   const constructorBuns = useSelector((state) => state.burgerConstructor.bun);
   const orderNumber = useSelector((data) => data.order.number);
+  const { orderRequest, orderFailed } = useSelector((state) => state.order);
   const dispatch = useDispatch();
 
   //Функция добавления перемещенного элемента
@@ -81,12 +80,8 @@ const BurgerConstructor = () => {
 
   //Запрос на получение заказа
   const handleOrderClick = () => {
-    if (isAuthChecked) {
-      dispatch(getOrder(idIngredients));
-      setModalActive(true);
-    } else {
-      history.push("/login");
-    }
+    dispatch(getOrder(idIngredients));
+    setModalActive(true);
   };
 
   function onClose() {
@@ -144,16 +139,27 @@ const BurgerConstructor = () => {
           <div className={constructorStyle.counter}>
             <p className="text text_type_digits-medium">{price}</p>
             <img src={diamond} alt="Бриллиант" className="mr-10 ml-2" />
-            <Button type="primary" size="large" onClick={handleOrderClick}>
+            <Button
+              htmlType="button"
+              type="primary"
+              size="large"
+              onClick={handleOrderClick}
+            >
               Оформить заказ
             </Button>
           </div>
         )}
       </section>
-      {modalActive && (
-        <Modal onClose={onClose}>
-          <OrderDetails orderNumber={orderNumber} />
-        </Modal>
+      {orderRequest ? (
+        <Loader />
+      ) : orderFailed ? (
+        <h2>Ошибка, попробуйте перезагрузить страицу</h2>
+      ) : (
+        modalActive && (
+          <Modal onClose={onClose}>
+            <OrderDetails orderNumber={orderNumber} />
+          </Modal>
+        )
       )}
     </>
   );

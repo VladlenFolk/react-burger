@@ -1,0 +1,39 @@
+.container {
+    display: flex;
+    justify-content: center;
+    margin: 116px 0 0 10px;
+    gap: 45px;
+  }
+
+  .links{
+    text-decoration: none;
+  }
+
+  .links > p {
+    cursor: pointer;
+  }
+  
+  .text {
+    font-family: "JetBrainsMono", Arial, sans-serif;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    color: #8585ad;
+    width: 320px;
+    margin: 0;
+  }
+  
+  .string {
+    margin: 0;
+    color: #8585ad;
+    margin-top: 96px;
+  }
+  
+  .list{
+    text-decoration: none;
+  }
+  
+  .active{
+    color: white;
+  }

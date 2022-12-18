@@ -1,10 +1,14 @@
-import { combineReducers } from "redux";
+import { combineReducers } from "@reduxjs/toolkit";
 import { tabReducer } from "./tab";
 import { ingredients } from "./ingredients";
 import { constructorReducer } from "./constructorIngredientsReducer";
 import { orderReducer } from "./order";
 import { ingredientInfoReducer } from "./ingredientsInfoReducer";
 import { user } from "./userReducer";
+import { webSocketReducer } from "./webSocketReducer";
+import wsSlice from '../reduxToolkit/toolkitSlice'
+
+
 
 export const rootReducer = combineReducers({
   tab: tabReducer,
@@ -13,4 +17,5 @@ export const rootReducer = combineReducers({
   order: orderReducer,
   ingredientInfo: ingredientInfoReducer,
   user,
+  wsSlice,
 });

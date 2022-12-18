@@ -21,10 +21,20 @@ export const getData = () => {
   });
 };
 
+export const getChoosenOrder = (number) => {
+  return request(`${apiConfig.baseURL}orders/${number}`, {
+    method: "GET",
+    headers: apiConfig.headers,
+  });
+};
+
 export const apiOrder = (orderInfo) => {
   return request(`${apiConfig.baseURL}orders`, {
     method: "POST",
-    headers: apiConfig.headers,
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${getCookie("token")}`,
+    },
     body: JSON.stringify({ ingredients: orderInfo }),
   });
 };
@@ -97,3 +107,4 @@ export const updateToken = () => {
     body: JSON.stringify({ token: localStorage.getItem("jwt") }),
   });
 };
+

@@ -1,0 +1,110 @@
+.feed {
+  margin: -3px 0 0 -127px;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  gap: 38px;
+  margin-top: 105px;
+}
+
+.scrollContainer {
+  position: relative;
+}
+
+.title {
+  margin: 0;
+  position: absolute;
+  left: -81px;
+  top: -61px;
+}
+
+.scroll {
+  position: relative;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  height: 50%;
+  border-radius: 30px;
+}
+
+.store {
+  margin-left: 16px;
+}
+
+.readyAlltime {
+  margin-bottom: 60px;
+}
+
+.readyAlltime :nth-child(2) {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
+    0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+.readyToday :nth-child(2) {
+  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
+    0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
+}
+
+ul {
+  list-style-type: none;
+  padding-inline-start: 0px;
+  margin-block-start: 0;
+  margin-block-end: 0;
+}
+
+.cardsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-right: 8px;
+}
+
+.orders {
+  margin: -3px 0 60px;
+  display: flex;
+  gap: 30px;
+}
+
+.done {
+  display: flex;
+  flex-direction: column;
+}
+
+.done > p {
+  margin-bottom: 24px;
+}
+
+.doneOrder {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+  gap: 8px;
+  color: #00cccc;
+}
+
+.inProcess {
+  display: flex;
+  flex-direction: column;
+}
+
+.inProcess > p {
+  margin-bottom: 24px;
+}
+
+.inProcessOrder {
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+  display: grid;
+  gap: 8px;
+}

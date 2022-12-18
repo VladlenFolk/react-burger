@@ -11,7 +11,7 @@ import PropTypes from "prop-types";
 import { ingredientType } from "../../../utils/types";
 import { Link, useLocation } from "react-router-dom";
 
-const BurgerIngredient = ({ count, item, open, id }) => {
+const BurgerIngredient = ({ count, item, id }) => {
   const location = useLocation();
   const dispatch = useDispatch();
   const [{ opacity }, dragRef] = useDrag({
