@@ -1,0 +1,68 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 180px 0 0 10px;
+}
+
+.restoreContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+}
+
+.registrationContainer {
+  display: flex;
+  align-items: center;
+  margin-top: 82px;
+}
+
+.link {
+  font-family: "JetBrainsMono", Arial, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  text-decoration: none;
+  margin-left: 5px;
+}
+
+.text {
+  font-family: "JetBrainsMono", Arial, sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+  color: #8585ad;
+  margin: 0;
+  margin-left: 3px;
+}
+
+.link {
+  text-decoration: none;
+  color: #4c4cff;
+}
+
+.passwordInput {
+  margin-top: 25px;
+}
+
+.button {
+  margin-top: 25px;
+  align-self: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 490px;
+}
+
+.form :nth-child(1) {
+  width: 100%;
+}
+
+.form :nth-child(2) {
+  width: 100%;
+}

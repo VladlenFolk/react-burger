@@ -6,7 +6,7 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import useKey from "../../hooks/useKey";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import { useSelector } from "react-redux";
-import Loader from "./Loader/Loader";
+import ModalLoader from "../ModalLoader/ModalLoader";
 const modalRootElement = document.getElementById("reactModals");
 
 const Modal = ({ onClose, children, title }) => {
@@ -24,21 +24,18 @@ const Modal = ({ onClose, children, title }) => {
   return createPortal(
     <div className={animate ? style.modal : style.modal_open}>
       <ModalOverlay onClose={closeModal} />
-      {orderRequest ? (
-        <Loader />
-      ) : (
-        <div className={style.container} onClick={(e) => e.stopPropagation()}>
-          <div className={style.closeWrapper}>
-            <CloseIcon type="primary" onClick={closeModal} />
-          </div>
-          {title && (
-            <div className={style.title}>
-              <h2 className="text text_type_main-large">{title}</h2>
-            </div>
-          )}
-          {children}
+      <div className={style.container} onClick={(e) => e.stopPropagation()}>
+        <div className={style.closeWrapper}>
+          <CloseIcon type="primary" onClick={closeModal} />
         </div>
-      )}
+        {orderRequest && <ModalLoader />}
+        {!orderRequest && title && (
+          <div className={style.title}>
+            <h2 className="text text_type_main-large">{title}</h2>
+          </div>
+        )}
+        {!orderRequest && children}
+      </div>
     </div>,
     modalRootElement
   );

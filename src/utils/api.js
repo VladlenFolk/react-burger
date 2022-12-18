@@ -1,3 +1,4 @@
+import { getCookie } from "./cookie";
 const apiConfig = {
   baseURL: "https://norma.nomoreparties.space/api/",
   headers: {
@@ -5,13 +6,13 @@ const apiConfig = {
   },
 };
 
-function request(url, options) {
-  return fetch(url, options).then(checkResponse);
-}
-
 const checkResponse = (res) => {
   return res.ok ? res.json() : Promise.reject(res);
 };
+
+function request(url, options) {
+  return fetch(url, options).then(checkResponse);
+}
 
 export const getData = () => {
   return request(`${apiConfig.baseURL}ingredients`, {
@@ -25,5 +26,74 @@ export const apiOrder = (orderInfo) => {
     method: "POST",
     headers: apiConfig.headers,
     body: JSON.stringify({ ingredients: orderInfo }),
+  });
+};
+
+export const apiRegister = (email, password, name) => {
+  return request(`${apiConfig.baseURL}auth/register`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({ email, password, name }),
+  });
+};
+
+export const updateUserData = (name, email, password) => {
+  return request(`${apiConfig.baseURL}auth/user`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${getCookie("token")}`,
+    },
+    body: JSON.stringify({ name, email, password }),
+  });
+};
+
+export const apiLogin = (email, password) => {
+  return request(`${apiConfig.baseURL}auth/login`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({ email, password }),
+  });
+};
+
+export const apiLogout = () => {
+  return request(`${apiConfig.baseURL}auth/logout`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({ token: localStorage.getItem("jwt") }),
+  });
+};
+
+export const forgotPass = (email) => {
+  return request(`${apiConfig.baseURL}password-reset`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({ email }),
+  });
+};
+
+export const resetPass = (password, token) => {
+  return request(`${apiConfig.baseURL}password-reset/reset`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({ password, token }),
+  });
+};
+
+export const getUserData = () => {
+  return request(`${apiConfig.baseURL}auth/user`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `${getCookie("token")}`,
+    },
+  });
+};
+
+export const updateToken = () => {
+  return request(`${apiConfig.baseURL}auth/token`, {
+    method: "POST",
+    headers: apiConfig.headers,
+    body: JSON.stringify({ token: localStorage.getItem("jwt") }),
   });
 };

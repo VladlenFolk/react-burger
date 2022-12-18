@@ -5,14 +5,14 @@ import {
 import burgerStyle from "./BurgerIngredient.module.css";
 import { useCallback } from "react";
 import { useDrag } from "react-dnd/dist/hooks";
-import {
-  GET_INGREDIENT_INFO,
-} from "../../../services/actions/ingredientInfo";
+import { GET_INGREDIENT_INFO } from "../../../services/actions/ingredientInfo";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../../utils/types";
+import { Link, useLocation } from "react-router-dom";
 
-const BurgerIngredient = ({ count, item, open }) => {
+const BurgerIngredient = ({ count, item, open, id }) => {
+  const location = useLocation();
   const dispatch = useDispatch();
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients",
@@ -24,12 +24,12 @@ const BurgerIngredient = ({ count, item, open }) => {
 
   const onClickImage = useCallback(() => {
     dispatch({ type: GET_INGREDIENT_INFO, item });
-    open()
   }, [dispatch, item]);
 
   return (
     <>
-      <div
+      <Link
+        to={{ pathname: `/ingredient/${id}`, state: { background: location } }}
         className={burgerStyle.ingredientsComponent}
         style={{ opacity }}
         draggable={true}
@@ -47,7 +47,7 @@ const BurgerIngredient = ({ count, item, open }) => {
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text_type_main-default mt-2">{item.name}</p>
-      </div>
+      </Link>
     </>
   );
 };
