@@ -10,7 +10,7 @@ const wsSlice = createSlice({
     wsConnected: false,
   },
   reducers: {
-    wsConnectionStart(state, action){ },
+    wsConnectionStart(state, action) {},
     wsConnectionSuccess(state) {
       state.wsConnected = true;
     },
@@ -42,5 +42,14 @@ const wsSlice = createSlice({
 });
 
 export default wsSlice.reducer;
-
-export const {wsConnectionStart, wsConnectionSuccess, wsOrders, wsClosed, wsError, wsConnectionUserSuccess, wsUserOrders, wsUserClosed, wsUserError} = wsSlice.actions;
+export const {
+  wsConnectionStart,
+  wsConnectionSuccess,
+  wsOrders,
+  wsClosed,
+  wsError,
+  wsConnectionUserSuccess,
+  wsUserOrders,
+  wsUserClosed,
+  wsUserError,
+} = wsSlice.actions;

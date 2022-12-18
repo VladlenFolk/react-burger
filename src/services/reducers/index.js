@@ -5,8 +5,7 @@ import { constructorReducer } from "./constructorIngredientsReducer";
 import { orderReducer } from "./order";
 import { ingredientInfoReducer } from "./ingredientsInfoReducer";
 import { user } from "./userReducer";
-import { webSocketReducer } from "./webSocketReducer";
-import wsSlice from '../reduxToolkit/toolkitSlice'
+import wsSlice from '../reduxToolkit/webSocketSlice'
 
 
 

@@ -8,7 +8,7 @@ import { getCookie } from "../../utils/cookie";
 import {
   wsConnectionStart,
   wsClosed,
-} from "../../services/reduxToolkit/toolkitSlice";
+} from "../../services/reduxToolkit/webSocketSlice";
 
 function Orders() {
   const [colorText, setColorText] = useState({

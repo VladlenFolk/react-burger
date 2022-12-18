@@ -107,4 +107,3 @@ export const updateToken = () => {
     body: JSON.stringify({ token: localStorage.getItem("jwt") }),
   });
 };
-

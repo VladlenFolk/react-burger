@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
   wsConnectionStart,
   wsClosed,
-} from "../../services/reduxToolkit/toolkitSlice";
+} from "../../services/reduxToolkit/webSocketSlice";
 
 function Feed() {
   const dispatch = useDispatch();
