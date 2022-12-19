@@ -18,6 +18,7 @@ import { nanoid } from "nanoid";
 import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
 import { getOrder } from "../../services/actions/order";
 import Loader from "../Loader/Loader";
+import { useHistory } from "react-router-dom";
 
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
@@ -29,6 +30,8 @@ const BurgerConstructor = () => {
   const orderNumber = useSelector((data) => data.order.number);
   const { orderRequest, orderFailed } = useSelector((state) => state.order);
   const dispatch = useDispatch();
+  const { isAuthChecked } = useSelector((state) => state.user);
+  const history = useHistory();
 
   //Функция добавления перемещенного элемента
   const addItem = (item) => {
@@ -80,10 +83,13 @@ const BurgerConstructor = () => {
 
   //Запрос на получение заказа
   const handleOrderClick = () => {
-    dispatch(getOrder(idIngredients));
-    setModalActive(true);
+    if (isAuthChecked) {
+      dispatch(getOrder(idIngredients));
+      setModalActive(true);
+    } else {
+      history.push("/login");
+    }
   };
-
   function onClose() {
     setModalActive(false);
   }

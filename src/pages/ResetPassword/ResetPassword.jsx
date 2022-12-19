@@ -7,6 +7,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { resetPassword } from "../../services/actions/user";
+import { useForm } from "../../hooks/useForm";
 
 function ResetPassword() {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ function ResetPassword() {
   const { state } = useLocation();
   const codeRef = useRef(null);
   const passwordRef = useRef(null);
-  const [inputResetPass, setInputResetPass] = useState({
+  const { values, handleChange } = useForm({
     password: "",
     code: "",
   });
@@ -40,13 +41,9 @@ function ResetPassword() {
     }
   };
 
-  const setParams = (e) => {
-    setInputResetPass({ ...inputResetPass, [e.target.name]: e.target.value });
-  };
-
   const submitLogin = (e) => {
     e.preventDefault();
-    dispatch(resetPassword(inputResetPass.password, inputResetPass.code));
+    dispatch(resetPassword(values.password, values.code));
     history.push("/login");
   };
 
@@ -61,9 +58,9 @@ function ResetPassword() {
             <Input
               type={"password"}
               placeholder={"Введите новый пароль"}
-              onChange={setParams}
+              onChange={handleChange}
               icon={type}
-              value={inputResetPass.password}
+              value={values.password}
               name={"password"}
               error={false}
               ref={passwordRef}
@@ -77,8 +74,8 @@ function ResetPassword() {
             <Input
               type={"text"}
               placeholder={"Введите код из письма"}
-              onChange={setParams}
-              value={inputResetPass.code}
+              onChange={handleChange}
+              value={values.code}
               name={"code"}
               error={false}
               ref={codeRef}
