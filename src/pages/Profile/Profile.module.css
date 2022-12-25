@@ -30,13 +30,12 @@
   color: #8585ad;
   width: 320px;
   margin: 0;
-  margin: 35px 0 0 348px;
 }
 
 .string {
   margin: 0;
   color: #8585ad;
-  margin-left: -9px;
+  margin-top: 96px;
 }
 
 .buttonContainer {
@@ -58,4 +57,8 @@
   margin: 3px 0 0 230px;
   color: #4c4cff;
   cursor: pointer;
+}
+
+.list{
+  text-decoration: none;
 }

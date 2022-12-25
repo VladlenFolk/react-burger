@@ -3,8 +3,8 @@
   font-style: normal;
   font-weight: 400;
   src: url("./fonts/JetBrainsMono-Regular.woff2") format("woff2"),
-       url("./fonts/JetBrainsMono-Regular.woff") format("woff"),
-       url("./fonts/JetBrainsMono-Regular.ttf") format("truetype");
+    url("./fonts/JetBrainsMono-Regular.woff") format("woff"),
+    url("./fonts/JetBrainsMono-Regular.ttf") format("truetype");
 }
 
 body {

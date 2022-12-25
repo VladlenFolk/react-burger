@@ -1,0 +1,103 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 140px;
+}
+
+.name {
+  margin-top: 40px;
+}
+
+.done {
+  margin: 11px 0 66px 10px;
+  min-width: 640px;
+  color: #00cccc;
+}
+
+.process {
+  margin: 11px 0 66px 10px;
+  min-width: 640px;
+}
+
+.contain {
+  min-width: 640px;
+  margin: 0 0 3px 5px;
+}
+
+.ingredients {
+  max-width: 320px;
+  margin-left: 16px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  margin-top: 16px;
+  position: relative;
+}
+
+.total {
+  position: absolute;
+  right: 0;
+  display: flex;
+  gap: 8px;
+}
+
+.ingredient {
+  width: 62px;
+  height: 62px;
+  border: double 2px transparent;
+  border-radius: 30px;
+  background-image: linear-gradient(#131316, #131316),
+    linear-gradient(to top right, #801ab2, #4c4cff);
+  background-origin: border-box;
+  background-clip: content-box, border-box;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image {
+  object-fit: cover;
+  width: 90%;
+  height: 90%;
+}
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+}
+
+.scroll {
+  padding-right: 24px;
+  box-sizing: border-box;
+  position: relative;
+  max-height: 366px;
+  width: 640px;
+  margin: 2px 0 0 6px;
+  overflow-y: auto;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scroll::-webkit-scrollbar-track {
+  background: #2f2f37;
+}
+
+.scroll::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  height: 50%;
+  border-radius: 30px;
+}
+
+.bottom {
+  position: relative;
+  display: flex;
+  min-width: 640px;
+  margin-top: 40px;
+}

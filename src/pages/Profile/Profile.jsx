@@ -6,6 +6,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { logout, updateUser } from "../../services/actions/user";
+import { NavLink } from "react-router-dom";
 
 function Profile() {
   //Логика формы
@@ -112,18 +113,25 @@ function Profile() {
           >
             Профиль
           </p>
-          <p
-            className={`text text_type_main-medium ${colorText.story} mt-8`}
-            onClick={colorStory}
-          >
-            История заказов
-          </p>
+          <NavLink to="/profile/orders" className={styleProfile.list}>
+            <p
+              className={`text text_type_main-medium ${colorText.story} mt-8`}
+              onClick={colorStory}
+            >
+              История заказов
+            </p>
+          </NavLink>
           <p
             className={`text text_type_main-medium ${colorText.logout} mt-9`}
             onClick={logoutProfile}
           >
             Выход
           </p>
+          <div className={styleProfile.text}>
+            <p className={styleProfile.string}>
+              В этом разделе вы можете изменить&nbsp;свои персональные данные
+            </p>
+          </div>
         </div>
         <div>
           <form className={styleProfile.form} onSubmit={updateUserInfo}>
@@ -190,11 +198,6 @@ function Profile() {
             )}
           </form>
         </div>
-      </div>
-      <div className={styleProfile.text}>
-        <p className={styleProfile.string}>
-          В этом разделе вы можете изменить&nbsp;свои персональные данные
-        </p>
       </div>
     </>
   );

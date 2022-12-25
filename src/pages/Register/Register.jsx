@@ -7,6 +7,7 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { regUser } from "../../services/actions/user";
+import { useForm } from "../../hooks/useForm";
 
 function Register() {
   const { isAuthChecked } = useSelector((state) => state.user);
@@ -14,11 +15,12 @@ function Register() {
   const nameRef = useRef(null);
   const mailRef = useRef(null);
   const passwordRef = useRef(null);
-  const [inputRegister, setInputRegister] = useState({
+  const { values, handleChange } = useForm({
     email: "",
     password: "",
     name: "",
   });
+
   const [type, setType] = useState("ShowIcon");
   const dispatch = useDispatch();
 
@@ -36,15 +38,9 @@ function Register() {
     }
   };
 
-  const setParams = (e) => {
-    setInputRegister({ ...inputRegister, [e.target.name]: e.target.value });
-  };
-
   const submitRegister = (e) => {
     e.preventDefault();
-    dispatch(
-      regUser(inputRegister.email, inputRegister.password, inputRegister.name)
-    );
+    dispatch(regUser(values.email, values.password, values.name));
   };
 
   return (
@@ -55,8 +51,8 @@ function Register() {
           <Input
             type={"text"}
             placeholder={"Имя"}
-            onChange={setParams}
-            value={inputRegister.name}
+            onChange={handleChange}
+            value={values.name}
             name={"name"}
             error={false}
             ref={nameRef}
@@ -68,8 +64,8 @@ function Register() {
             <Input
               type={"email"}
               placeholder={"E-mail"}
-              onChange={setParams}
-              value={inputRegister.email}
+              onChange={handleChange}
+              value={values.email}
               name={"email"}
               error={false}
               ref={mailRef}
@@ -82,9 +78,9 @@ function Register() {
             <Input
               type={"password"}
               placeholder={"Пароль"}
-              onChange={setParams}
+              onChange={handleChange}
               icon={type}
-              value={inputRegister.password}
+              value={values.password}
               name={"password"}
               error={false}
               ref={passwordRef}

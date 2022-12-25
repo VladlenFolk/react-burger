@@ -6,7 +6,6 @@ import { CloseIcon } from "@ya.praktikum/react-developer-burger-ui-components";
 import useKey from "../../hooks/useKey";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import { useSelector } from "react-redux";
-import ModalLoader from "../ModalLoader/ModalLoader";
 const modalRootElement = document.getElementById("reactModals");
 
 const Modal = ({ onClose, children, title }) => {
@@ -28,12 +27,9 @@ const Modal = ({ onClose, children, title }) => {
         <div className={style.closeWrapper}>
           <CloseIcon type="primary" onClick={closeModal} />
         </div>
-        {orderRequest && <ModalLoader />}
-        {!orderRequest && title && (
-          <div className={style.title}>
-            <h2 className="text text_type_main-large">{title}</h2>
-          </div>
-        )}
+        <div className={style.title}>
+          <h2 className="text text_type_main-large">{title}</h2>
+        </div>
         {!orderRequest && children}
       </div>
     </div>,
