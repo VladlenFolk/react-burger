@@ -2,7 +2,7 @@ import style from "./ChoosenOrder.module.css";
 import { useEffect, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { choosenOrder } from "../../services/actions/order";
+import { choosenOrder } from "../../services/reduxToolkit/orderSlice";
 import { getObjWithCount, getPrice } from "../../utils/functions";
 import {
   CurrencyIcon,
@@ -17,8 +17,8 @@ const ChoosenOrder = () => {
     dispatch(choosenOrder(id.number));
   }, [dispatch]);
 
-  const { order } = useSelector((state) => state.order);
-  const { ingredients } = useSelector((state) => state.ingredients);
+  const  {order}  = useSelector((state) => state.orderSlice);
+  const { ingredients } = useSelector((state) => state.ingredientsSlice);
   const el = order[0];
   const date = el?.createdAt;
   

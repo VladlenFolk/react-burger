@@ -10,7 +10,7 @@ import { useMemo } from "react";
 
 const SelectedOrder = () => {
   const { orders } = useSelector((state) => state.wsSlice);
-  const { ingredients } = useSelector((state) => state.ingredients);
+  const { ingredients } = useSelector((state) => state.ingredientsSlice);
   const { number } = useParams();
   const el = orders.find((order) => order.number === +number);
   const ingredientsArr = el?.ingredients;

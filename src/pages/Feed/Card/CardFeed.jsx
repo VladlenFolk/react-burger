@@ -13,7 +13,7 @@ function CardFeed({ order }) {
   const ingredientsArr = order.ingredients;
   const date = order.createdAt;
   const number = order.number;
-  const { ingredients } = useSelector((state) => state.ingredients);
+  const { ingredients } = useSelector((state) => state.ingredientsSlice);
 
   const ingredientsOrder = useMemo(() => {
     return ingredients?.filter((ingredient) =>

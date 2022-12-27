@@ -10,7 +10,7 @@ import Profile from "../../pages/Profile/Profile";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { getIngredients } from "../../services/actions/ingredients";
+// import { getIngredients } from "../../services/actions/ingredients";
 import IngredientCard from "../BurgerIngredients/IngredientCard/IngredientCard";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { getUser } from "../../services/actions/user";
@@ -18,10 +18,11 @@ import Feed from "../../pages/Feed/Feed";
 import Orders from "../../pages/Orders/Orders";
 import ModalRoutes from "../ModalRoutes/ModalRoutes";
 import ChoosenOrder from "../../pages/ChoosenOrder/ChoosenOrder";
-
+// import { getIngredientsRequest, getIngredientsSuccess, getIngredientsFailed} from "../../services/reduxToolkit/ingredientsSlice";
+import { getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
 function App() {
   const { ingredientsRequest, ingredients } = useSelector(
-    (state) => state.ingredients
+    (state) => state.ingredientsSlice
   );
   const { isAuthChecked } = useSelector((state) => state.user);
 

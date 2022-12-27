@@ -7,7 +7,7 @@ import styleHomePage from "./HomePage.module.css";
 
 function HomePage({ openModal }) {
   const { ingredients, ingredientsFailed } = useSelector(
-    (state) => state.ingredients
+    (state) => state.ingredientsSlice
   );
 
   return (

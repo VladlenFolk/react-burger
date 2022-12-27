@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 
 const IngredientCard = () => {
   const { idCard } = useParams();
-  const { ingredients } = useSelector((state) => state.ingredients);
+  const { ingredients } = useSelector((state) => state.ingredientsSlice);
   const ingredient =
     ingredients.length &&
     ingredients.find((ingredient) => ingredient._id === idCard);

@@ -4,28 +4,24 @@ import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
 import { useDispatch, useSelector } from "react-redux";
 import { bunsAmount } from "../../utils/constants";
-import {
-  CHOOSE_BUN,
-  CHOOSE_MAIN,
-  CHOOSE_SAUCE,
-} from "../../services/actions/tab";
+import { chooseBun, chooseMain, chooseSauce } from "../../services/reduxToolkit/tabSlice";
 
 const BurgerIngredients = () => {
   const dispatch = useDispatch();
-  const ingredientType = useSelector((state) => state.tab.typeIngredient);
+  const ingredientType = useSelector((state) => state.tab.tab);
   // Активация для табов
   const setBun = () => {
-    dispatch({ type: CHOOSE_BUN });
+    dispatch(chooseBun());
   };
   const setMain = () => {
-    dispatch({ type: CHOOSE_MAIN });
+    dispatch(chooseMain());
   };
   const setSauce = () => {
-    dispatch({ type: CHOOSE_SAUCE });
+    dispatch(chooseSauce());
   };
 
   //получаем ингридиенты из стора
-  const { ingredients } = useSelector((state) => state.ingredients);
+  const { ingredients } = useSelector((state) => state.ingredientsSlice);
 
   //Фильтруем элементы, делаем массивы по типу
   const sauces = useMemo(() => {
@@ -75,7 +71,7 @@ const BurgerIngredients = () => {
       : setSauce();
   }
 
-  const burger = useSelector((state) => state.burgerConstructor);
+  const burger = useSelector((state) => state.constructorSlice);
   const counterIngredients = useMemo(() => {
     const { bun, otherIngredients } = burger;
     const counters = {};

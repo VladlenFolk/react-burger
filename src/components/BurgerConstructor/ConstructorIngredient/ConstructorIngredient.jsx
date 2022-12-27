@@ -7,12 +7,9 @@ import constructorStyle from "./ConstructorIngredient.module.css";
 import { useDrop } from "react-dnd/dist/hooks/useDrop/useDrop";
 import { useDrag } from "react-dnd";
 import { useDispatch } from "react-redux";
-import {
-  DELETE_CONSTRUCTOR_INGREDIENT,
-  SORT_INGREDIENTS,
-} from "../../../services/actions/constructor";
 import { useRef } from "react";
 import { ingredientType } from "../../../utils/types";
+import { deleteIngredient, sortIngredients } from "../../../services/reduxToolkit/constructorSlice";
 
 const ConstructorIngredient = ({
   text,
@@ -26,10 +23,7 @@ const ConstructorIngredient = ({
   const ref = useRef(null);
   //удаление ингредиента конструктора
   const deletItem = (item) => {
-    dispatch({
-      type: DELETE_CONSTRUCTOR_INGREDIENT,
-      ...item,
-    });
+    dispatch(deleteIngredient(item));
   };
 
   const [, drop] = useDrop({
@@ -40,10 +34,8 @@ const ConstructorIngredient = ({
       }
       const dragIndex = item.index;
       const hoverIndex = index;
-      dispatch({
-        type: SORT_INGREDIENTS,
-        data: { dragIndex, hoverIndex },
-      });
+      dispatch(sortIngredients({ dragIndex, hoverIndex }),
+      );
       item.index = hoverIndex;
     },
   });

@@ -12,7 +12,7 @@ function CardOrders({ order }) {
   const location = useLocation();
   const ingredientsArr = order.ingredients;
   const date = order.createdAt;
-  const { ingredients } = useSelector((state) => state.ingredients);
+  const { ingredients } = useSelector((state) => state.ingredientsSlice);
 
   const ingredientsOrder = useMemo(() => {
     return ingredients.filter((ingredient) =>

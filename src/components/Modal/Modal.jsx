@@ -15,7 +15,7 @@ const Modal = ({ onClose, children, title }) => {
     setAnimate(false);
     setTimeout(onClose, 300);
   }
-  const orderRequest = useSelector((state) => state.order.orderRequest);
+  const orderRequest = useSelector((state) => state.orderSlice.orderRequest);
 
   //Слушатель нажатия кнопки
   useKey("Escape", closeModal);

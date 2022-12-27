@@ -1,20 +1,16 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { tabReducer } from "./tab";
-import { ingredients } from "./ingredients";
-import { constructorReducer } from "./constructorIngredientsReducer";
-import { orderReducer } from "./order";
-import { ingredientInfoReducer } from "./ingredientsInfoReducer";
 import { user } from "./userReducer";
 import wsSlice from '../reduxToolkit/webSocketSlice'
-
-
+import tabSlice from "../reduxToolkit/tabSlice";
+import ingredientsSlice from "../reduxToolkit/ingredientsSlice";
+import constructorSlice from "../reduxToolkit/constructorSlice";
+import orderSlice from "../reduxToolkit/orderSlice";
 
 export const rootReducer = combineReducers({
-  tab: tabReducer,
-  ingredients,
-  burgerConstructor: constructorReducer,
-  order: orderReducer,
-  ingredientInfo: ingredientInfoReducer,
+  tab: tabSlice,
   user,
   wsSlice,
+  ingredientsSlice,
+  constructorSlice,
+  orderSlice
 });

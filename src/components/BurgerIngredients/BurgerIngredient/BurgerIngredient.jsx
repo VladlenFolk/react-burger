@@ -3,17 +3,13 @@ import {
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerStyle from "./BurgerIngredient.module.css";
-import { useCallback } from "react";
 import { useDrag } from "react-dnd/dist/hooks";
-import { GET_INGREDIENT_INFO } from "../../../services/actions/ingredientInfo";
-import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
 import { ingredientType } from "../../../utils/types";
 import { Link, useLocation } from "react-router-dom";
 
 const BurgerIngredient = ({ count, item, id }) => {
   const location = useLocation();
-  const dispatch = useDispatch();
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients",
     item,
@@ -21,10 +17,6 @@ const BurgerIngredient = ({ count, item, id }) => {
       opacity: monitor.isDragging() ? 0.5 : 1,
     }),
   });
-
-  const onClickImage = useCallback(() => {
-    dispatch({ type: GET_INGREDIENT_INFO, item });
-  }, [dispatch, item]);
 
   return (
     <>
@@ -34,7 +26,6 @@ const BurgerIngredient = ({ count, item, id }) => {
         style={{ opacity }}
         draggable={true}
         ref={dragRef}
-        onClick={onClickImage}
       >
         {count > 0 && <Counter count={count} size="default" />}
         <img

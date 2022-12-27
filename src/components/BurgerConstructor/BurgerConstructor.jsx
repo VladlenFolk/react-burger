@@ -10,25 +10,23 @@ import OrderDetails from "./OrderDetails/OrderDetails";
 import { useState, useMemo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks/useDrop";
-import {
-  ADD_OTHER_INGREDIENTS,
-  ADD_BUNS,
-} from "../../services/actions/constructor";
 import { nanoid } from "nanoid";
 import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
-import { getOrder } from "../../services/actions/order";
+// import { getOrder } from "../../services/actions/order";
+import { getOrder } from "../../services/reduxToolkit/orderSlice";
 import Loader from "../Loader/Loader";
 import { useHistory } from "react-router-dom";
+import { addBun, addOtherIngredient} from "../../services/reduxToolkit/constructorSlice";
 
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
-  const bun = useSelector((state) => state.burgerConstructor.bun);
+  const bun = useSelector((state) => state.constructorSlice.bun);
   const constructorIngredients = useSelector(
-    (state) => state.burgerConstructor.otherIngredients
+    (state) => state.constructorSlice.otherIngredients
   );
-  const constructorBuns = useSelector((state) => state.burgerConstructor.bun);
-  const orderNumber = useSelector((data) => data.order.number);
-  const { orderRequest, orderFailed } = useSelector((state) => state.order);
+  const constructorBuns = useSelector((state) => state.constructorSlice.bun);
+  const orderNumber = useSelector((data) => data.orderSlice.number);
+  const { orderRequest, orderFailed } = useSelector((state) => state.orderSlice);
   const dispatch = useDispatch();
   const { isAuthChecked } = useSelector((state) => state.user);
   const history = useHistory();
@@ -40,9 +38,9 @@ const BurgerConstructor = () => {
       id: nanoid(),
     };
     if (item.type === "bun") {
-      dispatch({ type: ADD_BUNS, bun: item });
+      dispatch(addBun(item));
     } else {
-      dispatch({ type: ADD_OTHER_INGREDIENTS, otherIngredients: ingredient });
+      dispatch(addOtherIngredient(ingredient));
     }
   };
 
