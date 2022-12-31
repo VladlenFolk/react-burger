@@ -1,7 +1,7 @@
 import { Route, Redirect } from "react-router-dom";
 import { useSelector } from "react-redux";
 const ProtectedRoute = ({ onlyUnAuth, children, ...props }) => {
-  const { isAuthChecked } = useSelector((state) => state.user);
+  const { isAuthChecked } = useSelector((state) => state.userSlice);
 
   return (
     <Route

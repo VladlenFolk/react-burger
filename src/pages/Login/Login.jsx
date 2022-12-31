@@ -5,17 +5,18 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { login } from "../../services/actions/user";
+import { login } from "../../services/reduxToolkit/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 function Login() {
-  const { isAuthChecked } = useSelector((state) => state.user);
+  const { isAuthChecked } = useSelector((state) => state.userSlice);
   const { state } = useLocation();
   const dispatch = useDispatch();
   const nameRef = useRef(null);
   const PasswordRef = useRef(null);
   const [type, setType] = useState("ShowIcon");
   const [inputLogin, setInputLogin] = useState({ email: "", password: "" });
+
 
   const toggleTypePassword = () => {
     if (PasswordRef.current.type === "password") {

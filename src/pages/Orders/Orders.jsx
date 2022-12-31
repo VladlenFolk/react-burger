@@ -1,7 +1,7 @@
 import styleProfile from "./Orders.module.css";
 import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { logout } from "../../services/actions/user";
+import { logout } from "../../services/reduxToolkit/userSlice";
 import { NavLink } from "react-router-dom";
 import OrderPage from "./OrderPage/OrderPage";
 import { getCookie } from "../../utils/cookie";

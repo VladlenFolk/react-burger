@@ -6,13 +6,14 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { requestRestoreCode } from "../../services/actions/user";
+// import { requestRestoreCode } from "../../services/actions/user";
+import { requestRestoreCode } from "../../services/reduxToolkit/userSlice";
 import { useForm } from "../../hooks/useForm";
 
 function ForgotPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
-  const { isAuthChecked } = useSelector((state) => state.user);
+  const { isAuthChecked } = useSelector((state) => state.userSlice);
   const { values, handleChange } = useForm({ email: "" });
   const nameRef = useRef(null);
 

@@ -6,11 +6,11 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { regUser } from "../../services/actions/user";
+import { regUser } from "../../services/reduxToolkit/userSlice";
 import { useForm } from "../../hooks/useForm";
 
 function Register() {
-  const { isAuthChecked } = useSelector((state) => state.user);
+  const { isAuthChecked } = useSelector((state) => state.userSlice);
   const { state } = useLocation();
   const nameRef = useRef(null);
   const mailRef = useRef(null);

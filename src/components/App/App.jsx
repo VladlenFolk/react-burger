@@ -13,7 +13,8 @@ import { useDispatch } from "react-redux";
 // import { getIngredients } from "../../services/actions/ingredients";
 import IngredientCard from "../BurgerIngredients/IngredientCard/IngredientCard";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import { getUser } from "../../services/actions/user";
+// import { getUser } from "../../services/actions/user";
+import { getUser } from "../../services/reduxToolkit/userSlice";
 import Feed from "../../pages/Feed/Feed";
 import Orders from "../../pages/Orders/Orders";
 import ModalRoutes from "../ModalRoutes/ModalRoutes";
@@ -24,7 +25,7 @@ function App() {
   const { ingredientsRequest, ingredients } = useSelector(
     (state) => state.ingredientsSlice
   );
-  const { isAuthChecked } = useSelector((state) => state.user);
+  const { isAuthChecked } = useSelector((state) => state.userSlice);
 
   const dispatch = useDispatch();
   useEffect(() => {

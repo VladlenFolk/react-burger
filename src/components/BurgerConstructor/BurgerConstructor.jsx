@@ -12,7 +12,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks/useDrop";
 import { nanoid } from "nanoid";
 import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
-// import { getOrder } from "../../services/actions/order";
 import { getOrder } from "../../services/reduxToolkit/orderSlice";
 import Loader from "../Loader/Loader";
 import { useHistory } from "react-router-dom";
@@ -28,7 +27,7 @@ const BurgerConstructor = () => {
   const orderNumber = useSelector((data) => data.orderSlice.number);
   const { orderRequest, orderFailed } = useSelector((state) => state.orderSlice);
   const dispatch = useDispatch();
-  const { isAuthChecked } = useSelector((state) => state.user);
+  const { isAuthChecked } = useSelector((state) => state.userSlice);
   const history = useHistory();
 
   //Функция добавления перемещенного элемента

@@ -6,14 +6,14 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { resetPassword } from "../../services/actions/user";
+import { resetPassword } from "../../services/reduxToolkit/userSlice";
 import { useForm } from "../../hooks/useForm";
 
 function ResetPassword() {
   const dispatch = useDispatch();
   const history = useHistory();
   const prevPath = history.location.state?.prevPathname;
-  const { isAuthChecked } = useSelector((state) => state.user);
+  const { isAuthChecked } = useSelector((state) => state.userSlice);
   const { state } = useLocation();
   const codeRef = useRef(null);
   const passwordRef = useRef(null);

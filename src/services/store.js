@@ -1,5 +1,5 @@
 import socketMiddleware from "./socketMiddleware/socketMiddleware";
-import { rootReducer } from "./reducers";
+import { rootReducer } from "./reduxToolkit";
 import { configureStore } from "@reduxjs/toolkit";
 
 import {

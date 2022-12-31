@@ -5,8 +5,11 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { logout, updateUser } from "../../services/actions/user";
+// import {  updateUser } from "../../services/actions/user";
+import { updateUser } from "../../services/reduxToolkit/userSlice";
 import { NavLink } from "react-router-dom";
+import { logout } from "../../services/reduxToolkit/userSlice";
+
 
 function Profile() {
   //Логика формы
@@ -80,7 +83,8 @@ function Profile() {
   //Логика работы с redux и api
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.userSlice);
+ 
   useEffect(() => {
     setInputProfile({ name: user.name, email: user.email, password: "" });
   }, []);
