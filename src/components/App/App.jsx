@@ -20,7 +20,7 @@ import Orders from "../../pages/Orders/Orders";
 import ModalRoutes from "../ModalRoutes/ModalRoutes";
 import ChoosenOrder from "../../pages/ChoosenOrder/ChoosenOrder";
 // import { getIngredientsRequest, getIngredientsSuccess, getIngredientsFailed} from "../../services/reduxToolkit/ingredientsSlice";
-import { getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
+import {fetchIngredients as getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
 function App() {
   const { ingredientsRequest, ingredients } = useSelector(
     (state) => state.ingredientsSlice
@@ -51,19 +51,19 @@ function App() {
         <Route path={`/ingredient/:idCard`} exact>
           {ingredients.length && <IngredientCard />}
         </Route>
-        <Route path={"/login"} exact>
+        <Route path={"/login"} onlyUnAuth={true} exact>
           <Login />
         </Route>
-        <Route path={"/register"} exact>
+        <Route path={"/register"} onlyUnAuth={true} exact>
           <Register />
         </Route>
-        <Route path={"/forgot-password"} exact>
+        <Route path={"/forgot-password"} onlyUnAuth={true} exact>
           <ForgotPassword />
         </Route>
-        <Route path={"/reset-password"} exact>
+        <Route path={"/reset-password"} onlyUnAuth={true} exact>
           <ResetPassword />
         </Route>
-        <ProtectedRoute path={"/profile"} exact>
+        <ProtectedRoute  path={"/profile"} exact>
           <Profile />
         </ProtectedRoute>
         <Route path={"/feed"} exact>

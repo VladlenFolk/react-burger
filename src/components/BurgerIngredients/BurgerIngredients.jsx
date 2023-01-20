@@ -21,7 +21,7 @@ const BurgerIngredients = () => {
   };
 
   //получаем ингридиенты из стора
-  const { ingredients } = useSelector((state) => state.ingredientsSlice);
+  const {  ingredients } = useSelector((state) => state.ingredientsSlice);
 
   //Фильтруем элементы, делаем массивы по типу
   const sauces = useMemo(() => {

@@ -1,7 +1,8 @@
 import socketMiddleware from "./socketMiddleware/socketMiddleware";
 import { rootReducer } from "./reduxToolkit";
 import { configureStore } from "@reduxjs/toolkit";
-
+import { Action, ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import {
   wsConnectionStart,
   wsConnectionSuccess,
@@ -9,6 +10,8 @@ import {
   wsClosed,
   wsError,
 } from "./reduxToolkit/webSocketSlice";
+
+
 
 const wsActions = {
   wsInit: wsConnectionStart,
@@ -19,9 +22,13 @@ const wsActions = {
 };
 
 const socketMwOrders = socketMiddleware(wsActions);
+
 export const store = configureStore({
   reducer: rootReducer,
   middleware: (getDafaultMiddleware) => {
     return getDafaultMiddleware().concat(socketMwOrders);
   },
 });
+
+export type TRootState = ReturnType<typeof store.getState>; 
+export type AppDispatch = typeof store.dispatch;

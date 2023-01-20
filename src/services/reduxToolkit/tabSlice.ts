@@ -1,10 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+type TabState = {
+    tab: string; 
+}
+
+const initialState: TabState = {
+    tab: 'one'
+}
+
 const tabSlice = createSlice({
     name: "tabSlice",
-    initialState:{
-        tab: 'one'
-    },
+    initialState,
     reducers: {
         chooseBun(state){
             state.tab = 'one';

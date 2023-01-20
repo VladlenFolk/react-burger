@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { setCookie } from "../../utils/cookie";
 import {
   apiRegister,
@@ -11,47 +11,82 @@ import {
   resetPass,
 } from "../../utils/api";
 
-const userSlice = createSlice({
-  name: "ingredients",
-  initialState: {
-    user: {
-      name: "",
-      email: "",
-    },
-    registerUserRequest: false,
-    registerUserFailed: false,
-    loginUserRequest: false,
-    loginUserFailed: false,
-    updateUserRequest: false,
-    updateUserFailed: false,
-    getUserRequest: false,
-    getUserFailed: false,
-    logoutUserRequest: false,
-    logoutUserFailed: false,
-    codeRequest: false,
-    codeRequestFailed: false,
-    resetRequest: false,
-    resetFailed: false,
-    tokenRequest: false,
-    tokenFailed: false,
-    isAuthChecked: false,
-  },
-  reducers: {
-    registerUserRequest(state) {
-      state.registerUserRequest = true;
-      state.registerUserFailed = false;
-    },
 
-    registerUserSuccess(state, action) {
-      state.registerUserRequest = false;
-      state.registerUserFailed = false;
-      state.user = action.payload;
-      state.isAuthChecked = true;
-    },
-    registerUserFailed(state) {
-      state.registerUserRequest = false;
-      state.registerUserFailed = true;
-    },
+
+
+export const fetchRegUser = createAsyncThunk(
+  "user/fetchRegUser",
+  async ({
+    email,
+    password,
+    name,
+  }) => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        email: email,
+        password: password,
+        name: name,
+      }),
+    };
+    const response = await apiRegister(requestOptions);
+    return response;
+  }
+)
+
+// export function regUser(mail, password, name) {
+//   return function (dispatch) {
+//     dispatch(registerUserRequest());
+//     apiRegister(mail, password, name)
+//       .then((res) => {
+//         if (res && res.success) {
+//           setCookie("token", res.accessToken, { expires: 1200 });
+//           localStorage.setItem("jwt", res.refreshToken);
+//           dispatch(registerUserSuccess(res.user));
+//         } else {
+//           dispatch(registerUserFailed());
+//         }
+//       })
+//       .catch(() => {
+//         dispatch(registerUserFailed());
+//       });
+//   };
+// }
+
+
+const initialState = {
+  user: {
+    name: "",
+    email: "",
+  },
+  registerUserRequest: false,
+  registerUserFailed: false,
+  loginUserRequest: false,
+  loginUserFailed: false,
+  updateUserRequest: false,
+  updateUserFailed: false,
+  getUserRequest: false,
+  getUserFailed: false,
+  logoutUserRequest: false,
+  logoutUserFailed: false,
+  codeRequest: false,
+  codeRequestFailed: false,
+  resetRequest: false,
+  resetFailed: false,
+  tokenRequest: false,
+  tokenFailed: false,
+  isAuthChecked: false,
+}
+
+
+
+
+
+const userSlice = createSlice({
+  name: "user",
+  initialState,
+  reducers: {
     loginUserRequest(state) {
       state.loginUserRequest = true;
       state.loginUserFailed = false;
@@ -148,6 +183,23 @@ const userSlice = createSlice({
       state.tokenFailed = true;
     },
   },
+  extraReducers(builder){
+    builder
+    .addCase(fetchRegUser.pending, (state) => {
+      state.registerUserRequest = true;
+      state.registerUserFailed = false;
+    })
+    .addCase(fetchRegUser.fulfilled, (state, action) => {
+      state.registerUserRequest = false;
+      state.registerUserFailed = false;
+      state.user = action.payload;
+      state.isAuthChecked = true;
+    })
+    .addCase(fetchRegUser.rejected, (state) => {
+      state.registerUserRequest = false;
+      state.registerUserFailed = true;
+    })
+  }
 });
 
 export function regUser(mail, password, name) {

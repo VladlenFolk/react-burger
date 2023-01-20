@@ -1,16 +1,16 @@
 import styleLogin from "./Login.module.css";
-import { Link, useLocation, Redirect } from "react-router-dom";
-import { useState, useRef } from "react";
+import { Link, Redirect, useLocation } from "react-router-dom";
+import { useState, useRef, FC} from "react";
 import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { login } from "../../services/reduxToolkit/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { useAppSelector } from "../../hooks/typesHooks";
 
-function Login() {
-  const { isAuthChecked } = useSelector((state) => state.userSlice);
-  const { state } = useLocation();
+  const  Login = () => {
+  const { isAuthChecked } = useAppSelector((state) => state.userSlice);
   const dispatch = useDispatch();
   const nameRef = useRef(null);
   const PasswordRef = useRef(null);
@@ -19,24 +19,24 @@ function Login() {
 
 
   const toggleTypePassword = () => {
-    if (PasswordRef.current.type === "password") {
+    if (PasswordRef.current?.type === "password") {
       PasswordRef.current.type = "text";
       setType("HideIcon");
-    } else {
+    } else if (PasswordRef.current) {
       PasswordRef.current.type = "password";
       setType("ShowIcon");
     }
   };
+  const { state } = useLocation();
+  if (isAuthChecked) {
+    return <Redirect to={state?.from || "/"} />;
+  }
 
   const setParams = (e) => {
     setInputLogin({ ...inputLogin, [e.target.name]: e.target.value });
   };
 
-  if (isAuthChecked) {
-    return <Redirect to={state?.from || "/"} />;
-  }
-
-  const submitLogin = (e) => {
+   const submitLogin = (e) => {
     e.preventDefault();
     dispatch(login(inputLogin.email, inputLogin.password));
   };

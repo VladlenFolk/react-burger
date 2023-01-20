@@ -8,6 +8,7 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { regUser } from "../../services/reduxToolkit/userSlice";
 import { useForm } from "../../hooks/useForm";
+import { fetchRegUser } from "../../services/reduxToolkit/userSlice";
 
 function Register() {
   const { isAuthChecked } = useSelector((state) => state.userSlice);
@@ -40,7 +41,8 @@ function Register() {
 
   const submitRegister = (e) => {
     e.preventDefault();
-    dispatch(regUser(values.email, values.password, values.name));
+    console.log(values.email, values.password, values.name);
+    dispatch(fetchRegUser({email: values.email, password: values.password,name: values.name}));
   };
 
   return (

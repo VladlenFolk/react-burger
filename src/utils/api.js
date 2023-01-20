@@ -1,4 +1,5 @@
 import { getCookie } from "./cookie";
+import { setCookie } from "./cookie";
 const apiConfig = {
   baseURL: "https://norma.nomoreparties.space/api/",
   headers: {
@@ -13,6 +14,18 @@ const checkResponse = (res) => {
 function request(url, options) {
   return fetch(url, options).then(checkResponse);
 }
+
+const checkSuccess = (
+  response,
+  responseData
+) => {
+  return response.success
+    ? responseData
+    : () => {
+        throw new Error("Внутренняя ошибка апи");
+      };
+};
+
 
 export const getData = () => {
   return request(`${apiConfig.baseURL}ingredients`, {
@@ -39,12 +52,15 @@ export const apiOrder = (orderInfo) => {
   });
 };
 
-export const apiRegister = (email, password, name) => {
-  return request(`${apiConfig.baseURL}auth/register`, {
-    method: "POST",
-    headers: apiConfig.headers,
-    body: JSON.stringify({ email, password, name }),
-  });
+export const apiRegister = async (authData) => {
+  const res = await request (`${apiConfig.baseURL}auth/register`, authData);
+  const response = await checkResponse(res);
+  if (response) {
+    setCookie("accessToken", response.accessToken);
+    setCookie("refreshToken", response.refreshToken);
+  }
+  return response;
+  
 };
 
 export const updateUserData = (name, email, password) => {

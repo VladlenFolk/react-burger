@@ -5,7 +5,6 @@ import {
   Input,
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-// import {  updateUser } from "../../services/actions/user";
 import { updateUser } from "../../services/reduxToolkit/userSlice";
 import { NavLink } from "react-router-dom";
 import { logout } from "../../services/reduxToolkit/userSlice";

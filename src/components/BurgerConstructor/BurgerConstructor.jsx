@@ -12,17 +12,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useDrop } from "react-dnd/dist/hooks/useDrop";
 import { nanoid } from "nanoid";
 import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
-import { getOrder } from "../../services/reduxToolkit/orderSlice";
+import { fetchGetOrder } from "../../services/reduxToolkit/orderSlice";
 import Loader from "../Loader/Loader";
 import { useHistory } from "react-router-dom";
 import { addBun, addOtherIngredient} from "../../services/reduxToolkit/constructorSlice";
-
+import { resetConstructor } from "../../services/reduxToolkit/constructorSlice";
 const BurgerConstructor = () => {
   const [modalActive, setModalActive] = useState(false);
   const bun = useSelector((state) => state.constructorSlice.bun);
   const constructorIngredients = useSelector(
     (state) => state.constructorSlice.otherIngredients
-  );
+  ); console.log(constructorIngredients, bun);
   const constructorBuns = useSelector((state) => state.constructorSlice.bun);
   const orderNumber = useSelector((data) => data.orderSlice.number);
   const { orderRequest, orderFailed } = useSelector((state) => state.orderSlice);
@@ -81,7 +81,8 @@ const BurgerConstructor = () => {
   //Запрос на получение заказа
   const handleOrderClick = () => {
     if (isAuthChecked) {
-      dispatch(getOrder(idIngredients));
+      dispatch(fetchGetOrder(idIngredients));
+      dispatch(resetConstructor())
       setModalActive(true);
     } else {
       history.push("/login");

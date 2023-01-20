@@ -1,20 +1,41 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction} from "@reduxjs/toolkit";
+
+type TOrders = {
+  id: string;
+  ingredients: string[];
+  status: string;
+  name: string;
+  createdAt: string;
+  updatedAt: string;
+  number: number
+}
+
+type TWsSliceState = {
+  total: number;
+  totalToday: number,
+  orders: TOrders | [],
+  userOrders: TOrders | [],
+  wsConnected: boolean,
+}
+
+const initialState
+: TWsSliceState = {
+  total: 0,
+  totalToday: 0,
+  orders: [],
+  userOrders: [],
+  wsConnected: false,
+}
 
 const wsSlice = createSlice({
   name: "wsReducer",
-  initialState: {
-    total: 0,
-    totalToday: 0,
-    orders: [],
-    userOrders: [],
-    wsConnected: false,
-  },
+  initialState,
   reducers: {
     wsConnectionStart(state, action) {},
     wsConnectionSuccess(state) {
       state.wsConnected = true;
     },
-    wsOrders(state, action) {
+    wsOrders(state, action: PayloadAction<TWsSliceState>) {
       state.orders = action.payload.orders;
       state.total = action.payload.total;
       state.totalToday = action.payload.totalToday;
@@ -29,7 +50,7 @@ const wsSlice = createSlice({
     wsConnectionUserSuccess(state) {
       state.wsConnected = true;
     },
-    wsUserOrders(state, action) {
+    wsUserOrders(state, action: PayloadAction<TWsSliceState>) {
       state.orders = action.payload.orders;
     },
     wsUserClosed(state) {
