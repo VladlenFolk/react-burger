@@ -1,20 +1,11 @@
 import { createSlice, PayloadAction} from "@reduxjs/toolkit";
+import { TOrders } from "../../types/types";
 
-type TOrders = {
-  id: string;
-  ingredients: string[];
-  status: string;
-  name: string;
-  createdAt: string;
-  updatedAt: string;
-  number: number
-}
-
-type TWsSliceState = {
+ type TWsSliceState = {
   total: number;
   totalToday: number,
-  orders: TOrders | [],
-  userOrders: TOrders | [],
+  orders: TOrders[],
+  userOrders: TOrders[],
   wsConnected: boolean,
 }
 

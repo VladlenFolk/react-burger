@@ -1,8 +1,6 @@
 import socketMiddleware from "./socketMiddleware/socketMiddleware";
 import { rootReducer } from "./reduxToolkit";
 import { configureStore } from "@reduxjs/toolkit";
-import { Action, ActionCreator } from 'redux';
-import { ThunkAction } from 'redux-thunk';
 import {
   wsConnectionStart,
   wsConnectionSuccess,
@@ -11,8 +9,6 @@ import {
   wsError,
 } from "./reduxToolkit/webSocketSlice";
 
-
-
 const wsActions = {
   wsInit: wsConnectionStart,
   onOpen: wsConnectionSuccess,
@@ -20,6 +16,8 @@ const wsActions = {
   onError: wsError,
   onMessage: wsOrders,
 };
+
+export type TWsActions  = typeof wsActions;
 
 const socketMwOrders = socketMiddleware(wsActions);
 

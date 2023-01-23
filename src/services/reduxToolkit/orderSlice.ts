@@ -1,32 +1,30 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { apiOrder, getChoosenOrder } from "../../utils/api";
-import { IOrders } from "../../types/types";
+import { TOrders } from "../../types/types";
 
-
-
-interface IOrdersState {
+type TOrdersState = {
   number: number;
   orderRequest: boolean;
   orderFailed: boolean;
-  order: IOrders[] | {};
+  order: TOrders[];
   choosenOrderRequest?: boolean;
   choosenOrderFailed?: boolean;
 }
-
-const initialState = {
+ 
+const initialState: TOrdersState = {
   number: 0,
   orderRequest: false,
   orderFailed: false,
-  order: {}
-} as IOrdersState
+  order: []
+} 
 
-interface IPayload {
-  orders:  IOrders[]
+type TPayload = {
+  orders: TOrders[]
 }
 
-export const fetchGetChoosenOrder = createAsyncThunk<IPayload, string[]>(
+export const fetchGetChoosenOrder = createAsyncThunk(
   "order/fetchGetChoosenOrder",
-  async(orderNumber: string[]) =>{
+  async(orderNumber: string) =>{
    const response = await getChoosenOrder(orderNumber);
    return response
   }
@@ -34,7 +32,7 @@ export const fetchGetChoosenOrder = createAsyncThunk<IPayload, string[]>(
 
 export const fetchGetOrder = createAsyncThunk(
   "order/fetchGetOrder",
-  async(orderInfo: number) => {
+  async(orderInfo: string[]) => {
     const response = await apiOrder(orderInfo);
     return response.order.number
   }
@@ -61,7 +59,7 @@ const orderSlice = createSlice({
     .addCase(fetchGetChoosenOrder.pending, (state) =>{
       state.choosenOrderRequest = true;
     })
-    .addCase(fetchGetChoosenOrder.fulfilled, (state, action: PayloadAction<IPayload>) =>{
+    .addCase(fetchGetChoosenOrder.fulfilled, (state, action: PayloadAction<TPayload>) =>{
       state.choosenOrderRequest = false;
       state.choosenOrderFailed = false;
       state.order = action.payload.orders;

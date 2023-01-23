@@ -1,26 +1,24 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getData } from "../../utils/api";
-import {IIngredient} from '../../types/types';
-
-
+import {TIngredient} from '../../types/types';
 
 interface ISliceState  {
-  ingredients: IIngredient[];
+  ingredients: TIngredient[];
   ingredientsRequest: boolean;
   ingredientsFailed: boolean;
 }
 
-const initialState: ISliceState= {
+const initialState: ISliceState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
 }
 
-export const fetchIngredients = createAsyncThunk<IIngredient[]>(
+export const fetchIngredients = createAsyncThunk(
   "ingredients/fetchIngredients",
   async () => {
     const response = await getData();
-    return response.data as IIngredient[];
+    return response.data;
   }
 );
 

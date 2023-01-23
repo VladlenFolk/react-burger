@@ -1,35 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { IIngredient } from "../../types/types";
-
-interface IOtherIngredient {
-    item: IIngredient,
-    id: string
-}
+import { TIngredient, TOtherIngredient } from "../../types/types";
 
 interface IConstructorState {
-    bun: IIngredient | [];
-    otherIngredients?: IOtherIngredient[] | [];
+    bun: TIngredient | null ;
+    otherIngredients?: TOtherIngredient[];
 }
 
 const initialState = {
-    bun: [],
+    bun: null,
     otherIngredients: [],
 } as IConstructorState
-
 
 const constructorSlice = createSlice({
     name: "tabSlice",
     initialState,
     reducers: {
-        addBun(state: IConstructorState, action: PayloadAction<IIngredient>){
+        addBun(state: IConstructorState, action: PayloadAction<TIngredient>){
             state.bun = action.payload;
         },
-        addOtherIngredient(state: IConstructorState, action: PayloadAction<IOtherIngredient>){
+        addOtherIngredient(state: IConstructorState, action: PayloadAction<TOtherIngredient>){
             if (state.otherIngredients){
             state.otherIngredients = [action.payload, ...state.otherIngredients];
             }
         },
-        deleteIngredient(state: IConstructorState, action: PayloadAction<IOtherIngredient> ){
+        deleteIngredient(state: IConstructorState, action: PayloadAction<TOtherIngredient> ){
             if (state.otherIngredients){
             state.otherIngredients = [...state.otherIngredients].filter(
                 (item) => item.id !== action.payload.id
@@ -40,7 +34,8 @@ const constructorSlice = createSlice({
             const constructorArr = [...state.otherIngredients];
             constructorArr.splice(
                 action.payload.dragIndex,
-                0,
+                0
+                ,
                 constructorArr.splice(action.payload.hoverIndex, 1)[0]
               );
               state.otherIngredients = [...constructorArr]
@@ -48,7 +43,7 @@ const constructorSlice = createSlice({
         },
         resetConstructor(state: IConstructorState){
             state.otherIngredients = [];
-            state.bun = [];
+            state.bun = null;
         }
     }
 })
