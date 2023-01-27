@@ -47,7 +47,7 @@ function Feed() {
                         key={order._id}
                         className="text text_type_digits-default"
                       >
-                        {order._id}
+                        {order.number}
                       </p>
                     )
                 )}
