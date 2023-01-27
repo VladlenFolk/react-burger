@@ -34,7 +34,7 @@ const ConstructorIngredient: React.FC<TConstructorType> = ({
   const deletItem = (item:TOtherIngredient) => {
     dispatch(deleteIngredient(item));
   };
-// console.log(index);
+
 
   const [, drop] = useDrop({
     accept: "container",
@@ -42,12 +42,20 @@ const ConstructorIngredient: React.FC<TConstructorType> = ({
       if (!ref.current) {
         return;
       }
-      if (item.index === index){ return}
       const dragIndex = item?.index;
       const hoverIndex = index;
-      console.log(dragIndex);
-      
-      if (dragIndex) dispatch(sortIngredients({ dragIndex, hoverIndex }),
+      if (hoverIndex === undefined) {
+        return;
+      }
+
+      if (dragIndex === undefined) {
+        return;
+      }
+
+      if (dragIndex === hoverIndex) {
+        return;
+      }      
+      dispatch(sortIngredients({ dragIndex, hoverIndex }),
       );
       item.index = hoverIndex;
     },
