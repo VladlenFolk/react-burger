@@ -32,13 +32,10 @@ const constructorSlice = createSlice({
         sortIngredients(state: IConstructorState, action: PayloadAction<{dragIndex: number; hoverIndex: number}> ){
             if (state.otherIngredients){
             const constructorArr = [...state.otherIngredients];
-            constructorArr.splice(
-                action.payload.dragIndex,
-                0
-                ,
-                constructorArr.splice(action.payload.hoverIndex, 1)[0]
-              );
-              state.otherIngredients = [...constructorArr]
+            const element = constructorArr[action.payload.dragIndex];
+            constructorArr.splice(action.payload.dragIndex, 1) 
+            constructorArr.splice(action.payload.hoverIndex, 0, element)
+            state.otherIngredients = [...constructorArr]
             }
         },
         resetConstructor(state: IConstructorState){
