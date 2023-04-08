@@ -67,3 +67,14 @@
   margin: 0 309px 0 130px;
   cursor: pointer;
 }
+
+@media only screen and (max-width: 1296px) {
+  .logo {
+    margin: 0 109px 0 30px;
+  }
+}
+@media only screen and (max-width: 1030px) {
+  .logo {
+    margin: 0 20px;
+  }
+}
