@@ -31,7 +31,7 @@
 
 #### Ссылка на сайт:
 
-- [Stellar Burgers](https://react-burger-theta.vercel.app/)
+- [Stellar Burgers](https://react-burger-mu-kohl.vercel.app/)
 
 #### Figma:
 
