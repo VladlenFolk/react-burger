@@ -5,6 +5,7 @@
   max-width: 1253px;
   margin: 0 auto;
   height: 100%;
+  position: relative;
 }
 
 .title {
@@ -19,3 +20,9 @@
   line-height: 24px;
   font-weight: 400;
 }
+
+@media only screen and (max-width: 1060px) {
+  .title {
+    text-align: center;
+  }
+} 

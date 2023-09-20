@@ -73,8 +73,35 @@
     margin: 0 109px 0 30px;
   }
 }
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 1060px) {
   .logo {
-    margin: 0 20px;
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .profile {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .list {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .constructors {
+    visibility: hidden;
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .header {
+    justify-content: space-between;
   }
 }
