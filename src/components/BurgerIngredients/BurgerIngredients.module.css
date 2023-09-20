@@ -5,7 +5,7 @@
 }
 
 .scroll {
-  max-height: 66vh;
+  max-height: 80vh;
   overflow-y: auto;
   margin-top: 40px;
 }
