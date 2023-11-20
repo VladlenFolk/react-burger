@@ -2,13 +2,11 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { useEffect, useState, useCallback } from "react";
-import { useAppDispatch, useAppSelector } from "../../../hooks/typesHooks";
+import { useAppSelector } from "../../../hooks/typesHooks";
 import burgerStyle from "./BurgerIngredient.module.css";
 import { useDrag } from "react-dnd/dist/hooks";
 import { Link, useLocation } from "react-router-dom";
 import { TIngredient } from "../../../types/types";
-import { changedSize } from "../../../services/reduxToolkit/windowSlice";
 
 type TIngredientBurger = {
   count: number;
@@ -18,7 +16,6 @@ type TIngredientBurger = {
 
 const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
   const location = useLocation();
-  const dispatch = useAppDispatch();
   const [{ opacity }, dragRef] = useDrag({
     type: "ingredients",
     item,
@@ -31,25 +28,8 @@ const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
     (state) => state.windowSlice
   );
 
-  useEffect(()=>{
-    if (windowSize === 0) {
-      dispatch(changedSize(window.innerWidth))
-    }
-  })
+ let src = windowSize>660 ? item.image : item.image_mobile
 
-  const handleResize = useCallback(() => {
-    dispatch(changedSize(window.innerWidth));
-  }, [dispatch]);
-
-  useEffect(()=>{
-    window.addEventListener('resize', handleResize, );
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, [handleResize]);
-
- console.log(windowSize);
- 
   
   return (
     <>
@@ -63,7 +43,7 @@ const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
         {count > 0 && <Counter count={count} size="default" />}
         <img
           className={burgerStyle.image}
-          src={item.image}
+          src={src}
           alt={item.name}
         ></img>
         <div className={burgerStyle.price}>

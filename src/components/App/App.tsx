@@ -7,7 +7,7 @@ import Register from "../../pages/Register/Register";
 import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
 import Profile from "../../pages/Profile/Profile";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
-import { useEffect, memo, useState } from "react";
+import { useEffect, memo, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/typesHooks";
 import IngredientCard from "../BurgerIngredients/IngredientCard/IngredientCard";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -19,11 +19,14 @@ import ModalRoutes from "../ModalRoutes/ModalRoutes";
 import ChoosenOrder from "../../pages/ChoosenOrder/ChoosenOrder";
 import { fetchIngredients as getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
 import { TLocationState } from "../../types/types";
+import { changedSize } from "../../services/reduxToolkit/windowSlice";
+
 
 const App: React.FC = () => {
   const { ingredientsRequest, ingredients } = useAppSelector(
     (state) => state.ingredientsSlice
   );
+  const dispatch = useAppDispatch();
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
   const LoginMemo = memo(Login);
   const RegisterMemo = memo(Register);
@@ -33,21 +36,27 @@ const App: React.FC = () => {
   const OrdersMemo = memo(Orders);
   const ChoosenOrderMemo = memo(ChoosenOrder);
   const jwt = localStorage.getItem("jwt");
-  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
+  const { windowSize } = useAppSelector(
+    (state) => state.windowSlice
+  );
   useEffect(()=>{
-    function handleResize(){
-      setWindowWidth(window.innerWidth);
+    if (windowSize === 0) {
+      dispatch(changedSize(window.innerWidth))
     }
-    window.addEventListener('resize', handleResize)
-    return () => {
-      window.removeEventListener('resize', handleResize)
-    };
-  }, []);
-  
-console.log(windowWidth);
+  })
 
-  const dispatch = useAppDispatch();
+  const handleResize = useCallback(() => {
+    dispatch(changedSize(window.innerWidth));
+  }, [dispatch]);
+
+ useEffect(()=>{
+    window.addEventListener('resize', handleResize, );
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize]);
+
   useEffect(() => {
     if (ingredients.length === 0) {
       dispatch(getIngredients());
