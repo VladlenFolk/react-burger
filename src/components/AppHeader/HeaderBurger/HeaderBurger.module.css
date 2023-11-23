@@ -6,7 +6,7 @@
     justify-content: flex-end;
     width: 30px;
     height: 18px;
-    padding: 0 8px 0 8px;
+    padding: 0px 20px 0px 8px;
 }
 
 .burger span{
@@ -39,7 +39,7 @@
 }
 
 .burger.active::after{
-    bottom: 50%;
+    bottom: 47%;
     transform: rotate(45deg) translate(0, 50%);
 }
 
@@ -49,6 +49,22 @@
     }
     .burger::before, .burger::after{
         width: 18px;
+    }
+    .burger {
+        margin: 0;
+        width: 24px;
+        height: 12px;
+        margin-top: -2px;
+        padding: 0 11px 0 0;
+    }
+    .burger.active::before{
+        top: 45%;
+        transform: rotate(-45deg) translate(0, -50%);
+    }
+    
+    .burger.active::after{
+        bottom: 50%;
+        transform: rotate(45deg) translate(0, 50%);
     }
 }
 

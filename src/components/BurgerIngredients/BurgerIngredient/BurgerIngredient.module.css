@@ -1,3 +1,7 @@
+.container {
+  position: relative;
+}
+
 .ingredientsComponent {
   position: relative;
   display: flex;
@@ -20,4 +24,58 @@
   display: flex;
   align-items: center;
   margin-top: 8px;
+}
+
+.cover{
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 140px;
+  z-index: 20;
+}
+
+@media only screen and (min-width: 1060px) {
+  .add {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .add {
+    position: absolute;
+    text-align: center;
+    color: #4c4cff;
+    left: 35%;
+    bottom: 0;
+    margin-bottom: -50px;
+    z-index: 70;
+  }
+  .cover{
+    height: 20px;
+    width: 240px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .price > p {
+    font-size: 24px;
+  }
+  .ingredientsComponent {
+    margin-top: 10px;
+    margin-bottom: 38px;
+  }
+  .ingredientsComponent > p {
+    font-size: 14px;
+  }
+  .add {
+    bottom: -40px;
+    left: 30%;
+    color: #4c4cff;
+    margin-bottom: 20px;
+  }
+  .cover{
+    height: 20px;
+    width: 140px;
+  }
 }

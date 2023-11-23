@@ -4,6 +4,7 @@ import { useAppSelector } from "../../hooks/typesHooks";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styleHomePage from "./HomePage.module.css";
+import Footer from "../../components/Footer/Footer";
 
 const HomePage: React.FC = () => {
   const { ingredients, ingredientsFailed } = useAppSelector(
@@ -27,6 +28,7 @@ const HomePage: React.FC = () => {
                 <BurgerConstructor />
               </DndProvider>
             </main>
+            <Footer/>
           </>
         )}
       </div>

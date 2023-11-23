@@ -5,8 +5,11 @@
 }
 
 .scroll {
-  max-height: 80vh;
+  max-height: 70vh;
   overflow-y: auto;
+}
+
+.scroll h2 {
   margin-top: 40px;
 }
 
@@ -32,15 +35,54 @@
   margin: 20px 0 66px;
 }
 
-.tab {
+.tabs {
   display: flex;
+}
+.tabs div {
+  text-align: center;
+  font-size: 14px;
+  padding: 0;
+  padding: 16px 0;
 }
 
 @media only screen and (max-width: 1060px) {
-  .burgerIngredirnets {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+  .scroll {
+    max-height: 60vh;
   }
-} 
+  .scroll::-webkit-scrollbar {
+    display: none;
+  }
+  .scroll h2 {
+    margin-left: 8px;
+    font-size: 20px;
+    margin-top: 20px;
+  }
+}
+@media only screen and (min-width: 1240px) {
+  .scroll {
+    max-height: 90vh;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .ingredientComposition {
+    margin: 0 0 0 -10px;
+    gap: 16px;
+    grid-template-columns: 144px 144px;
+    font-size: 14px;
+  }
+  .burgerIngredirnets {
+    max-width: 400px;
+    margin-left: 0;
+  }
+  .tabs div {
+    min-width: 106px;
+  }
+  .tabs span {
+    font-size: 14px;
+    text-align: center;
+  }
+  .sauce{
+    margin-top: 40px;
+  }
+}

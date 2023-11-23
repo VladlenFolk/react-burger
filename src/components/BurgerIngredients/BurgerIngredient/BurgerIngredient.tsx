@@ -32,7 +32,8 @@ const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
 
   
   return (
-    <>
+    <div className={burgerStyle.container}>
+      <div className={burgerStyle.cover}></div>
       <Link
         to={{ pathname: `/ingredient/${id}`, state: { background: location } }}
         className={burgerStyle.ingredientsComponent}
@@ -52,7 +53,8 @@ const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
         </div>
         <p className="text text_type_main-default mt-2">{item.name}</p>
       </Link>
-    </>
+      <p className={`${"text text_type_secondary-default"} ${burgerStyle.add}`}>{"Добавить"}</p>
+    </div>
   );
 };
 export default BurgerIngredient;
