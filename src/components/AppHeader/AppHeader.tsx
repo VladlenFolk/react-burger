@@ -18,7 +18,7 @@ const AppHeader: FC = () => {
   currentPath === "/profile" || currentPath === "/profile/orders";
   const feedExact = currentPath === "/feed";
   let {windowSize} = useAppSelector((state) => state.windowSlice)
-console.log(windowSize);
+
 
 
 

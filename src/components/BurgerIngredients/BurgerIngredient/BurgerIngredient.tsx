@@ -28,7 +28,7 @@ const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
     (state) => state.windowSlice
   );
 
- let src = windowSize>660 ? item.image : item.image_mobile
+ let src = windowSize>900 ? item.image : item.image_mobile
 
   
   return (
