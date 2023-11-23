@@ -93,7 +93,7 @@ const BurgerIngredients = () => {
   return (
     <>
       <section className={burgerStyle.burgerIngredirnets}>
-        <div id="menu" className={burgerStyle.tab}>
+        <div id="menu" className={burgerStyle.tabs}>
           <Tab value="one" active={ingredientType === "one"} onClick={goToBuns}>
             Булки
           </Tab>
@@ -113,9 +113,11 @@ const BurgerIngredients = () => {
           </Tab>
         </div>
         <div onScroll={getPoints} className={burgerStyle.scroll}>
-          <h2 className="text text_type_main-medium mb-6" ref={bun}>
+        <div className={burgerStyle.sauce}>
+          <h2 className="text text_type_main-medium mb-1" ref={bun}>
             Булки
           </h2>
+          </div>
           <div id="bunsList" className={burgerStyle.ingredientComposition}>
             {buns.map((bun) => (
               <BurgerIngredient
@@ -126,9 +128,11 @@ const BurgerIngredients = () => {
               />
             ))}
           </div>
+          <div className={burgerStyle.sauce}>
           <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauce}>
             Соусы
           </h2>
+          </div>
           <div id="sauceList" className={burgerStyle.ingredientComposition}>
             {sauces.map((sauce) => (
               <BurgerIngredient
@@ -139,9 +143,11 @@ const BurgerIngredients = () => {
               />
             ))}
           </div>
+          <div className={burgerStyle.sauce}>
           <h2 className="text text_type_main-medium mt-10 mb-6" ref={main}>
             Начинки
           </h2>
+          </div>
           <div id="mainList" className={burgerStyle.ingredientComposition}>
             {mains.map((main) => (
               <BurgerIngredient

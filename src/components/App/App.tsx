@@ -7,7 +7,7 @@ import Register from "../../pages/Register/Register";
 import ForgotPassword from "../../pages/ForgotPassword/ForgotPassword";
 import Profile from "../../pages/Profile/Profile";
 import ResetPassword from "../../pages/ResetPassword/ResetPassword";
-import { useEffect } from "react";
+import { useEffect, memo, useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/typesHooks";
 import IngredientCard from "../BurgerIngredients/IngredientCard/IngredientCard";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -17,31 +17,63 @@ import Feed from "../../pages/Feed/Feed";
 import Orders from "../../pages/Orders/Orders";
 import ModalRoutes from "../ModalRoutes/ModalRoutes";
 import ChoosenOrder from "../../pages/ChoosenOrder/ChoosenOrder";
-import {fetchIngredients as getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
+import { fetchIngredients as getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
 import { TLocationState } from "../../types/types";
+import { changedSize } from "../../services/reduxToolkit/windowSlice";
+
 
 const App: React.FC = () => {
   const { ingredientsRequest, ingredients } = useAppSelector(
     (state) => state.ingredientsSlice
   );
-  const { isAuthChecked } = useAppSelector((state) => state.userSlice);
-
   const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getIngredients());
+  const { isAuthChecked } = useAppSelector((state) => state.userSlice);
+  const LoginMemo = memo(Login);
+  const RegisterMemo = memo(Register);
+  const ForgotPasswordMemo = memo(ForgotPassword);
+  const ResetPasswordMemo = memo(ResetPassword);
+  const FeedMemo = memo(Feed);
+  const OrdersMemo = memo(Orders);
+  const ChoosenOrderMemo = memo(ChoosenOrder);
+  const jwt = localStorage.getItem("jwt");
+
+  const { windowSize } = useAppSelector(
+    (state) => state.windowSlice
+  );
+  useEffect(()=>{
+    if (windowSize === 0) {
+      dispatch(changedSize(window.innerWidth))
+    }
+  })
+
+  const handleResize = useCallback(() => {
+    dispatch(changedSize(window.innerWidth));
   }, [dispatch]);
+
+ useEffect(()=>{
+    window.addEventListener('resize', handleResize, );
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [handleResize]);
+
+  useEffect(() => {
+    if (ingredients.length === 0) {
+      dispatch(getIngredients());
+    }
+  }, [dispatch, ingredients]);
 
   const location = useLocation<TLocationState>();
   const background = location.state?.background;
   useEffect(() => {
-    if (!isAuthChecked && localStorage.getItem("jwt")) {
+    if (!isAuthChecked && jwt) {
       dispatch(fetchGetUser());
     }
-    if (!isAuthChecked && localStorage.getItem("jwt")){
+    if (!isAuthChecked && jwt) {
       dispatch(fetchRefreshToken());
       dispatch(fetchGetUser());
     }
-  }, [localStorage.getItem("jwt"), isAuthChecked, dispatch]);
+  }, [jwt, isAuthChecked, dispatch]);
 
   return (
     <>
@@ -54,32 +86,32 @@ const App: React.FC = () => {
         <Route path={`/ingredient/:idCard`} exact>
           {ingredients.length && <IngredientCard />}
         </Route>
-        <Route path={"/login"}  exact>
-          <Login />
+        <Route path={"/login"} exact>
+          <LoginMemo />
         </Route>
-        <Route path={"/register"}  exact>
-          <Register />
+        <Route path={"/register"} exact>
+          <RegisterMemo />
         </Route>
         <Route path={"/forgot-password"} exact>
-          <ForgotPassword />
+          <ForgotPasswordMemo />
         </Route>
         <Route path={"/reset-password"} exact>
-          <ResetPassword />
+          <ResetPasswordMemo />
         </Route>
-        <ProtectedRoute  path={"/profile"} exact>
+        <ProtectedRoute path={"/profile"} exact>
           <Profile />
         </ProtectedRoute>
         <Route path={"/feed"} exact>
-          <Feed />
+          <FeedMemo />
         </Route>
         <Route path={"/feed/:number"} exact>
-          <ChoosenOrder />
+          <ChoosenOrderMemo />
         </Route>
         <ProtectedRoute path={"/profile/orders"} exact>
-          <Orders />
+          <OrdersMemo />
         </ProtectedRoute>
         <ProtectedRoute path={"/profile/orders/:number"} exact>
-          <ChoosenOrder />
+          <ChoosenOrderMemo />
         </ProtectedRoute>
         <Route path="*">
           <h1>404</h1>
@@ -88,6 +120,6 @@ const App: React.FC = () => {
       <ModalRoutes />
     </>
   );
-}
+};
 
 export default App;

@@ -50,3 +50,15 @@
 .scroll::-webkit-scrollbar-thumb {
   background: #8585ad;
 }
+
+@media only screen and (max-width: 1200px) {
+  .container {
+    margin: 0 0 0 10px;
+  }
+} 
+
+@media only screen and (max-width: 1060px) {
+  .container {
+    display: none;
+  }
+} 

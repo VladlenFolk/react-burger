@@ -4,7 +4,7 @@ import {FC} from 'react';
 const ConstructorContainer: FC = () => {
     return (
         <div className={containerConstructorStyle.container}>
-        <h2 className="title_text text text_type_main-large">Выберите ингредиенты</h2>
+        <h2 className={`title_text text text_type_main-large ${containerConstructorStyle.header}`}>Выберите ингредиенты</h2>
         </div>
     )
 }

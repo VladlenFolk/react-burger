@@ -67,3 +67,43 @@
   margin: 0 309px 0 130px;
   cursor: pointer;
 }
+
+.img {
+  height: 40px;
+  width: 40px;
+}
+
+@media only screen and (max-width: 1296px) {
+  .logo {
+    margin: 0 109px 0 30px;
+  }
+}
+@media only screen and (max-width: 1060px) {
+  .logo {
+    margin: 0;
+    margin-top: 5px;
+    padding: 0 8px 0 20px;
+  }
+  .profile {
+    visibility: hidden;
+    display: none;
+  }
+  .list {
+    visibility: hidden;
+    display: none;
+  }
+  .constructors {
+    visibility: hidden;
+    display: none;
+  }
+  .header {
+    justify-content: space-between;
+    min-height: 64px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .logo {
+    padding: 0 8px 0 8px;
+  }
+}

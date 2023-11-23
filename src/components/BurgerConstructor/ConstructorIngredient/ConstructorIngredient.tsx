@@ -41,7 +41,6 @@ const ConstructorIngredient: React.FC<TConstructorType> = ({
       if (!ref.current) {
         return;
       }
-      if (item.index === index){ return}
       const dragIndex = item?.index;
       const hoverIndex = index;
       if (hoverIndex === undefined) {
@@ -54,9 +53,7 @@ const ConstructorIngredient: React.FC<TConstructorType> = ({
 
       if (dragIndex === hoverIndex) {
         return;
-      }
-      console.log(dragIndex, hoverIndex);
-      
+      }      
       dispatch(sortIngredients({ dragIndex, hoverIndex }),
       );
       item.index = hoverIndex;

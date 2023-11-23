@@ -4,7 +4,8 @@
   color: white;
   max-width: 1253px;
   margin: 0 auto;
-  height: 100%;
+  height: 100vh;
+  position: relative;
 }
 
 .title {
@@ -18,4 +19,24 @@
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+}
+
+@media only screen and (max-width: 1060px) {
+  .title {
+    text-align: center;
+    margin: 16px 0 8px;
+  }
+  .HomePage {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .title h1 {
+    font-size: 28px;
+    margin-bottom: -5px;
+  }
 }
