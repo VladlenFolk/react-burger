@@ -113,9 +113,11 @@ const BurgerIngredients = () => {
           </Tab>
         </div>
         <div onScroll={getPoints} className={burgerStyle.scroll}>
+        <div className={burgerStyle.sauce}>
           <h2 className="text text_type_main-medium mb-1" ref={bun}>
             Булки
           </h2>
+          </div>
           <div id="bunsList" className={burgerStyle.ingredientComposition}>
             {buns.map((bun) => (
               <BurgerIngredient
