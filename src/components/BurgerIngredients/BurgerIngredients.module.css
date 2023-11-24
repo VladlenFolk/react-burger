@@ -37,6 +37,7 @@
 
 .tabs {
   display: flex;
+  z-index: 30;
 }
 .tabs div {
   text-align: center;
@@ -45,9 +46,35 @@
   padding: 16px 0;
 }
 
+.tab_menu {
+  cursor: pointer;
+  background-color: #131316;
+  min-width: 200px;
+  text-align: center;
+  box-shadow: inset 0px -1px 0px #2f2f37;
+  color: #8585ad;
+  transition: all 0.3s ease-in;
+  box-sizing: border-box;
+}
+
+.tab_menu_type_current {
+  box-shadow: inset 0px -2px 0px #4c4cff;
+  color: white;
+}
+
+.noselected {
+  cursor: pointer;
+}
+
+@media (min-width: 1060px) {
+  .tab_menu:hover {
+    color: white;
+  }
+}
+
 @media only screen and (max-width: 1060px) {
   .scroll {
-    max-height: 60vh;
+    max-height: 70vh;
   }
   .scroll::-webkit-scrollbar {
     display: none;
@@ -82,7 +109,7 @@
     font-size: 14px;
     text-align: center;
   }
-  .sauce{
+  .sauce {
     margin-top: 40px;
   }
 }

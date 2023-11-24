@@ -1,31 +1,48 @@
-import { useRef, useMemo } from "react";
-import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useRef, useMemo, useEffect, useState } from "react";
 import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import burgerStyle from "./BurgerIngredients.module.css";
-import { useAppDispatch, useAppSelector } from "../../hooks/typesHooks";
+import { useAppSelector } from "../../hooks/typesHooks";
 import { bunsAmount } from "../../utils/constants";
-import { chooseBun, chooseMain, chooseSauce } from "../../services/reduxToolkit/tabSlice";
 
 interface ICounter {
-  [id: string]: number; 
-} 
+  [id: string]: number;
+}
 
 const BurgerIngredients = () => {
-  const dispatch = useAppDispatch();
-  const ingredientType = useAppSelector((state) => state.tab.tab);
-  // Активация для табов
-  const setBun = () => {
-    dispatch(chooseBun());
-  };
-  const setMain = () => {
-    dispatch(chooseMain());
-  };
-  const setSauce = () => {
-    dispatch(chooseSauce());
-  };
+
+  // const window = useAppSelector((state) => state.windowSlice.windowSize);
+  const [tab, setTab] = useState("1");
+
+  // нахожу якоря для скрола в DOM
+  const bun = useRef<HTMLHeadingElement>(null);
+  const sauce = useRef<HTMLHeadingElement>(null);
+  const main = useRef<HTMLHeadingElement>(null);
+  const tabBun = useRef<HTMLDivElement>(null);
+  const tabSauce = useRef<HTMLDivElement>(null);
+  const tabMain = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const windowWidth = window.innerWidth;
+      // Условие для проверки ширины окна
+      if (windowWidth < 1060) {
+        // Примените стили при ширине окна менее 1060px
+        bun.current!.style.pointerEvents = "none";
+        sauce.current!.style.pointerEvents = "none";
+        sauce.current!.style.pointerEvents = "none";
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    // Вызовите handleResize сразу после монтирования компонента
+    handleResize();
+    // Очистите обработчик события при размонтировании компонента
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   //получаем ингридиенты из стора
-  const {  ingredients } = useAppSelector((state) => state.ingredientsSlice);
+  const { ingredients } = useAppSelector((state) => state.ingredientsSlice);
 
   //Фильтруем элементы, делаем массивы по типу
   const sauces = useMemo(() => {
@@ -46,15 +63,21 @@ const BurgerIngredients = () => {
     });
   }, [ingredients]);
 
-  // нахожу якоря для скрола в DOM
-  const bun = useRef<HTMLHeadingElement>(null);
-  const sauce = useRef<HTMLHeadingElement>(null);
-  const main = useRef<HTMLHeadingElement>(null);
+  //Функции перехода к элементам
+  const handleBunClick = () => {
+    setTab("1");
+      bun.current!.scrollIntoView({ behavior: "smooth" });
+  };
 
-  // функции для переключения по якорям на клавиши "таба"
-  const goToBuns = () => bun.current?.scrollIntoView({ behavior: "smooth" });
-  const goToSauce = () => sauce.current?.scrollIntoView({ behavior: "smooth" });
-  const goToMain = () => main.current?.scrollIntoView({ behavior: "smooth" });
+  const handleSauceClick = () => {
+    setTab("2");
+      sauce.current!.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const handleMainClick = () => {
+    setTab("3");
+      main.current!.scrollIntoView({ behavior: "smooth" });
+  };
 
   //получаю координаты списков и активирую таб с помощью вычислений относительно меню табов
   function getPoints() {
@@ -69,17 +92,16 @@ const BurgerIngredients = () => {
       .getElementById("mainList")!
       .getBoundingClientRect().top;
     Math.abs(menu - bunSection) < Math.abs(menu - sauceSection)
-      ? setBun()
+      ? setTab('1')
       : Math.abs(menu - sauceSection) > Math.abs(menu - mainSection)
-      ? setMain()
-      : setSauce();
+      ? setTab('3')
+      : setTab('2');
   }
 
   const burger = useAppSelector((state) => state.constructorSlice);
   const counterIngredients = useMemo(() => {
     const { bun, otherIngredients } = burger;
-    
-    
+
     const counters: ICounter = {};
     otherIngredients?.forEach((otherIngredient) => {
       if (!counters[otherIngredient.item._id])
@@ -90,33 +112,45 @@ const BurgerIngredients = () => {
     return counters;
   }, [burger]);
 
+  const bunTab =
+    tab === "1" ? burgerStyle.tab_menu_type_current : burgerStyle.noselected;
+  const sauceTab =
+    tab === "2" ? burgerStyle.tab_menu_type_current : burgerStyle.noselected;
+  const mainTab =
+    tab === "3" ? burgerStyle.tab_menu_type_current : burgerStyle.noselected;
+  console.log(tab);
+
   return (
     <>
       <section className={burgerStyle.burgerIngredirnets}>
-        <div id="menu" className={burgerStyle.tabs}>
-          <Tab value="one" active={ingredientType === "one"} onClick={goToBuns}>
-            Булки
-          </Tab>
-          <Tab
-            value="two"
-            active={ingredientType === "two"}
-            onClick={goToSauce}
+        <div id="menu" className={`${burgerStyle.tabs} ${bunTab}`}>
+          <div
+            className={`${burgerStyle.tab_menu} ${bunTab}`}
+            onClick={handleBunClick}
+            ref={tabBun}
           >
-            Соусы
-          </Tab>
-          <Tab
-            value="three"
-            active={ingredientType === "three"}
-            onClick={goToMain}
+            <span className="text text_type_main-default">Булки</span>
+          </div>
+          <div
+            className={`${burgerStyle.tab_menu} ${sauceTab}`}
+            onClick={handleSauceClick}
+            ref={tabSauce}
           >
-            Начинки
-          </Tab>
+            <span className="text text_type_main-default">Соусы</span>
+          </div>
+          <div
+            className={`${burgerStyle.tab_menu} ${mainTab}`}
+            onClick={handleMainClick}
+            ref={tabMain}
+          >
+            <span className="text text_type_main-default">Начинки</span>
+          </div>
         </div>
         <div onScroll={getPoints} className={burgerStyle.scroll}>
-        <div className={burgerStyle.sauce}>
-          <h2 className="text text_type_main-medium mb-1" ref={bun}>
-            Булки
-          </h2>
+          <div className={burgerStyle.sauce}>
+            <h2 className="text text_type_main-medium mb-1" ref={bun}>
+              Булки
+            </h2>
           </div>
           <div id="bunsList" className={burgerStyle.ingredientComposition}>
             {buns.map((bun) => (
@@ -129,9 +163,9 @@ const BurgerIngredients = () => {
             ))}
           </div>
           <div className={burgerStyle.sauce}>
-          <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauce}>
-            Соусы
-          </h2>
+            <h2 className="text text_type_main-medium mt-10 mb-6" ref={sauce}>
+              Соусы
+            </h2>
           </div>
           <div id="sauceList" className={burgerStyle.ingredientComposition}>
             {sauces.map((sauce) => (
@@ -144,9 +178,9 @@ const BurgerIngredients = () => {
             ))}
           </div>
           <div className={burgerStyle.sauce}>
-          <h2 className="text text_type_main-medium mt-10 mb-6" ref={main}>
-            Начинки
-          </h2>
+            <h2 className="text text_type_main-medium mt-10 mb-6" ref={main}>
+              Начинки
+            </h2>
           </div>
           <div id="mainList" className={burgerStyle.ingredientComposition}>
             {mains.map((main) => (
