@@ -30,6 +30,7 @@ const ConstructorIngredient: React.FC<TConstructorType> = ({
 }) => {
   const dispatch = useAppDispatch();
   const ref = useRef<HTMLLIElement>(null);
+  
   //удаление ингредиента конструктора
   const deletItem = (item:TOtherIngredient) => {
     dispatch(deleteIngredient(item));
@@ -57,7 +58,6 @@ const ConstructorIngredient: React.FC<TConstructorType> = ({
       dispatch(sortIngredients({ dragIndex, hoverIndex }),
       );
       item.index = hoverIndex;
-      console.log(dragIndex, hoverIndex);
     },
   });
 
