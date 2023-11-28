@@ -12,6 +12,15 @@
   z-index: 100;
 }
 
+.footer button{
+  cursor: default;
+}
+
+.footer button:hover{
+  pointer-events: none;
+}
+
+
 .price {
   display: flex;
   align-items: center;
