@@ -1,5 +1,5 @@
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { useState, useMemo } from "react";
+import { useMemo } from "react";
 import { useAppSelector } from '../../hooks/typesHooks';
 import footerStyle from './Footer.module.css'
 import { TOtherIngredient } from '../../types/types';
