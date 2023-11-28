@@ -118,7 +118,7 @@ const BurgerIngredients = () => {
     tab === "2" ? burgerStyle.tab_menu_type_current : burgerStyle.noselected;
   const mainTab =
     tab === "3" ? burgerStyle.tab_menu_type_current : burgerStyle.noselected;
-  console.log(tab);
+
 
   return (
     <>
