@@ -26,7 +26,7 @@ const BurgerIngredientSmall: React.FC<TIngredientBurger> = ({
   const dispatch = useAppDispatch();
 
   //Функция добавления перемещенного элемента
-  const addItem = (item: TIngredient) => {
+  const addItem = ( ) => {
     const ingredient = {
       item,
       id: nanoid(),
@@ -45,7 +45,7 @@ const BurgerIngredientSmall: React.FC<TIngredientBurger> = ({
       <div className={burgerStyle.cover}></div>
       <div
         className={burgerStyle.ingredientsComponentMin}
-        onClick={() => addItem(item)}
+        onClick={addItem}
       >
         {count > 0 && <Counter count={count} size="small" />}
         <img className={burgerStyle.image} src={item.image_mobile} alt={item.name}></img>
@@ -54,11 +54,6 @@ const BurgerIngredientSmall: React.FC<TIngredientBurger> = ({
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text_type_main-default mt-2">{item.name}</p>
-        <p
-          className={`${"text text_type_secondary-default"} ${burgerStyle.add}`}
-        >
-          {"Добавить"}
-        </p>
       </div>
     </div>
   );

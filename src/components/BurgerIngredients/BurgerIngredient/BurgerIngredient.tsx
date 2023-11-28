@@ -16,6 +16,11 @@ const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
     <div className={burgerStyle.container}>
       <div className={burgerStyle.cover}></div>
       {windowSize > 1060 ? <BurgerIngredientLarge count={count} item={item} id={id}/> : <BurgerIngredientSmall count={count} item={item} id={id}/>}
+      <p
+          className={`${"text text_type_secondary-default"} ${burgerStyle.add}`}
+        >
+          Добавить
+        </p>
     </div>
   );
 };
