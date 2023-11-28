@@ -10,6 +10,7 @@ const HomePage: React.FC = () => {
   const { ingredients, ingredientsFailed } = useAppSelector(
     (state) => state.ingredientsSlice
   );
+  const { isCount } =useAppSelector((state) => state.constructorSlice);
 
   return (
     <>
@@ -28,7 +29,7 @@ const HomePage: React.FC = () => {
                 <BurgerConstructor />
               </DndProvider>
             </main>
-            <Footer/>
+            {isCount && <Footer/>}
           </>
         )}
       </div>
