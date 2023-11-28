@@ -9,7 +9,6 @@ interface ICounter {
 }
 
 const BurgerIngredients = () => {
-
   // const window = useAppSelector((state) => state.windowSlice.windowSize);
   const [tab, setTab] = useState("1");
 
@@ -65,18 +64,15 @@ const BurgerIngredients = () => {
 
   //Функции перехода к элементам
   const handleBunClick = () => {
-    setTab("1");
-      bun.current!.scrollIntoView({ behavior: "smooth" });
+    bun.current!.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleSauceClick = () => {
-    setTab("2");
-      sauce.current!.scrollIntoView({ behavior: "smooth" });
+    sauce.current!.scrollIntoView({ behavior: "smooth" });
   };
 
   const handleMainClick = () => {
-    setTab("3");
-      main.current!.scrollIntoView({ behavior: "smooth" });
+    main.current!.scrollIntoView({ behavior: "smooth" });
   };
 
   //получаю координаты списков и активирую таб с помощью вычислений относительно меню табов
@@ -92,10 +88,10 @@ const BurgerIngredients = () => {
       .getElementById("mainList")!
       .getBoundingClientRect().top;
     Math.abs(menu - bunSection) < Math.abs(menu - sauceSection)
-      ? setTab('1')
+      ? setTab("1")
       : Math.abs(menu - sauceSection) > Math.abs(menu - mainSection)
-      ? setTab('3')
-      : setTab('2');
+      ? setTab("3")
+      : setTab("2");
   }
 
   const burger = useAppSelector((state) => state.constructorSlice);
@@ -118,7 +114,6 @@ const BurgerIngredients = () => {
     tab === "2" ? burgerStyle.tab_menu_type_current : burgerStyle.noselected;
   const mainTab =
     tab === "3" ? burgerStyle.tab_menu_type_current : burgerStyle.noselected;
-
 
   return (
     <>
