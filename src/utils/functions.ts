@@ -1,4 +1,22 @@
+import { nanoid } from "nanoid";
 import { TIngredient } from "../types/types";
+import { addBun, countOpen, addOtherIngredient } from "../services/reduxToolkit/constructorSlice";
+
+
+
+export const addItem = (item: TIngredient, callback: any) => {
+  const ingredient = {
+    item,
+    id: nanoid(),
+  };
+  if (item.type === "bun") {
+    callback(addBun(item));
+    callback(countOpen());
+  } else {
+    callback(addOtherIngredient(ingredient));
+    callback(countOpen());
+  }
+};
 
 type TIngredientCount = TIngredient & {count: number};
 
@@ -34,3 +52,4 @@ export const getObjWithCount = (ingredientsArr: string[], ingredientsObj: TIngre
   allRes = Object.values(res);
   return allRes;
 };
+

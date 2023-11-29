@@ -1,16 +1,17 @@
-import {useState} from 'react'
+import { useAppDispatch, useAppSelector } from '../../../hooks/typesHooks';
 import burgerStyle from './HeaderBurger.module.css'; 
+import { toggleMobileMenu } from '../../../services/reduxToolkit/userSlice';
+
 
 const HeaderBurger = () => {
-    const [headerBurgerState, setHeaderBurgerState] = useState(true)
+    const dispatch = useAppDispatch();
+    const mobileMenu = useAppSelector((state) => state.userSlice.mobileMenu);
     const toggleBurger = () =>{
-        setHeaderBurgerState(!headerBurgerState)
+        dispatch(toggleMobileMenu());
     }
 
-console.log(headerBurgerState);
-
     return (
-        <div  className={ headerBurgerState ? burgerStyle.burger : burgerStyle.burger+' '+ burgerStyle.active} onClick={toggleBurger}>
+        <div  className={ !mobileMenu ? burgerStyle.burger : burgerStyle.burger+' '+ burgerStyle.active} onClick={toggleBurger}>
             <span></span>
         </div>
     )

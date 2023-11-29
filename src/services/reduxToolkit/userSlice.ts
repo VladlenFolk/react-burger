@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, createAction } from "@reduxjs/toolkit";
 import { setCookie } from "../../utils/cookie";
 import {
   apiRegister,
@@ -38,6 +38,7 @@ interface IInitialState {
   tokenRequest: boolean;
   tokenFailed: boolean;
   isAuthChecked: boolean;
+  mobileMenu: boolean;
 }
 
 const initialState: IInitialState = {
@@ -62,6 +63,7 @@ const initialState: IInitialState = {
   tokenRequest: false,
   tokenFailed: false,
   isAuthChecked: false,
+  mobileMenu: false,
 };
 
 export const fetchRegUser = createAsyncThunk(
@@ -150,10 +152,16 @@ export const fetchResetPassword = createAsyncThunk(
   }
 );
 
+export const toggleMenuProfile = createAction("user/toggleMenuProfile");
+
 const userSlice = createSlice({
   name: "user",
   initialState,
-  reducers: { },
+  reducers: {
+    toggleMobileMenu: (state) => {
+      state.mobileMenu = !state.mobileMenu;
+    },
+   },
   extraReducers(builder) {
     builder
       .addCase(fetchRegUser.pending, (state) => {
@@ -264,8 +272,10 @@ const userSlice = createSlice({
       .addCase(fetchResetPassword.rejected, (state) => {
         state.resetRequest = false;
         state.codeRequestFailed = true;
-      });
+      })
   },
 });
 
+
+export const { toggleMobileMenu  } = userSlice.actions;
 export default userSlice.reducer;

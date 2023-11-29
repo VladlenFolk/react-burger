@@ -3,6 +3,8 @@ import burgerStyle from "./BurgerIngredient.module.css";
 import { TIngredient } from "../../../types/types";
 import BurgerIngredientSmall from "./BurgerIngredientSmall/BurgerIngredientSmall";
 import BurgerIngredientLarge from "./BurgerIngredientLarge/BurgerIngredientLarge";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../../utils/functions";
 
 type TIngredientBurger = {
   count: number;
@@ -12,6 +14,10 @@ type TIngredientBurger = {
 
 const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
   const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const dispatch = useDispatch();
+  const add = () =>{
+    addItem(item, dispatch)
+  }
   return (
     <div className={burgerStyle.container}>
       <div className={burgerStyle.cover}></div>
@@ -20,7 +26,7 @@ const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
       ) : (
         <BurgerIngredientSmall count={count} item={item} id={id} />
       )}
-      <p className={`${"text text_type_secondary-default"} ${burgerStyle.add}`}>
+      <p className={`${"text text_type_secondary-default"} ${burgerStyle.add}`} onClick={add}>
         Добавить
       </p>
     </div>

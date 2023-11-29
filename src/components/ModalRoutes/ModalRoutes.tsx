@@ -5,6 +5,8 @@ import IngredientDetails from "../BurgerIngredients/BurgerIngredient/IngredientD
 import SelectedOrder from "../../pages/SelectedOrder/SelectedOrder";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
 import { TLocationState } from "../../types/types";
+import ModalMenu from "../ModalMobile/ModalMenu/ModalMenu";
+import ModalMobile from "../ModalMobile/ModalMobile";
 
 const ModalRoutes: React.FC = () => {
   const history = useHistory();
@@ -43,6 +45,9 @@ const ModalRoutes: React.FC = () => {
           )}
         </Route>
       )}
+      <ModalMobile title={"Меню"}>
+        <ModalMenu />
+      </ModalMobile>
     </>
   );
 };
