@@ -14,7 +14,7 @@ type TCardProps = {
 }
 
   const CardFeed: React.FC<TCardProps> = ({ order }) => {
-    console.log(order);
+
     
   const location = useLocation();
   const ingredientsArr = order.ingredients;

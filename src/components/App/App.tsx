@@ -20,7 +20,9 @@ import ChoosenOrder from "../../pages/ChoosenOrder/ChoosenOrder";
 import { fetchIngredients as getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
 import { TLocationState } from "../../types/types";
 import { changedSize } from "../../services/reduxToolkit/windowSlice";
-
+import ModalMobile from "../ModalMobile/ModalMobile";
+import ModalMenu from "../ModalMobile/ModalMenu/ModalMenu";
+import { toggleMobileMenu } from "../../services/reduxToolkit/userSlice";
 
 const App: React.FC = () => {
   const { ingredientsRequest, ingredients } = useAppSelector(
@@ -75,6 +77,7 @@ const App: React.FC = () => {
     }
   }, [jwt, isAuthChecked, dispatch]);
 
+
   return (
     <>
       <AppHeader />
@@ -118,6 +121,9 @@ const App: React.FC = () => {
         </Route>
       </Switch>
       <ModalRoutes />
+      {/* <ModalMobile title={'Меню'}>
+          <ModalMenu/>
+      </ModalMobile> */}
     </>
   );
 };

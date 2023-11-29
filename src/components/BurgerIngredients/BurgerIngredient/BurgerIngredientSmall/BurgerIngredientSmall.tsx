@@ -2,15 +2,10 @@ import {
   CurrencyIcon,
   Counter,
 } from "@ya.praktikum/react-developer-burger-ui-components";
-import { nanoid } from "nanoid";
 import burgerStyle from "./BurgerIngredientSmall.module.css";
 import { TIngredient } from "../../../../types/types";
-import {
-  addBun,
-  addOtherIngredient,
-  countOpen,
-} from "../../../../services/reduxToolkit/constructorSlice";
 import { useAppDispatch } from "../../../../hooks/typesHooks";
+import { addItem } from "../../../../utils/functions";
 
 type TIngredientBurger = {
   count: number;
@@ -24,28 +19,16 @@ const BurgerIngredientSmall: React.FC<TIngredientBurger> = ({
 }) => {
 
   const dispatch = useAppDispatch();
-
-  //Функция добавления перемещенного элемента
-  const addItem = ( ) => {
-    const ingredient = {
-      item,
-      id: nanoid(),
-    };
-    if (item.type === "bun") {
-      dispatch(addBun(item));
-      dispatch(countOpen());
-    } else {
-      dispatch(addOtherIngredient(ingredient));
-      dispatch(countOpen());
-    }
-  };
+  const add = () =>{
+    addItem(item, dispatch)
+  }
 
   return (
     <div className={burgerStyle.container}>
       <div className={burgerStyle.cover}></div>
       <div
         className={burgerStyle.ingredientsComponentMin}
-        onClick={addItem}
+        onClick={add}
       >
         {count > 0 && <Counter count={count} size="small" />}
         <img className={burgerStyle.image} src={item.image_mobile} alt={item.name}></img>
