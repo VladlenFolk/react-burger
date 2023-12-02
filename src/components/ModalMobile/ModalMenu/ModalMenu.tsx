@@ -6,21 +6,16 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { useState } from "react";
 import MenuStile from "./ModalMenu.module.css";
-import { Link, NavLink, useLocation } from "react-router-dom";
-import { useAppDispatch,useAppSelector } from "../../../hooks/typesHooks";
+import { NavLink, useLocation } from "react-router-dom";
+import { useAppDispatch } from "../../../hooks/typesHooks";
 import { fetchLogout } from "../../../services/reduxToolkit/userSlice";
 import { toggleMobileMenu } from "../../../services/reduxToolkit/userSlice";
 
 const ModalMenu = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
-  // console.log(location);
+ 
 
-  // const logoutProfile = () => {
-  //   dispatch(fetchLogout());
-  // };
-  const mobileMenu = useAppSelector((state) => state.userSlice.mobileMenu);
-console.log(mobileMenu);
 
 
   const toggleMenu = () => {
