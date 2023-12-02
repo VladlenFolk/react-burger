@@ -2,17 +2,53 @@ import {
   ProfileIcon,
   BurgerIcon,
   ListIcon,
-  ArrowUpIcon,
+  ArrowDownIcon,
 } from "@ya.praktikum/react-developer-burger-ui-components";
+import { useState } from "react";
 import MenuStile from "./ModalMenu.module.css";
-import { Link } from "react-router-dom";
-import { useAppDispatch } from "../../../hooks/typesHooks";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { useAppDispatch,useAppSelector } from "../../../hooks/typesHooks";
 import { fetchLogout } from "../../../services/reduxToolkit/userSlice";
+import { toggleMobileMenu } from "../../../services/reduxToolkit/userSlice";
 
 const ModalMenu = () => {
   const dispatch = useAppDispatch();
-  const logoutProfile = () => {
+  const location = useLocation();
+  // console.log(location);
+
+  // const logoutProfile = () => {
+  //   dispatch(fetchLogout());
+  // };
+  const mobileMenu = useAppSelector((state) => state.userSlice.mobileMenu);
+console.log(mobileMenu);
+
+
+  const toggleMenu = () => {
+    dispatch(toggleMobileMenu());
+  };
+
+  const [open, setOpen] = useState(false);
+  const toggleOpen = () => {
+    setOpen(!open);
+  };
+
+const logoutProfile = () => {
     dispatch(fetchLogout());
+    toggleMenu()
+  };
+
+  const menuStile = open
+    ? `${MenuStile.profileLinks} ${MenuStile.active}`
+    : MenuStile.profileLinks;
+
+  const arrowIcon = open
+    ? `${MenuStile.arrowIcon} ${MenuStile.active}`
+    : MenuStile.arrowIcon;
+
+  const navLinkProps = {
+    className: MenuStile.profileNav,
+    activeClassName: MenuStile.activeNav,
+    onClick: toggleMenu,
   };
 
   return (
@@ -20,49 +56,59 @@ const ModalMenu = () => {
       <nav>
         <ul className={MenuStile.profileList}>
           <li className={MenuStile.profileContainer}>
-            <div className={MenuStile.profile}>
+            <div className={MenuStile.profile} onClick={toggleOpen}>
               <ProfileIcon type={"primary"} />
               <p className={MenuStile.textProfile}> Личный кабинет</p>
-              <ArrowUpIcon type={"primary"} />
+              <div className={arrowIcon}>
+                <ArrowDownIcon type={"primary"} />
+              </div>
             </div>
-            <ul className={MenuStile.profileLinks}>
-              <li>
-                <Link to="/profile" className={MenuStile.profileNav}>
-                  <p className={MenuStile.textNav}>Профиль</p>
-                </Link>
+            <ul className={menuStile}>
+              <li  className={MenuStile.nav}>
+                <NavLink
+                  to="/profile"
+                  exact
+                  {...navLinkProps}
+                >
+                  Профиль
+                </NavLink>
               </li>
-              <li>
-                <Link to="/profile/orders" className={MenuStile.profileNav}>
-                  <p className={MenuStile.textNav}>История заказов</p>
-                </Link>
+              <li className={MenuStile.nav}>
+                <NavLink to="/profile/orders" {...navLinkProps}>
+                  История заказов
+                </NavLink>
               </li>
-              <li>
-                <p className={MenuStile.textNav} onClick={logoutProfile}>
+              <li className={MenuStile.nav}>
+                <p
+                  className={MenuStile.textLogout}
+                  onClick={logoutProfile}
+                >
                   Выход
                 </p>
               </li>
             </ul>
           </li>
-          <li>
-            <div>
-              <Link
+          <li className={MenuStile.above}>
+            <div onClick={toggleMenu}>
+              <NavLink
                 to={{ pathname: `/` }}
+                exact
                 className={MenuStile.navLink}
+                activeClassName={MenuStile.navLinkActive}
               >
-                <BurgerIcon type={"primary"} />
+                <BurgerIcon
+                  type={location.pathname === "/" ? "primary" : "secondary"}
+                />
                 <p className={MenuStile.text}>Конструктор бургеров</p>
-              </Link>
+              </NavLink>
             </div>
           </li>
-          <li>
-            <div className={MenuStile.orderList}>
-              <Link
-                to="/feed"
-                className={MenuStile.navLink}
-              >
-                <ListIcon type={"primary"} />
+          <li className={MenuStile.above}>
+            <div className={MenuStile.orderList} onClick={toggleMenu}>
+              <NavLink to="/feed" className={MenuStile.navLink} activeClassName={MenuStile.navLinkActive}>
+                <ListIcon type={location.pathname === "/feed" ? "primary" : "secondary"} />
                 <p className={MenuStile.text}>Лента заказов</p>
-              </Link>
+              </NavLink>
             </div>
           </li>
         </ul>

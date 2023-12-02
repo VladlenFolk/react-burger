@@ -21,6 +21,16 @@
   box-sizing: border-box;
 }
 
+.arrowIcon {
+  transform: rotate(0deg);
+  transition: transform 0.3s ease;
+}
+
+.arrowIcon.active {
+  transform: rotate(180deg);
+  transition: transform 0.3s ease;
+}
+
 .textProfile {
   margin: 0;
   margin-left: 7px;
@@ -31,25 +41,60 @@
 
 .profileLinks {
   margin-left: 32px;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.8s ease, opacity 0.8s ease;
+  cursor: default;
+}
+.profileLinks.active {
+  margin-left: 32px;
+  max-height: 400px;
+  opacity: 1;
+}
+
+.nav {
+  padding: 8px 0;
+  z-index: 1;
+}
+
+.textLogout {
+  margin: 0;
+  color: #8585ad;
+}
+
+.textLogout:active {
+  color: #f2f2f3;
+}
+
+.above {
+  z-index: 2;
 }
 
 .profileNav {
   text-decoration: none;
-  color: #f2f2f3;
+  color: #8585ad;
   margin: 0;
+}
+.activeNav {
+  color: #f2f2f3;
 }
 
 .textNav {
   margin: 0;
   color: #f2f2f3;
-  padding: 8px 0;
 }
 
 .navLink {
   text-decoration: none;
   display: flex;
   align-items: center;
+  color: #8585ad;
+  cursor: default;
+}
+
+.navLinkActive {
   color: #f2f2f3;
+  cursor: default;
 }
 
 .list {
