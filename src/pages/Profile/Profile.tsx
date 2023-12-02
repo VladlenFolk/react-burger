@@ -6,10 +6,14 @@ import {
   Button,
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import { NavLink } from "react-router-dom";
-import { fetchLogout, fetchRefreshToken, fetchUpdateUser } from "../../services/reduxToolkit/userSlice";
+import {
+  fetchLogout,
+  fetchRefreshToken,
+  fetchUpdateUser,
+} from "../../services/reduxToolkit/userSlice";
 import { getCookie } from "../../utils/cookie";
 
-const Profile: React.FC = () =>{
+const Profile: React.FC = () => {
   //Логика формы
   const nameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -82,7 +86,7 @@ const Profile: React.FC = () =>{
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.userSlice);
- 
+
   useEffect(() => {
     setInputProfile({ name: user.name, email: user.email, password: "" });
   }, []);
@@ -98,11 +102,15 @@ const Profile: React.FC = () =>{
 
   const updateUserInfo = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (getCookie('token') === undefined ){
-      dispatch (fetchRefreshToken())
+    if (getCookie("token") === undefined) {
+      dispatch(fetchRefreshToken());
     }
     dispatch(
-      fetchUpdateUser({name: inputProfile.name, email: inputProfile.email, password: inputProfile.password})
+      fetchUpdateUser({
+        name: inputProfile.name,
+        email: inputProfile.email,
+        password: inputProfile.password,
+      })
     );
     setIcon({ name: false, email: false, password: false });
     setShowButton(false);
@@ -111,6 +119,9 @@ const Profile: React.FC = () =>{
   return (
     <>
       <div className={styleProfile.container}>
+        <h2 className={`text text_type_main-medium mb-5 ${styleProfile.title}`}>
+          Вход
+        </h2>
         <div className={styleProfile.links}>
           <p
             className={`text text_type_main-medium mt-5 ${colorText.name}`}
@@ -138,7 +149,7 @@ const Profile: React.FC = () =>{
             </p>
           </div>
         </div>
-        <div>
+        {/* <div> */}
           <form className={styleProfile.form} onSubmit={updateUserInfo}>
             <div className={styleProfile.nameInput}>
               <Input
@@ -169,7 +180,7 @@ const Profile: React.FC = () =>{
                 onIconClick={setClearLogin}
                 errorText={"Ошибка"}
                 size={"default"}
-                extraClass="ml-1"
+                // extraClass="ml-1"
               />
             </div>
             <div className={styleProfile.passwordInput}>
@@ -185,27 +196,27 @@ const Profile: React.FC = () =>{
                 onIconClick={setClearPassword}
                 errorText={"Ошибка"}
                 size={"default"}
-                extraClass="ml-1"
+                // extraClass="ml-1"
               />
             </div>
             {showButton && (
               <div className={styleProfile.buttonContainer}>
                 <p onClick={resetInputs}>Отмена</p>
-                <Button
-                  htmlType="submit"
-                  type="primary"
-                  size="medium"
-                  extraClass="ml-2"
-                >
-                  Сохранить
-                </Button>
+                  <Button
+                    htmlType="submit"
+                    type="primary"
+                    size="medium"
+                    extraClass="ml-2"
+                  >
+                    Сохранить
+                  </Button>
               </div>
             )}
           </form>
-        </div>
+        {/* </div> */}
       </div>
     </>
   );
-}
+};
 
 export default Profile;

@@ -17,9 +17,9 @@
   position: relative;
 }
 
-.form :nth-child(1) {
+/* .form :nth-child(1) {
   width: 100%;
-}
+} */
 
 .text {
   font-family: "JetBrainsMono", Arial, sans-serif;
@@ -59,6 +59,61 @@
   cursor: pointer;
 }
 
-.list{
+.list {
   text-decoration: none;
+}
+
+@media only screen and (max-width: 1350px) {
+  .container {
+    margin: 116px 0 0 -20%;
+  }
+  .form {
+    margin-left: 5%;
+  }
+}
+
+@media only screen and (min-width: 1060px) {
+  .title {
+    display: none;
+  }
+}
+@media only screen and (max-width: 1060px) {
+  .links {
+    display: none;
+  }
+  .form {
+    margin: 0;
+  }
+  .container {
+    flex-direction: column;
+    align-items: center;
+    margin: 16px 0 0;
+  }
+  .buttonContainer {
+    margin: 0;
+    position: static;
+    flex-direction: column;
+    align-items: center;
+    gap: 18px;
+  }
+  .buttonContainer p {
+    text-align: center;
+    color: #4c4cff;
+    order: 2;
+  }
+  .buttonContainer :nth-child(1) {
+    margin: 0;
+  }
+}
+
+@media only screen and (max-width: 620px) {
+  /* .container{
+    width: 304px;
+  } */
+  /* .container {
+   width: 304px;
+  } */
+  .nameInput{
+    width: 200px;
+  }
 }
