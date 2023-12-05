@@ -15,7 +15,6 @@ const HomePage: React.FC = () => {
   const constructorIngredients = useAppSelector(
     (state) => state.constructorSlice.otherIngredients
   ); 
-  const { isCount } = useAppSelector((state) => state.utils);
   const { countModal } = useAppSelector((state) => state.utils);
 
   return (
