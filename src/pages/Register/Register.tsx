@@ -12,6 +12,7 @@ import { TLocationProps } from "../../types/types";
 
 function Register() {
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
+  const { windowSize } = useAppSelector((state) => state.windowSlice);
   const { state } = useLocation() as TLocationProps;
   const nameRef = useRef<HTMLInputElement>(null);
   const mailRef = useRef<HTMLInputElement>(null);
@@ -22,7 +23,7 @@ function Register() {
     name: "",
   });
 
-  const [type, setType] = useState<"ShowIcon"| "HideIcon">("ShowIcon");
+  const [type, setType] = useState<"ShowIcon" | "HideIcon">("ShowIcon");
   const dispatch = useAppDispatch();
 
   if (isAuthChecked) {
@@ -41,8 +42,16 @@ function Register() {
 
   const submitRegister = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(fetchRegUser({email: values.email, password: values.password,name: values.name}));
+    dispatch(
+      fetchRegUser({
+        email: values.email,
+        password: values.password,
+        name: values.name,
+      })
+    );
   };
+  //размер инпута
+  const inputSize = windowSize > 660 ? "default" : "small";
 
   return (
     <>
@@ -58,53 +67,46 @@ function Register() {
             error={false}
             ref={nameRef}
             errorText={"Ошибка"}
-            size={"default"}
+            size={inputSize}
             extraClass="ml-1"
           />
-          <div className={styleRegister.emailInput}>
-            <Input
-              type={"email"}
-              placeholder={"E-mail"}
-              onChange={handleChange}
-              value={values.email}
-              name={"email"}
-              error={false}
-              ref={mailRef}
-              errorText={"Ошибка"}
-              size={"default"}
-              extraClass="ml-1"
-            />
-          </div>
-          <div className={styleRegister.passwordInput}>
-            <Input
-              type={"password"}
-              placeholder={"Пароль"}
-              onChange={handleChange}
-              icon={type}
-              value={values.password}
-              name={"password"}
-              error={false}
-              ref={passwordRef}
-              onIconClick={toggleTypePassword}
-              errorText={"Ошибка"}
-              size={"default"}
-              extraClass="ml-1"
-            />
-          </div>
-          <div className={styleRegister.button}>
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="medium"
-              extraClass="ml-2"
-            >
-              Зарегистрироваться
-            </Button>
-          </div>
+          <Input
+            type={"email"}
+            placeholder={"E-mail"}
+            onChange={handleChange}
+            value={values.email}
+            name={"email"}
+            error={false}
+            ref={mailRef}
+            errorText={"Ошибка"}
+            size={inputSize}
+            extraClass="ml-1"
+          />
+          <Input
+            type={"password"}
+            placeholder={"Пароль"}
+            onChange={handleChange}
+            icon={type}
+            value={values.password}
+            name={"password"}
+            error={false}
+            ref={passwordRef}
+            onIconClick={toggleTypePassword}
+            errorText={"Ошибка"}
+            size={inputSize}
+            extraClass="ml-1"
+          />
+          <Button
+            htmlType="submit"
+            type="primary"
+            size="medium"
+            extraClass={styleRegister.button}
+          >
+            Зарегистрироваться
+          </Button>
         </form>
         <div className={styleRegister.registrationContainer}>
           <p className={styleRegister.text}>Уже зарегестрированы?</p>
-
           <Link className={styleRegister.link} to="/login">
             Войти
           </Link>

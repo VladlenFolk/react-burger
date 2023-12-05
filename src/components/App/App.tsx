@@ -20,9 +20,6 @@ import ChoosenOrder from "../../pages/ChoosenOrder/ChoosenOrder";
 import { fetchIngredients as getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
 import { TLocationState } from "../../types/types";
 import { changedSize } from "../../services/reduxToolkit/windowSlice";
-import ModalMobile from "../ModalMobile/ModalMobile";
-import ModalMenu from "../ModalMobile/ModalMenu/ModalMenu";
-import { toggleMobileMenu } from "../../services/reduxToolkit/userSlice";
 
 const App: React.FC = () => {
   const { ingredientsRequest, ingredients } = useAppSelector(
@@ -39,23 +36,21 @@ const App: React.FC = () => {
   const ChoosenOrderMemo = memo(ChoosenOrder);
   const jwt = localStorage.getItem("jwt");
 
-  const { windowSize } = useAppSelector(
-    (state) => state.windowSlice
-  );
-  useEffect(()=>{
+  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  useEffect(() => {
     if (windowSize === 0) {
-      dispatch(changedSize(window.innerWidth))
+      dispatch(changedSize(window.innerWidth));
     }
-  })
+  });
 
   const handleResize = useCallback(() => {
     dispatch(changedSize(window.innerWidth));
   }, [dispatch]);
 
- useEffect(()=>{
-    window.addEventListener('resize', handleResize, );
+  useEffect(() => {
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, [handleResize]);
 
@@ -76,7 +71,6 @@ const App: React.FC = () => {
       dispatch(fetchGetUser());
     }
   }, [jwt, isAuthChecked, dispatch]);
-
 
   return (
     <>
@@ -121,9 +115,6 @@ const App: React.FC = () => {
         </Route>
       </Switch>
       <ModalRoutes />
-      {/* <ModalMobile title={'Меню'}>
-          <ModalMenu/>
-      </ModalMobile> */}
     </>
   );
 };

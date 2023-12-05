@@ -1,6 +1,6 @@
 import styleLogin from "./Login.module.css";
 import { Link, Redirect, useLocation } from "react-router-dom";
-import { useState, useRef, FC} from "react";
+import { useState, useRef, FC } from "react";
 import {
   Input,
   Button,
@@ -9,15 +9,14 @@ import { fetchLogin } from "../../services/reduxToolkit/userSlice";
 import { useAppSelector, useAppDispatch } from "../../hooks/typesHooks";
 import { TLocationProps } from "../../types/types";
 
-
-  const  Login: FC = () => {
+const Login: FC = () => {
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
+  const { windowSize } = useAppSelector((state) => state.windowSlice);
   const dispatch = useAppDispatch();
   const nameRef = useRef<HTMLInputElement>(null);
   const PasswordRef = useRef<HTMLInputElement>(null);
-  const [type, setType] = useState<"ShowIcon"| "HideIcon">("ShowIcon");
+  const [type, setType] = useState<"ShowIcon" | "HideIcon">("ShowIcon");
   const [inputLogin, setInputLogin] = useState({ email: "", password: "" });
-
 
   const toggleTypePassword = () => {
     if (PasswordRef.current?.type === "password") {
@@ -35,17 +34,23 @@ import { TLocationProps } from "../../types/types";
 
   const setParams = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputLogin({ ...inputLogin, [e.target.name]: e.target.value });
-
   };
 
-   const submitLogin = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const submitLogin = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(fetchLogin({email: inputLogin.email, password: inputLogin.password}));
+    dispatch(
+      fetchLogin({ email: inputLogin.email, password: inputLogin.password })
+    );
   };
+
+  //размер инпута
+  const inputSize = windowSize > 660 ? "default" : "small";
 
   return (
     <div className={styleLogin.container}>
-      <h3 className="text text_type_main-medium mb-5">Вход</h3>
+      <h2 className={`text text_type_main-medium mb-5 ${styleLogin.title}`}>
+        Вход
+      </h2>
       <form className={styleLogin.form} onSubmit={submitLogin}>
         <Input
           type={"email"}
@@ -56,35 +61,29 @@ import { TLocationProps } from "../../types/types";
           error={false}
           ref={nameRef}
           errorText={"Ошибка"}
-          size={"default"}
-          extraClass="ml-1"
+          size={inputSize}
         />
-        <div className={styleLogin.passwordInput}>
-          <Input
-            type={"password"}
-            placeholder={"Пароль"}
-            onChange={setParams}
-            icon={type}
-            value={inputLogin.password}
-            name={"password"}
-            error={false}
-            ref={PasswordRef}
-            onIconClick={toggleTypePassword}
-            errorText={"Ошибка"}
-            size={"default"}
-            extraClass="ml-1"
-          />
-        </div>
-        <div className={styleLogin.button}>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="medium"
-            extraClass="ml-2"
-          >
-            Войти
-          </Button>
-        </div>
+        <Input
+          type={"password"}
+          placeholder={"Пароль"}
+          onChange={setParams}
+          icon={type}
+          value={inputLogin.password}
+          name={"password"}
+          error={false}
+          ref={PasswordRef}
+          onIconClick={toggleTypePassword}
+          errorText={"Ошибка"}
+          size={inputSize}
+        />
+        <Button
+          htmlType="submit"
+          type="primary"
+          size="medium"
+          extraClass={styleLogin.button}
+        >
+          Войти
+        </Button>
       </form>
       <div className={styleLogin.registrationContainer}>
         <p className={styleLogin.text}>Вы - новый пользователь?</p>
@@ -100,6 +99,6 @@ import { TLocationProps } from "../../types/types";
       </div>
     </div>
   );
-}
+};
 
 export default Login;

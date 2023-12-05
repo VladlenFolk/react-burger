@@ -15,11 +15,8 @@
   flex-direction: column;
   gap: 24px;
   position: relative;
+  align-items: center;
 }
-
-/* .form :nth-child(1) {
-  width: 100%;
-} */
 
 .text {
   font-family: "JetBrainsMono", Arial, sans-serif;
@@ -77,12 +74,14 @@
     display: none;
   }
 }
+
 @media only screen and (max-width: 1060px) {
   .links {
     display: none;
   }
   .form {
     margin: 0;
+    gap: 20px;
   }
   .container {
     flex-direction: column;
@@ -104,16 +103,20 @@
   .buttonContainer :nth-child(1) {
     margin: 0;
   }
+  .form div label {
+    top: 4px;
+  }
 }
 
 @media only screen and (max-width: 620px) {
-  /* .container{
-    width: 304px;
-  } */
-  /* .container {
-   width: 304px;
-  } */
-  .nameInput{
-    width: 200px;
+  .form {
+    width: auto;
+    gap: 20px;
+  }
+  .form div {
+    max-width: 304px;
+  }
+  .button {
+    padding: 10px 32px;
   }
 }

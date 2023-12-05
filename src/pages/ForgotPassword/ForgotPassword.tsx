@@ -13,12 +13,13 @@ function ForgotPassword() {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
+  const { windowSize } = useAppSelector((state) => state.windowSlice);
   const { values, handleChange } = useForm({ email: "" });
   const nameRef = useRef<HTMLInputElement>(null);
 
   const submitForgotPass = (e: React.ChangeEvent<HTMLFormElement>) => {
     e.preventDefault();
-    dispatch(fetchRequestRestoreCode({email: values.email}));
+    dispatch(fetchRequestRestoreCode({ email: values.email }));
     history.push({
       pathname: "/reset-password",
       state: { prevPathname: history.location.pathname },
@@ -29,35 +30,36 @@ function ForgotPassword() {
     return <Redirect to="/" />;
   }
 
+  //размер инпута
+  const inputSize = windowSize > 660 ? "default" : "small";
+
   return (
     <>
       <div className={styleForgot.container}>
-        <h3 className="text text_type_main-medium mb-5">
+        <h3 className={`text text_type_main-medium mb-5 ${styleForgot.title}`}>
           Восстановление пароля
         </h3>
         <form className={styleForgot.form} onSubmit={submitForgotPass}>
           <Input
             type={"email"}
-            placeholder={"Укажите E-mail"}
+            placeholder={"Укажите e-mail"}
             onChange={handleChange}
             value={values.email}
             name={"email"}
             error={false}
             ref={nameRef}
             errorText={"Ошибка"}
-            size={"default"}
+            size={inputSize}
             extraClass="ml-1"
           />
-          <div className={styleForgot.button}>
-            <Button
-              htmlType="submit"
-              type="primary"
-              size="medium"
-              extraClass="ml-2"
-            >
-              Восстановить
-            </Button>
-          </div>
+          <Button
+            htmlType="submit"
+            type="primary"
+            size={"medium"}
+            extraClass={styleForgot.button}
+          >
+            Восстановить
+          </Button>
         </form>
         <div className={styleForgot.registrationContainer}>
           <p className={styleForgot.text}>Вспомнили пароль?</p>

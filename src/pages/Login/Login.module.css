@@ -43,26 +43,58 @@
   color: #4c4cff;
 }
 
-.passwordInput {
-  margin-top: 25px;
-}
-
 .button {
-  margin-top: 25px;
   align-self: center;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 25px;
   align-items: center;
   width: 490px;
 }
 
-.form :nth-child(1) {
-  width: 100%;
+@media only screen and (max-width: 1060px) {
+  .container {
+    margin: 16px 0 0;
+  }
+  .title {
+    margin-bottom: 24px;
+  }
+  .form {
+    gap: 20px;
+  }
+  .form div div {
+    cursor: default;
+  }
+  .button {
+    padding: 10px 32px;
+    cursor: default;
+  }
+  .registrationContainer {
+    flex-direction: column;
+    margin-top: 40px;
+  }
+  .restoreContainer {
+    flex-direction: column;
+  }
+  .text {
+    margin: 0;
+  }
+  .link {
+    margin: 0;
+  }
 }
 
-.form :nth-child(2) {
-  width: 100%;
+@media only screen and (max-width: 660px) {
+  .form div label {
+    top: 4px;
+  }
+  .form {
+    width: auto;
+  }
+  .form div {
+    max-width: 304px;
+  }
 }

@@ -86,6 +86,7 @@ const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.userSlice);
+  const { windowSize } = useAppSelector((state) => state.windowSlice);
 
   useEffect(() => {
     setInputProfile({ name: user.name, email: user.email, password: "" });
@@ -116,11 +117,14 @@ const Profile: React.FC = () => {
     setShowButton(false);
   };
 
+  //размер инпута
+  const inputSize = windowSize > 660 ? "default" : "small";
+
   return (
     <>
       <div className={styleProfile.container}>
         <h2 className={`text text_type_main-medium mb-5 ${styleProfile.title}`}>
-          Вход
+          Профиль
         </h2>
         <div className={styleProfile.links}>
           <p
@@ -149,71 +153,60 @@ const Profile: React.FC = () => {
             </p>
           </div>
         </div>
-        {/* <div> */}
-          <form className={styleProfile.form} onSubmit={updateUserInfo}>
-            <div className={styleProfile.nameInput}>
-              <Input
-                type={"text"}
-                placeholder={"Имя"}
-                onChange={setParams}
-                icon={nameIcon}
-                value={inputProfile.name}
-                name={"name"}
-                error={false}
-                ref={nameRef}
-                onIconClick={setClearName}
-                errorText={"Ошибка"}
-                size={"default"}
-                extraClass="ml-1"
-              />
+        <form className={styleProfile.form} onSubmit={updateUserInfo}>
+          <Input
+            type={"text"}
+            placeholder={"Имя"}
+            onChange={setParams}
+            icon={nameIcon}
+            value={inputProfile.name}
+            name={"name"}
+            error={false}
+            ref={nameRef}
+            onIconClick={setClearName}
+            errorText={"Ошибка"}
+            size={inputSize}
+          />
+          <Input
+            type={"text"}
+            placeholder={"Логин"}
+            onChange={setParams}
+            icon={nameLogin}
+            value={inputProfile.email}
+            name={"email"}
+            error={false}
+            ref={loginRef}
+            onIconClick={setClearLogin}
+            errorText={"Ошибка"}
+            size={inputSize}
+          />
+          <Input
+            type={"password"}
+            placeholder={"Пароль"}
+            onChange={setParams}
+            icon={namePassword}
+            value={inputProfile.password}
+            name={"password"}
+            error={false}
+            ref={passwordRef}
+            onIconClick={setClearPassword}
+            errorText={"Ошибка"}
+            size={inputSize}
+          />
+          {showButton && (
+            <div className={styleProfile.buttonContainer}>
+              <p onClick={resetInputs}>Отмена</p>
+              <Button
+                htmlType="submit"
+                type="primary"
+                size={"medium"}
+                extraClass={styleProfile.button}
+              >
+                {"Сохранить"}
+              </Button>
             </div>
-            <div className={styleProfile.loginInput}>
-              <Input
-                type={"text"}
-                placeholder={"Логин"}
-                onChange={setParams}
-                icon={nameLogin}
-                value={inputProfile.email}
-                name={"email"}
-                error={false}
-                ref={loginRef}
-                onIconClick={setClearLogin}
-                errorText={"Ошибка"}
-                size={"default"}
-                // extraClass="ml-1"
-              />
-            </div>
-            <div className={styleProfile.passwordInput}>
-              <Input
-                type={"password"}
-                placeholder={"Пароль"}
-                onChange={setParams}
-                icon={namePassword}
-                value={inputProfile.password}
-                name={"password"}
-                error={false}
-                ref={passwordRef}
-                onIconClick={setClearPassword}
-                errorText={"Ошибка"}
-                size={"default"}
-                // extraClass="ml-1"
-              />
-            </div>
-            {showButton && (
-              <div className={styleProfile.buttonContainer}>
-                <p onClick={resetInputs}>Отмена</p>
-                  <Button
-                    htmlType="submit"
-                    type="primary"
-                    size="medium"
-                    extraClass="ml-2"
-                  >
-                    Сохранить
-                  </Button>
-              </div>
-            )}
-          </form>
-        {/* </div> */}
+          )}
+        </form>
       </div>
     </>
   );

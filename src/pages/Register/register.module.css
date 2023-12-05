@@ -11,14 +11,6 @@
   margin-top: 82px;
 }
 
-.emailInput {
-  margin-top: 25px;
-}
-
-.passwordInput {
-  margin-top: 25px;
-}
-
 .link {
   font-family: "JetBrainsMono", Arial, sans-serif;
   font-style: normal;
@@ -45,29 +37,59 @@
   color: #4c4cff;
 }
 
-.button {
+/* .button {
   margin-top: 24px;
-}
+} */
 
 .form {
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 490px;
-}
-
-.form :nth-child(1) {
-  width: 100%;
-}
-
-.form :nth-child(2) {
-  width: 100%;
-}
-
-.form :nth-child(3) {
-  width: 100%;
+  gap: 25px;
 }
 
 .passwordInput :nth-child(3) {
   width: 38px;
+}
+
+@media only screen and (max-width: 1060px) {
+  .container {
+    margin: 16px 0 0;
+  }
+  .title {
+    margin-bottom: 24px;
+  }
+  .form {
+    gap: 20px;
+  }
+  .registrationContainer {
+    margin-top: 40px;
+    flex-direction: column;
+  }
+  .text {
+    margin: 0;
+  }
+  .link {
+    margin: 0;
+  }
+  .form div div {
+    cursor: default;
+  }
+  .button {
+    padding: 10px 32px;
+    cursor: default;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .form div label {
+    top: 4px;
+  }
+  .form {
+    width: auto;
+  }
+  .form div {
+    max-width: 304px;
+  }
 }
