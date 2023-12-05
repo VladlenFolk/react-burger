@@ -4,13 +4,11 @@ import { TIngredient, TOtherIngredient } from "../../types/types";
 interface IConstructorState {
     bun: TIngredient | null ;
     otherIngredients?: TOtherIngredient[];
-    isCount: boolean;
 }
 
 const initialState: IConstructorState = {
     bun: null,
     otherIngredients: [],
-    isCount: false,
 } 
 
 const constructorSlice = createSlice({
@@ -44,12 +42,7 @@ const constructorSlice = createSlice({
             state.otherIngredients = [];
             state.bun = null;
         },
-        countOpen(state: IConstructorState, action: PayloadAction){
-            state.isCount = true;
-        },
-        countClose(state: IConstructorState, action: PayloadAction){
-            state.isCount = false
-        }
+
     }
 })
 
@@ -60,6 +53,4 @@ export const {
     deleteIngredient,
     sortIngredients,
     resetConstructor,
-    countOpen,
-    countClose
   } = constructorSlice.actions;

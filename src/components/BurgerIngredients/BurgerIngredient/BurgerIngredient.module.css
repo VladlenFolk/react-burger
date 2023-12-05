@@ -26,15 +26,6 @@
   margin-top: 8px;
 }
 
-.cover {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 20px;
-  width: 140px;
-  z-index: 20;
-}
-
 @media only screen and (min-width: 1060px) {
   .add {
     display: none;
@@ -60,17 +51,16 @@
     position: absolute;
     text-align: center;
     color: #4c4cff;
-    left: 25%;
+    left: 20%;
     bottom: 0;
     margin-bottom: -50px;
-    z-index: 70;
   }
   .cover {
     height: 20px;
     width: 240px;
   }
   .ingredientsComponent {
-   display: none;
+    display: none;
   }
 }
 

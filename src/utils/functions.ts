@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 import { TIngredient } from "../types/types";
-import { addBun, countOpen, addOtherIngredient } from "../services/reduxToolkit/constructorSlice";
-
+import { addBun,  addOtherIngredient } from "../services/reduxToolkit/constructorSlice";
+import { countOpen } from "../services/reduxToolkit/utils";
 
 
 export const addItem = (item: TIngredient, callback: any) => {

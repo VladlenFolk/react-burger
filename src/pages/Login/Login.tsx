@@ -11,7 +11,7 @@ import { TLocationProps } from "../../types/types";
 
 const Login: FC = () => {
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
-  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
   const dispatch = useAppDispatch();
   const nameRef = useRef<HTMLInputElement>(null);
   const PasswordRef = useRef<HTMLInputElement>(null);

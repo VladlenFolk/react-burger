@@ -5,12 +5,18 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import styleHomePage from "./HomePage.module.css";
 import Footer from "../../components/Footer/Footer";
+import ModalMobile from "../../components/ModalMobile/ModalMobile";
 
 const HomePage: React.FC = () => {
   const { ingredients, ingredientsFailed } = useAppSelector(
     (state) => state.ingredientsSlice
   );
-  const { isCount } =useAppSelector((state) => state.constructorSlice);
+  const bun = useAppSelector((state) => state.constructorSlice.bun);
+  const constructorIngredients = useAppSelector(
+    (state) => state.constructorSlice.otherIngredients
+  ); 
+  const { isCount } = useAppSelector((state) => state.utils);
+  const { countModal } = useAppSelector((state) => state.utils);
 
   return (
     <>
@@ -29,12 +35,17 @@ const HomePage: React.FC = () => {
                 <BurgerConstructor />
               </DndProvider>
             </main>
-            {isCount && <Footer/>}
+            {(bun || constructorIngredients?.length!==0) && <Footer />}
+            {countModal &&  (
+              <ModalMobile title={"Заказ"}>
+
+              </ModalMobile>
+            )}
           </>
         )}
       </div>
     </>
   );
-}
+};
 
 export default HomePage;

@@ -19,7 +19,7 @@ import ModalRoutes from "../ModalRoutes/ModalRoutes";
 import ChoosenOrder from "../../pages/ChoosenOrder/ChoosenOrder";
 import { fetchIngredients as getIngredients } from "../../services/reduxToolkit/ingredientsSlice";
 import { TLocationState } from "../../types/types";
-import { changedSize } from "../../services/reduxToolkit/windowSlice";
+import { changedSize } from "../../services/reduxToolkit/utils";
 
 const App: React.FC = () => {
   const { ingredientsRequest, ingredients } = useAppSelector(
@@ -36,7 +36,7 @@ const App: React.FC = () => {
   const ChoosenOrderMemo = memo(ChoosenOrder);
   const jwt = localStorage.getItem("jwt");
 
-  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
   useEffect(() => {
     if (windowSize === 0) {
       dispatch(changedSize(window.innerWidth));

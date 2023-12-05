@@ -12,7 +12,7 @@ import { TLocationProps } from "../../types/types";
 
 function Register() {
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
-  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
   const { state } = useLocation() as TLocationProps;
   const nameRef = useRef<HTMLInputElement>(null);
   const mailRef = useRef<HTMLInputElement>(null);

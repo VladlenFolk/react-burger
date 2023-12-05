@@ -13,7 +13,7 @@ function ForgotPassword() {
   const dispatch = useAppDispatch();
   const history = useHistory();
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
-  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
   const { values, handleChange } = useForm({ email: "" });
   const nameRef = useRef<HTMLInputElement>(null);
 

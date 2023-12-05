@@ -86,7 +86,7 @@ const Profile: React.FC = () => {
   const dispatch = useAppDispatch();
 
   const { user } = useAppSelector((state) => state.userSlice);
-  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
 
   useEffect(() => {
     setInputProfile({ name: user.name, email: user.email, password: "" });
