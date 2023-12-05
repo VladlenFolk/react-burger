@@ -58,6 +58,8 @@
 @media only screen and (max-width: 1060px) {
   .container {
     margin: 16px 0 0;
+    height: 100vh;
+    justify-content: center;
   }
   .title {
     margin-bottom: 24px;

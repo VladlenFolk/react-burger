@@ -87,6 +87,8 @@
     flex-direction: column;
     align-items: center;
     margin: 16px 0 0;
+    height: 100vh;
+    justify-content: center;
   }
   .buttonContainer {
     margin: 0;
