@@ -16,6 +16,7 @@ const ModalRoutes: React.FC = () => {
   const onModalClose = () => {
     history.goBack();
   };
+  const mobileMenu = useAppSelector((state) => state.userSlice.mobileMenu);
   return (
     <>
       {background && (
@@ -45,9 +46,11 @@ const ModalRoutes: React.FC = () => {
           )}
         </Route>
       )}
-      <ModalMobile title={"Меню"}>
-        <ModalMenu />
-      </ModalMobile>
+      {mobileMenu && (
+        <ModalMobile title={"Меню"}>
+          <ModalMenu />
+        </ModalMobile>
+      )}
     </>
   );
 };

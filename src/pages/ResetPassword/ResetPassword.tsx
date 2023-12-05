@@ -21,6 +21,7 @@ const ResetPassword: React.FC = () => {
   
   const prevPath = history.location.state?.prevPathname;
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
+  const { windowSize } = useAppSelector((state) => state.windowSlice);
   const { state } = useLocation<TLocationState>();
   const codeRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -54,14 +55,16 @@ const ResetPassword: React.FC = () => {
     history.push("/login");
   };
 
+    //размер инпута
+    const inputSize = windowSize > 660 ? 'default' : 'small';
+
   return (
     <>
       <div className={styleReset.container}>
-        <h3 className="text text_type_main-medium mb-5">
+        <h3 className={`text text_type_main-medium mb-5 ${styleReset.title}`}>
           Восстановление пароля
         </h3>
         <form className={styleReset.form} onSubmit={submitLogin}>
-          <div className={styleReset.passwordInput}>
             <Input
               type={"password"}
               placeholder={"Введите новый пароль"}
@@ -73,11 +76,8 @@ const ResetPassword: React.FC = () => {
               ref={passwordRef}
               onIconClick={toggleTypePassword}
               errorText={"Ошибка"}
-              size={"default"}
-              extraClass="ml-1"
+              size={inputSize}
             />
-          </div>
-          <div className={styleReset.codeInput}>
             <Input
               type={"text"}
               placeholder={"Введите код из письма"}
@@ -88,20 +88,16 @@ const ResetPassword: React.FC = () => {
               ref={codeRef}
               onIconClick={toggleTypePassword}
               errorText={"Ошибка"}
-              size={"default"}
-              extraClass="ml-1"
+              size={inputSize}
             />
-          </div>
-          <div className={styleReset.button}>
             <Button
               htmlType="submit"
               type="primary"
               size="medium"
-              extraClass="ml-2"
+              extraClass={styleReset.button}
             >
               Сохранить
             </Button>
-          </div>
         </form>
         <div className={styleReset.registrationContainer}>
           <p className={styleReset.text}>Вспомнили пароль?</p>
