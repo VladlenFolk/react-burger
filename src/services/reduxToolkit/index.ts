@@ -4,7 +4,7 @@ import ingredientsSlice from "./ingredientsSlice";
 import constructorSlice from "./constructorSlice";
 import orderSlice from "./orderSlice";
 import userSlice from "./userSlice";
-import windowSlice from "./windowSlice";
+import utils from "./utils";
 
 export const rootReducer = combineReducers({
   wsSlice,
@@ -12,5 +12,5 @@ export const rootReducer = combineReducers({
   constructorSlice,
   orderSlice,
   userSlice, 
-  windowSlice
+  utils
 });

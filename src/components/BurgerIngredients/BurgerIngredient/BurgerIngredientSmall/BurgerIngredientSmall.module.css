@@ -1,83 +1,73 @@
 .container {
+  position: relative;
+}
+
+.image {
+  max-width: 240px;
+  max-height: 120px;
+}
+
+.price {
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.cover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 140px;
+  z-index: 20;
+}
+
+@media only screen and (min-width: 1060px) {
+  .add {
+    display: none;
+  }
+  .ingredientsComponentMin {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .ingredientsComponentMin {
     position: relative;
-  }
-  
-  .image {
-    max-width: 240px;
-    max-height: 120px;
-  }
-  
-  .price {
     display: flex;
+    flex-direction: column;
     align-items: center;
-    margin-top: 8px;
+    max-width: 162px;
+    text-align: center;
+    margin: -1px 0 0 12px;
+    text-decoration: none;
+    color: white;
   }
-  
   .cover {
-    position: absolute;
-    top: 0;
-    left: 0;
+    height: 20px;
+    width: 240px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .price > p {
+    font-size: 24px;
+  }
+  .ingredientsComponentMin {
+    margin-top: 10px;
+    margin-bottom: 38px;
+  }
+  .ingredientsComponentMin > p {
+    font-size: 14px;
+  }
+  .add {
+    bottom: 0;
+    left: 25%;
+    color: #4c4cff;
+    margin-bottom: 20px;
+  }
+  .cover {
     height: 20px;
     width: 140px;
-    z-index: 20;
   }
-  
-  @media only screen and (min-width: 1060px) {
-    .add {
-      display: none;
-    }
-    .ingredientsComponentMin {
-      display: none;
-    }
-  }
-  
-  @media only screen and (max-width: 1060px) {
-    .ingredientsComponentMin {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      max-width: 162px;
-      text-align: center;
-      margin: -1px 0 0 12px;
-      text-decoration: none;
-      color: white;
-    }
-    .add {
-      position: absolute;
-      text-align: center;
-      color: #4c4cff;
-      left: 25%;
-      bottom: 0;
-      margin-bottom: -70px;
-      z-index: 70;
-    }
-    .cover {
-      height: 20px;
-      width: 240px;
-    }
-  }
-  
-  @media only screen and (max-width: 660px) {
-    .price > p {
-      font-size: 24px;
-    }
-    .ingredientsComponentMin {
-      margin-top: 10px;
-      margin-bottom: 38px;
-    }
-    .ingredientsComponentMin > p {
-      font-size: 14px;
-    }
-    .add {
-      bottom: 0;
-      left: 25%;
-      color: #4c4cff;
-      margin-bottom: 20px;
-    }
-    .cover {
-      height: 20px;
-      width: 140px;
-    }
-  }
-  
+}

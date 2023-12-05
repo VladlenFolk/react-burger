@@ -52,13 +52,38 @@
 }
 
 @media only screen and (max-width: 1200px) {
+  .elementTopList div {
+    width: 97%;
+  }
+  .elementBotList div {
+    width: 97%;
+  }
+}
+
+@media only screen and (max-width: 1250px) {
   .container {
     margin: 0 0 0 10px;
   }
-} 
+}
+
+@media only screen and (max-width: 1100px) {
+  .counter {
+    margin: 40px 0 0;
+    justify-content: center;
+  }
+  .container {
+    margin: 0;
+  }
+  .elementTopList div {
+    padding: 16px 14px;
+  }
+  .elementBotList div {
+    padding: 16px 14px;
+  }
+}
 
 @media only screen and (max-width: 1060px) {
   .container {
     display: none;
   }
-} 
+}

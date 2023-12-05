@@ -13,20 +13,22 @@ type TIngredientBurger = {
 };
 
 const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
-  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
   const dispatch = useDispatch();
-  const add = () =>{
-    addItem(item, dispatch)
-  }
+  const add = () => {
+    addItem(item, dispatch);
+  };
   return (
     <div className={burgerStyle.container}>
-      <div className={burgerStyle.cover}></div>
       {windowSize > 1060 ? (
         <BurgerIngredientLarge count={count} item={item} id={id} />
       ) : (
         <BurgerIngredientSmall count={count} item={item} id={id} />
       )}
-      <p className={`${"text text_type_secondary-default"} ${burgerStyle.add}`} onClick={add}>
+      <p
+        className={`${"text text_type_secondary-default"} ${burgerStyle.add}`}
+        onClick={add}
+      >
         Добавить
       </p>
     </div>

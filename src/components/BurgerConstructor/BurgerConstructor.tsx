@@ -15,7 +15,10 @@ import ConstructorContainer from "./ConstructorContainer/ConstructorContainer";
 import { fetchGetOrder } from "../../services/reduxToolkit/orderSlice";
 import Loader from "../Loader/Loader";
 import { useHistory } from "react-router-dom";
-import { addBun, addOtherIngredient} from "../../services/reduxToolkit/constructorSlice";
+import {
+  addBun,
+  addOtherIngredient,
+} from "../../services/reduxToolkit/constructorSlice";
 import { resetConstructor } from "../../services/reduxToolkit/constructorSlice";
 import { TIngredient, TOtherIngredient } from "../../types/types";
 
@@ -24,10 +27,12 @@ const BurgerConstructor: React.FC = () => {
   const bun = useAppSelector((state) => state.constructorSlice.bun);
   const constructorIngredients = useAppSelector(
     (state) => state.constructorSlice.otherIngredients
-  ); 
+  );
   const constructorBuns = useAppSelector((state) => state.constructorSlice.bun);
   const orderNumber = useAppSelector((data) => data.orderSlice.number);
-  const { orderRequest, orderFailed } = useAppSelector((state) => state.orderSlice);
+  const { orderRequest, orderFailed } = useAppSelector(
+    (state) => state.orderSlice
+  );
   const dispatch = useAppDispatch();
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
   const history = useHistory();
@@ -50,7 +55,10 @@ const BurgerConstructor: React.FC = () => {
     return (
       (bun ? bun.price * 2 : 0) +
       (constructorIngredients
-        ? constructorIngredients.reduce((prev: number, cur: TOtherIngredient) => prev + cur.item.price, 0)
+        ? constructorIngredients.reduce(
+            (prev: number, cur: TOtherIngredient) => prev + cur.item.price,
+            0
+          )
         : 0)
     );
   }, [bun, constructorIngredients]);
@@ -68,25 +76,26 @@ const BurgerConstructor: React.FC = () => {
       addItem(item);
     },
   });
-  
+
   //получаем все id ингредиентов
   const idIngredients = useMemo(() => {
-    if (constructorIngredients !== undefined){
-    let constructorIngredientsArr: string[] = constructorIngredients?.map(
-      (item: TOtherIngredient) => item?.item._id
-    );
-    if(constructorBuns !== null){
-    return (constructorIngredientsArr = constructorIngredientsArr?.concat([
-      constructorBuns?._id,
-    ]))}};
+    if (constructorIngredients !== undefined) {
+      let constructorIngredientsArr: string[] = constructorIngredients?.map(
+        (item: TOtherIngredient) => item?.item._id
+      );
+      if (constructorBuns !== null) {
+        return (constructorIngredientsArr = constructorIngredientsArr?.concat([
+          constructorBuns?._id,
+        ]));
+      }
+    }
   }, [constructorIngredients, constructorBuns?._id]);
-
 
   //Запрос на получение заказа
   const handleOrderClick = () => {
     if (isAuthChecked && idIngredients) {
       dispatch(fetchGetOrder(idIngredients));
-      dispatch(resetConstructor())
+      dispatch(resetConstructor());
       setModalActive(true);
     } else {
       history.push("/login");

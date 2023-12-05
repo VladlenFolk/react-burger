@@ -21,7 +21,7 @@ const ResetPassword: React.FC = () => {
   
   const prevPath = history.location.state?.prevPathname;
   const { isAuthChecked } = useAppSelector((state) => state.userSlice);
-  const { windowSize } = useAppSelector((state) => state.windowSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
   const { state } = useLocation<TLocationState>();
   const codeRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
