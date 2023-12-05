@@ -7,19 +7,27 @@ import {
 import { useState } from "react";
 import MenuStile from "./ModalMenu.module.css";
 import { NavLink, useLocation } from "react-router-dom";
-import { useAppDispatch } from "../../../hooks/typesHooks";
+import { useAppDispatch, useAppSelector } from "../../../hooks/typesHooks";
 import { fetchLogout } from "../../../services/reduxToolkit/userSlice";
 import { toggleMobileMenu } from "../../../services/reduxToolkit/userSlice";
+import { toggleBurger, toggleAnimate, countModalClose } from "../../../services/reduxToolkit/utils";
 
 const ModalMenu = () => {
   const dispatch = useAppDispatch();
   const location = useLocation();
  
-
-
-
+  const { countModal } = useAppSelector((state) => state.utils);
+  const toggleIcon = () => {
+    if (!countModal) {
+      dispatch(toggleMobileMenu());
+    } else {
+      dispatch(countModalClose());
+    }
+  };
   const toggleMenu = () => {
-    dispatch(toggleMobileMenu());
+    dispatch(toggleAnimate());
+    dispatch(toggleBurger());
+    setTimeout(toggleIcon, 100);
   };
 
   const [open, setOpen] = useState(false);
