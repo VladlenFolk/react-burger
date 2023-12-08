@@ -20,6 +20,9 @@
   line-height: 24px;
   font-weight: 400;
 }
+.wrapper{
+  margin-bottom: auto;
+}
 
 @media only screen and (max-width: 1060px) {
   .title {
