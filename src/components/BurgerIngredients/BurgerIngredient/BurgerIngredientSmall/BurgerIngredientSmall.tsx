@@ -25,7 +25,6 @@ const BurgerIngredientSmall: React.FC<TIngredientBurger> = ({
 
   return (
     <div className={burgerStyle.container}>
-      <div className={burgerStyle.cover}></div>
       <div
         className={burgerStyle.ingredientsComponentMin}
         onClick={add}

@@ -6,6 +6,9 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import styleHomePage from "./HomePage.module.css";
 import Footer from "../../components/Footer/Footer";
 import ModalMobile from "../../components/ModalMobile/ModalMobile";
+import OrderMobile from "../../components/BurgerConstructor/OrderMobile/OrderMobile";
+import FooterConstructor from "../../components/Footer/FooterConstructor/FooterConstructor";
+
 
 const HomePage: React.FC = () => {
   const { ingredients, ingredientsFailed } = useAppSelector(
@@ -37,7 +40,10 @@ const HomePage: React.FC = () => {
             {(bun || constructorIngredients?.length!==0) && <Footer />}
             {countModal &&  (
               <ModalMobile title={"Заказ"}>
-
+                <div className={styleHomePage.wrapper}>
+                <OrderMobile/>
+                </div>
+                { bun && <FooterConstructor/>}
               </ModalMobile>
             )}
           </>

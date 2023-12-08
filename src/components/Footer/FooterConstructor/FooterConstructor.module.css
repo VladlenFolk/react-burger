@@ -1,0 +1,52 @@
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 16px 8px;
+  box-sizing: border-box;
+  border-radius: 15px 15px 0px 0px;
+  background-color: #1c1c21;
+  width: 100%;
+  margin-top: auto;
+  /* position: sticky; */
+  /* bottom: 0; */
+  /* z-index: 200; */
+}
+
+.footer button{
+  cursor: default;
+}
+
+.footer button:hover{
+  pointer-events: none;
+}
+
+
+.price {
+  display: flex;
+  align-items: center;
+  color: #f2f2f3;
+}
+
+.price p {
+  font-size: 22px;
+  margin-top: 3px;
+  margin-left: 2px;
+}
+
+.footer button {
+  padding: 10px 50px;
+  margin-right: -25px;
+}
+
+@media only screen and (min-width: 1060px) {
+  .footer {
+    display: none;
+  }
+}
+@media only screen and (min-width: 660px) {
+  .footer {
+    gap: 90px;
+  }
+}

@@ -1,0 +1,34 @@
+
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.otherIngredients{
+
+}
+
+
+
+.scroll {
+  max-height: 77vh;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+.scroll::-webkit-scrollbar {
+  width: 0.1em;
+}
+.scroll::-webkit-scrollbar-thumb {
+  background-color: transparent;
+}
+
+
+@media only screen and (max-width: 500px) {
+  .scroll {
+    max-height: 75vh;
+  }
+}

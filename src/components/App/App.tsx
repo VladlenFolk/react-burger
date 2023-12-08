@@ -35,7 +35,9 @@ const App: React.FC = () => {
   const OrdersMemo = memo(Orders);
   const ChoosenOrderMemo = memo(ChoosenOrder);
   const jwt = localStorage.getItem("jwt");
-
+  const state = useAppSelector((state) => state.utils.burgerState);
+  const bodyState = state ? "hidden" : 'auto';
+  document.body.style.overflow = bodyState; 
   const { windowSize } = useAppSelector((state) => state.utils);
   useEffect(() => {
     if (windowSize === 0) {
