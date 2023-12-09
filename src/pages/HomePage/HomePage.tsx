@@ -8,7 +8,7 @@ import Footer from "../../components/Footer/Footer";
 import ModalMobile from "../../components/ModalMobile/ModalMobile";
 import OrderMobile from "../../components/BurgerConstructor/OrderMobile/OrderMobile";
 import FooterConstructor from "../../components/Footer/FooterConstructor/FooterConstructor";
-
+import OrderDetails from "../../components/BurgerConstructor/OrderDetails/OrderDetails";
 
 const HomePage: React.FC = () => {
   const { ingredients, ingredientsFailed } = useAppSelector(
@@ -17,8 +17,11 @@ const HomePage: React.FC = () => {
   const bun = useAppSelector((state) => state.constructorSlice.bun);
   const constructorIngredients = useAppSelector(
     (state) => state.constructorSlice.otherIngredients
-  ); 
+  );
+  const { orderRequest } = useAppSelector((state) => state.orderSlice);
   const { countModal } = useAppSelector((state) => state.utils);
+  const { orderModal } = useAppSelector((state) => state.utils);
+  const orderNumber = useAppSelector((data) => data.orderSlice.number);
 
   return (
     <>
@@ -37,13 +40,18 @@ const HomePage: React.FC = () => {
                 <BurgerConstructor />
               </DndProvider>
             </main>
-            {(bun || constructorIngredients?.length!==0) && <Footer />}
-            {countModal &&  (
+            {bun && constructorIngredients?.length !== 0 && <Footer />}
+            {countModal && (
               <ModalMobile title={"Заказ"}>
                 <div className={styleHomePage.wrapper}>
-                <OrderMobile/>
+                  <OrderMobile />
                 </div>
-                { bun && <FooterConstructor/>}
+                {bun && <FooterConstructor />}
+              </ModalMobile>
+            )}
+            {orderModal && !orderRequest && (
+              <ModalMobile title={"Заказ оформлен"}>
+                <OrderDetails orderNumber={orderNumber} />
               </ModalMobile>
             )}
           </>

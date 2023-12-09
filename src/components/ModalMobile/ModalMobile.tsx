@@ -8,6 +8,7 @@ import {
   countModalClose,
   toggleAnimate,
   toggleBurger,
+  orderModalClose,
 } from "../../services/reduxToolkit/utils";
 
 type TModal = {
@@ -22,12 +23,14 @@ const ModalMobile: FC<TModal> = ({ children, title }) => {
   const burgerMenu = useAppSelector((state) => state.utils.burgerState);
   const { countModal } = useAppSelector((state) => state.utils);
   const { animate } = useAppSelector((state) => state.utils);
+  const { orderModal } = useAppSelector((state) => state.utils);
 
   const close = () => {
-    if (burgerMenu && !countModal) {
+    if (burgerMenu && !countModal && !orderModal) {
       dispatch(toggleMobileMenu());
-    } else if (burgerMenu && countModal) {
+    } else if (burgerMenu && (countModal || orderModal)) {
       dispatch(countModalClose());
+      dispatch(orderModalClose());
     }
   };
   function closeModal() {
@@ -35,12 +38,19 @@ const ModalMobile: FC<TModal> = ({ children, title }) => {
     dispatch(toggleBurger());
     setTimeout(close, 300);
   }
+  const classModal = countModal
+    ? animate
+      ? MenuStile.section_count_open
+      : MenuStile.section_count
+    : animate
+    ? MenuStile.section_open
+    : MenuStile.section;
 
   //Слушатель нажатия кнопки
   useKey("Escape", closeModal);
 
   return createPortal(
-    <section className={animate ? MenuStile.section_open : MenuStile.section}>
+    <section className={classModal}>
       <div className={MenuStile.title}>
         <h2 className={`${"text text_type_main-medium"}`}>{title}</h2>
       </div>

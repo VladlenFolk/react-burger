@@ -76,8 +76,8 @@ const App: React.FC = () => {
 
   return (
     <>
+    {ingredientsRequest && <Loader />}
       <AppHeader />
-      {ingredientsRequest && <Loader />}
       <Switch location={background || location}>
         <Route exact path={"/"}>
           <HomePage />

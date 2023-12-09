@@ -5,17 +5,20 @@ import { toggleBurger } from "../../../services/reduxToolkit/utils";
 import {
   countModalClose,
   toggleAnimate,
+  orderModalClose
 } from "../../../services/reduxToolkit/utils";
 
 const HeaderBurger = () => {
   const dispatch = useAppDispatch();
   const burger = useAppSelector((state) => state.utils.burgerState);
   const { countModal } = useAppSelector((state) => state.utils);
+  const { orderModal } = useAppSelector((state) => state.utils);
   const toggleIcon = () => {
-    if (!countModal) {
+    if (!countModal && !orderModal) {
       dispatch(toggleMobileMenu());
     } else {
       dispatch(countModalClose());
+      dispatch(orderModalClose())
     }
   };
 

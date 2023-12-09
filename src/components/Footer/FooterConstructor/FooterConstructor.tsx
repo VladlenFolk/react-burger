@@ -13,7 +13,7 @@ import { countModalClose } from "../../../services/reduxToolkit/utils";
 import {
   toggleBurger,
   toggleAnimate,
-  countModalOpen,
+  orderModalOpen
 } from "../../../services/reduxToolkit/utils";
 
 const FooterConstructor = () => {
@@ -55,9 +55,11 @@ const FooterConstructor = () => {
     if (isAuthChecked && idIngredients) {
       dispatch(fetchGetOrder(idIngredients));
       dispatch(resetConstructor());
-      dispatch(toggleAnimate());
-      dispatch(toggleBurger());
+      // dispatch(toggleAnimate());
+      // dispatch(toggleBurger());
       dispatch(countModalClose());
+      dispatch(orderModalOpen());
+      // dispatch(toggleBurger());
     } else {
       history.push("/login");
     }
