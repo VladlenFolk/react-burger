@@ -1,6 +1,6 @@
 .scroll {
   position: relative;
-  max-height: 66vh;
+  max-height: 80vh;
   overflow-y: auto;
   margin-top: -75px;
 }
@@ -32,7 +32,8 @@
     overflow-y: auto;
     scrollbar-width: thin;
     scrollbar-color: transparent transparent;
-    max-height: 85vh;
+    max-height: 90vh;
+    margin: 8px 0;
   }
   .scroll::-webkit-scrollbar {
     width: 0.1em;

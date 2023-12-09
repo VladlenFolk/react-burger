@@ -55,10 +55,7 @@ const Orders = () =>{
   return (
     <>
       <div className={styleProfile.container}>
-        <div className={styleProfile.titleContainer}>
         <h2 className={styleProfile.title}>История заказов</h2>
-        </div>
-       
         <div className={styleProfile.links}>
           <NavLink to="/profile" className={styleProfile.list}>
             <p

@@ -51,7 +51,7 @@ const CardOrders: React.FC<TCardProps> =({ order }) => {
             {<FormattedDate date={new Date(date)} />}&nbsp;{'i-GMT+3'}
           </p>
         </div>
-        <h3 className="text text_type_main-medium mt-6 ml-1">{order.name}</h3>
+        <h3 className={`${"text text_type_main-medium mt-6 ml-1"} ${styleCard.orderName}`}>{order.name}</h3>
         <p className="text text_type_main-default mt-2 ml-1">{status}</p>
         <div className={styleCard.mainContainer}>
           <ul className={styleCard.list}>
@@ -75,7 +75,7 @@ const CardOrders: React.FC<TCardProps> =({ order }) => {
             ))}
           </ul>
           <div className={styleCard.total}>
-            <p className="text text_type_digits-default">{price}</p>
+            <p className={`${"text text_type_digits-default"} ${styleCard.digits}`}>{price}</p>
             <CurrencyIcon type="primary" />
           </div>
         </div>
