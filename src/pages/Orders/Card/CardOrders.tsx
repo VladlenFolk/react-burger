@@ -47,8 +47,8 @@ const CardOrders: React.FC<TCardProps> =({ order }) => {
       <li className={styleCard.card}>
         <div className={styleCard.cardHeader}>
           <p className="text text_type_digits-default">{`#${order.number}`}</p>
-          <p className="text text_type_main-default text_color_inactive">
-            <FormattedDate date={new Date(date)} /> i-GMT+3
+          <p className={`${"text text_type_main-default text_color_inactive"} ${styleCard.date}`}>
+            {<FormattedDate date={new Date(date)} />}&nbsp;{'i-GMT+3'}
           </p>
         </div>
         <h3 className="text text_type_main-medium mt-6 ml-1">{order.name}</h3>

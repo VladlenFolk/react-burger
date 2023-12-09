@@ -9,7 +9,7 @@
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06),
     0px 0px 1px rgba(0, 0, 0, 0.04);
   border-radius: 40px;
-  margin-bottom: 24px;
+  /* margin-bottom: 24px; */
 }
 
 .cardHeader {
@@ -94,4 +94,32 @@ ul {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+}
+
+@media only screen and (max-width: 1060px) {
+  .card{
+    width: auto;
+    box-sizing: initial;
+    padding: 16px;
+    margin: 0 8px;
+  }
+  .cardHeader :nth-child(2) span {
+    font-size: 14px;
+  }
+  .cardHeader :nth-child(2){
+    font-size: 14px;
+  }
+  
+  .cardHeader :nth-child(1) {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  .cardHeader p span {
+    font-size: 14px;
+  }
+  .date{
+    margin-left: auto;
+    text-align: right;
+    width: 120px;
+  }
 }

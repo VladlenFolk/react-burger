@@ -8,7 +8,7 @@ const OrderPage =() => {
 
   return (
     <div className={style.scroll}>
-      <ul>
+      <ul className={style.list}>
         {ordersList.map((order) => (
           <CardOrders key={order._id} order={order} />
         ))}

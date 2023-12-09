@@ -1,13 +1,15 @@
 .loaderContainer {
-  position: absolute;
+  position: fixed;
   top: 0;
+  bottom: 0;
   right: 0;
+  left: 0;
   display: grid;
   place-items: center;
   height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1;
+  z-index: 130;
 }
 
 .loader {
@@ -28,7 +30,7 @@
   right: 6px;
   background-color: #000;
   border-radius: 50%;
-  z-index: 2;
+  z-index: 132;
 }
 
 .loader::after {
@@ -39,7 +41,7 @@
   bottom: 0;
   right: 0;
   background: linear-gradient(45deg, transparent, transparent 40%, #e5f403);
-  z-index: 1;
+  z-index: 131;
   filter: blur(30px);
 }
 

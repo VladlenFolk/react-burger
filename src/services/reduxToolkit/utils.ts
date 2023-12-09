@@ -5,7 +5,8 @@ interface IUtils {
     isCount: boolean,
     burgerState: boolean,
     countModal: boolean,
-    animate: boolean
+    animate: boolean,
+    orderModal: boolean,
 }
 
 const initialState: IUtils = {
@@ -14,6 +15,7 @@ const initialState: IUtils = {
     burgerState: false, 
     countModal: false,
     animate: false,
+    orderModal: false,
 }
 
 const utils = createSlice({
@@ -47,6 +49,12 @@ const utils = createSlice({
     countModalClose(state: IUtils){
         state.countModal = false
     },
+    orderModalOpen(state: IUtils){
+        state.orderModal = true;
+    },
+    orderModalClose(state: IUtils){
+        state.orderModal = false;
+    }
    }
 })
 
@@ -60,5 +68,7 @@ export const {
     toggleBurger,
     toggleAnimate,
     countModalOpen,
-    countModalClose
+    countModalClose,
+    orderModalOpen,
+    orderModalClose,
 } = utils.actions;

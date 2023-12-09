@@ -4,7 +4,11 @@
   overflow-y: auto;
   margin-top: -75px;
 }
-
+.list{
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
 .scroll > li {
   margin: 0 8px 24px 0;
 }
@@ -21,4 +25,22 @@
   background: #8585ad;
   height: 50%;
   border-radius: 30px;
+}
+
+@media only screen and (max-width: 1060px) {
+  .scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    max-height: 85vh;
+  }
+  .scroll::-webkit-scrollbar {
+    width: 0.1em;
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  .list{
+    gap: 16px;
+  }
 }
