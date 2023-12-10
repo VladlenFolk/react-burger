@@ -100,11 +100,6 @@
   }
   .energy {
     margin: 0;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    grid-row-gap: 32px;
-    grid-column-gap: 16px;
   }
   .energy :nth-child(2).consistence :nth-child(1) {
     margin: 0;
@@ -114,5 +109,15 @@
   }
   .consistence p {
     font-size: 14px;
+  }
+}
+
+@media only screen and (max-width: 660px) {
+  .energy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-row-gap: 32px;
+    grid-column-gap: 16px;
   }
 }
