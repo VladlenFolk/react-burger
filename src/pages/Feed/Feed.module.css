@@ -108,3 +108,85 @@ ul {
   display: grid;
   gap: 8px;
 }
+
+.titleMobile{
+  display: none;
+}
+.tabs{
+  display: none;
+}
+
+@media only screen and (max-width: 1060px) {
+  .title{
+    display: none;
+  }
+  
+  .store {
+    display: none;
+  }
+  .feed {
+    margin: 0;
+  }
+  .scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    max-height: 90vh;
+    margin: 8px 0;
+    /* width: 100%; */
+  }
+  .scroll::-webkit-scrollbar {
+    width: 0.1em;
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  .cardsList {
+    margin: 0;
+  }
+  .titleMobile {
+  display: block;
+  }
+  .titleMobile h2{
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    line-height: 32px;
+  }
+
+  .container {
+    margin: 16px 0 8px 0;
+    flex-direction: column;
+    gap: 0;
+    /* align-items: center; */
+  }
+
+  .tabs {
+    display: flex;
+
+    /* z-index: 30; */
+  }
+  .tabs div {
+    text-align: center;
+    font-size: 14px;
+    padding: 0;
+    padding: 16px 0;
+    width: 100%;
+  }
+
+  .tab_menu {
+    cursor: default;
+    background-color: #131316;
+    /* min-width: 200px; */
+    text-align: center;
+    box-shadow: inset 0px -1px 0px #2f2f37;
+    color: #8585ad;
+    transition: all 0.3s ease-in;
+    box-sizing: border-box;
+    margin-top: 8px;
+  }
+  .tab_menu_type_current {
+    box-shadow: inset 0px -2px 0px #4c4cff;
+    color: white;
+  }
+}

@@ -94,6 +94,9 @@ ul {
   line-height: 24px;
   font-weight: 400;
 }
+.status{
+  display: none;
+}
 
 @media only screen and (max-width: 1275px) {
   .card {

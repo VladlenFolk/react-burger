@@ -82,3 +82,68 @@ ul {
   line-height: 24px;
   font-weight: 400;
 }
+
+@media only screen and (max-width: 1275px) {
+  .card {
+    width: auto;
+    margin: 0 20px;
+  }
+}
+
+@media only screen and (max-width: 1060px) {
+  .card {
+    width: auto;
+    box-sizing: initial;
+    padding: 16px;
+    margin: 0 8px;
+    min-height: fit-content;
+  }
+  .card p {
+    margin-left: 0;
+  }
+  .cardHeader :nth-child(2) span {
+    font-size: 14px;
+  }
+  .cardHeader :nth-child(2) {
+    font-size: 14px;
+  }
+
+  .cardHeader :nth-child(1) {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  .cardHeader p span {
+    font-size: 14px;
+  }
+  .date {
+    margin-left: auto;
+    text-align: right;
+    width: 130px;
+  }
+  .orderName {
+    font-size: 20px;
+    line-height: 24px;
+    margin-top: 16px;
+    margin-left: 0;
+  }
+  .ingredient {
+    width: 32px;
+    height: 32px;
+    margin-left: -10px;
+  }
+  .countIngredients {
+    top: 4px;
+    right: 7px;
+    font-size: 14px;
+  }
+  .mainContainer {
+    margin: 16px 0 0;
+  }
+  .digits {
+    font-size: 22px;
+  }
+  .total {
+    align-items: center;
+  }
+
+}
