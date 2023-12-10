@@ -25,7 +25,7 @@ const ModalRoutes: React.FC = () => {
         <Route path={`/ingredient/:idCard`}>
           {ingredients.length && (
             <Modal title={"Детали ингредиента"} onClose={onModalClose}>
-              <IngredientDetails />
+              <IngredientDetails onClose={onModalClose}/>
             </Modal>
           )}
         </Route>

@@ -1,4 +1,3 @@
-import { useAppSelector } from "../../../hooks/typesHooks";
 import burgerStyle from "./BurgerIngredient.module.css";
 import { TIngredient } from "../../../types/types";
 import BurgerIngredientSmall from "./BurgerIngredientSmall/BurgerIngredientSmall";
@@ -13,14 +12,13 @@ type TIngredientBurger = {
 };
 
 const BurgerIngredient: React.FC<TIngredientBurger> = ({ count, item, id }) => {
-  const { windowSize } = useAppSelector((state) => state.utils);
   const dispatch = useDispatch();
   const add = () => {
     addItem(item, dispatch);
   };
   return (
     <div className={burgerStyle.container}>
-      {windowSize > 1060 ? (
+      {window.innerWidth > 1060 ? (
         <BurgerIngredientLarge count={count} item={item} id={id} />
       ) : (
         <BurgerIngredientSmall count={count} item={item} id={id} />

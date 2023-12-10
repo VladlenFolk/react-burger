@@ -4,8 +4,8 @@ import {
 } from "@ya.praktikum/react-developer-burger-ui-components";
 import burgerStyle from "./BurgerIngredientSmall.module.css";
 import { TIngredient } from "../../../../types/types";
-import { useAppDispatch } from "../../../../hooks/typesHooks";
-import { addItem } from "../../../../utils/functions";
+import { Link, useLocation } from "react-router-dom";
+
 
 type TIngredientBurger = {
   count: number;
@@ -16,18 +16,15 @@ type TIngredientBurger = {
 const BurgerIngredientSmall: React.FC<TIngredientBurger> = ({
   count,
   item,
+  id
 }) => {
-
-  const dispatch = useAppDispatch();
-  const add = () =>{
-    addItem(item, dispatch)
-  }
-
+  const location = useLocation();
+  
   return (
     <div className={burgerStyle.container}>
-      <div
+      <Link
+      to={{ pathname: `/ingredient/${id}`, state: { background: location } }}
         className={burgerStyle.ingredientsComponentMin}
-        onClick={add}
       >
         {count > 0 && <Counter count={count} size="small" />}
         <img className={burgerStyle.image} src={item.image_mobile} alt={item.name}></img>
@@ -36,7 +33,7 @@ const BurgerIngredientSmall: React.FC<TIngredientBurger> = ({
           <CurrencyIcon type="primary" />
         </div>
         <p className="text text_type_main-default mt-2">{item.name}</p>
-      </div>
+      </Link>
     </div>
   );
 };

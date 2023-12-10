@@ -42,6 +42,7 @@
     margin: -1px 0 0 12px;
     text-decoration: none;
     color: white;
+    cursor: default;
   }
   .cover {
     height: 20px;
