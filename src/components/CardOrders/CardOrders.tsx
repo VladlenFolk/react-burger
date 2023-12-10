@@ -15,8 +15,6 @@ type TCardProps = {
 
 const CardOrders: React.FC<TCardProps> = ({ order }) => {
   const location = useLocation();
-  console.log(location);
-
   const ingredientsArr = order.ingredients;
   const date = order.createdAt;
   const { ingredients } = useAppSelector((state) => state.ingredientsSlice);
@@ -41,7 +39,6 @@ const CardOrders: React.FC<TCardProps> = ({ order }) => {
     location.pathname === "/feed"
       ? styleCard.status
       : `${"text text_type_main-default mt-2 ml-1"}`;
-  console.log(statusStile);
 
   return (
     <Link
