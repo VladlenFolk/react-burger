@@ -6,12 +6,11 @@ import useKey from "../../hooks/useKey";
 import ModalOverlay from "./ModalOverlay/ModalOverlay";
 import { useAppSelector } from "../../hooks/typesHooks";
 
-
-type TModal ={
+type TModal = {
   onClose: () => void;
   title?: string;
-  children?: ReactNode 
-}
+  children?: ReactNode;
+};
 
 const modalRootElement = document.getElementById("reactModals") as HTMLElement;
 

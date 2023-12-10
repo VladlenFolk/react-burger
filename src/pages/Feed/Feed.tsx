@@ -17,8 +17,8 @@ function Feed() {
     return () => {
       dispatch(wsClosed());
     };
-  }, []);
-  const { windowSize } = useAppSelector((state) => state.utils);
+  }, [dispatch]);
+  
 
   //переключение между страницами
   const [tab, setTab] = useState("1");
@@ -57,7 +57,7 @@ function Feed() {
             <span className="text text_type_main-default">Статистика</span>
           </div>
         </div>
-        {windowSize > 1060 && (
+        {window.innerWidth > 1060 && (
           <div className={styleFeed.feedOrderContainer}>
             <div className={styleFeed.title}>
               <h2 className="text text_type_main-large ml-20">Лента заказов</h2>
@@ -68,8 +68,8 @@ function Feed() {
             </div>
           </div>
         )}
-        {windowSize < 1060 && tab === "1" && <FeedOrderPage />}
-        {windowSize < 1060 && tab === "2" && <OrderStatus />}
+        {window.innerWidth < 1060 && tab === "1" && <FeedOrderPage />}
+        {window.innerWidth < 1060 && tab === "2" && <OrderStatus />}
       </div>
     </section>
   );
