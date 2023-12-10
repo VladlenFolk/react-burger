@@ -3,23 +3,26 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  width: 584px;
-  min-height: 214px;
+  max-width: 584px;
+  min-height: 246px;
   background: #1c1c21;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.04), 0px 0px 2px rgba(0, 0, 0, 0.06),
     0px 0px 1px rgba(0, 0, 0, 0.04);
   border-radius: 40px;
-  cursor: pointer;
-  text-decoration: none;
-  color: #f2f2f3;
 }
 
 .cardHeader {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin: -3px 0 26px 0;
-  gap: 197px;
+  margin-top: 1px;
+}
+
+.cardHeader :nth-child(2) {
+  margin-right: -3px;
+}
+
+.cardHeader :nth-child(1) {
+  margin-left: 4px;
 }
 
 .ingredient {
@@ -39,7 +42,7 @@
 .mainContainer {
   display: flex;
   align-items: center;
-  margin-top: 21px;
+  margin: 21px 0 0 2px;
   position: relative;
 }
 
@@ -62,6 +65,15 @@ ul {
   right: 0;
 }
 
+.status {
+  margin: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: #f2f2f3;
+}
+
 .image {
   object-fit: cover;
   width: 100%;
@@ -81,4 +93,65 @@ ul {
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
+}
+.status {
+  display: none;
+}
+
+@media only screen and (max-width: 1060px) {
+  .card {
+    width: auto;
+    max-width: none;
+    box-sizing: initial;
+    padding: 16px;
+    margin: 0 8px;
+    min-height: fit-content;
+  }
+  .card p {
+    margin-left: 0;
+  }
+  .cardHeader :nth-child(2) span {
+    font-size: 14px;
+  }
+  .cardHeader :nth-child(2) {
+    font-size: 14px;
+  }
+
+  .cardHeader :nth-child(1) {
+    font-size: 22px;
+    line-height: 24px;
+  }
+  .cardHeader p span {
+    font-size: 14px;
+  }
+  .date {
+    margin-left: auto;
+    text-align: right;
+    width: 130px;
+  }
+  .orderName {
+    font-size: 20px;
+    line-height: 24px;
+    margin-top: 16px;
+    margin-left: 0;
+  }
+  .ingredient {
+    width: 32px;
+    height: 32px;
+    margin-left: -10px;
+  }
+  .countIngredients {
+    top: 4px;
+    right: 7px;
+    font-size: 14px;
+  }
+  .mainContainer {
+    margin: 16px 0 0;
+  }
+  .digits {
+    font-size: 22px;
+  }
+  .total {
+    align-items: center;
+  }
 }

@@ -1,110 +1,76 @@
-.feed {
-  margin: -3px 0 0 -127px;
-}
-
 .container {
   display: flex;
   justify-content: center;
   gap: 38px;
-  margin-top: 105px;
+  margin-top: 40px;
 }
 
-.scrollContainer {
-  position: relative;
+.titleMobile {
+  display: none;
+}
+
+.tabs {
+  display: none;
+}
+
+.wrapper {
+  display: flex;
 }
 
 .title {
+  margin-bottom: 20px;
+}
+
+.title h2 {
   margin: 0;
-  position: absolute;
-  left: -81px;
-  top: -61px;
 }
 
-.scroll {
-  position: relative;
-  max-height: 80vh;
-  overflow-y: auto;
-}
-
-.scroll::-webkit-scrollbar {
-  width: 8px;
-}
-
-.scroll::-webkit-scrollbar-track {
-  background: #2f2f37;
-}
-
-.scroll::-webkit-scrollbar-thumb {
-  background: #8585ad;
-  height: 50%;
-  border-radius: 30px;
-}
-
-.store {
-  margin-left: 16px;
-}
-
-.readyAlltime {
-  margin-bottom: 60px;
-}
-
-.readyAlltime :nth-child(2) {
-  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
-    0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
-}
-
-.readyToday :nth-child(2) {
-  text-shadow: 0px 0px 16px rgba(51, 51, 255, 0.25),
-    0px 0px 8px rgba(51, 51, 255, 0.25), 0px 4px 32px rgba(51, 51, 255, 0.5);
-}
-
-ul {
-  list-style-type: none;
-  padding-inline-start: 0px;
-  margin-block-start: 0;
-  margin-block-end: 0;
-}
-
-.cardsList {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  margin-right: 8px;
-}
-
-.orders {
-  margin: -3px 0 60px;
-  display: flex;
-  gap: 30px;
-}
-
-.done {
-  display: flex;
-  flex-direction: column;
-}
-
-.done > p {
-  margin-bottom: 24px;
-}
-
-.doneOrder {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  display: grid;
-  gap: 8px;
-  color: #00cccc;
-}
-
-.inProcess {
-  display: flex;
-  flex-direction: column;
-}
-
-.inProcess > p {
-  margin-bottom: 24px;
-}
-
-.inProcessOrder {
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-  display: grid;
-  gap: 8px;
+@media only screen and (max-width: 1060px) {
+  .title {
+    display: none;
+  }
+  .store {
+    display: none;
+  }
+  .feed {
+    margin: 0;
+  }
+  .titleMobile {
+    display: block;
+  }
+  .titleMobile h2 {
+    margin: 0;
+    text-align: center;
+    font-size: 28px;
+    line-height: 32px;
+  }
+  .container {
+    margin: 16px 0 8px 0;
+    flex-direction: column;
+    gap: 0;
+  }
+  .tabs {
+    display: flex;
+  }
+  .tabs div {
+    text-align: center;
+    font-size: 14px;
+    padding: 0;
+    padding: 16px 0;
+    width: 100%;
+  }
+  .tab_menu {
+    cursor: default;
+    background-color: #131316;
+    text-align: center;
+    box-shadow: inset 0px -1px 0px #2f2f37;
+    color: #8585ad;
+    transition: all 0.3s ease-in;
+    box-sizing: border-box;
+    margin-top: 8px;
+  }
+  .tab_menu_type_current {
+    box-shadow: inset 0px -2px 0px #4c4cff;
+    color: white;
+  }
 }

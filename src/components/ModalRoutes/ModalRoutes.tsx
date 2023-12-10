@@ -13,9 +13,11 @@ const ModalRoutes: React.FC = () => {
   const location = useLocation<TLocationState>();
   const background = location.state?.background;
   const { ingredients } = useAppSelector((state) => state.ingredientsSlice);
+  const { windowSize } = useAppSelector((state) => state.utils);
   const onModalClose = () => {
     history.goBack();
   };
+  const title = windowSize > 1060 ? "" : "Детали заказа";
   const mobileMenu = useAppSelector((state) => state.userSlice.mobileMenu);
   return (
     <>
@@ -23,7 +25,7 @@ const ModalRoutes: React.FC = () => {
         <Route path={`/ingredient/:idCard`}>
           {ingredients.length && (
             <Modal title={"Детали ингредиента"} onClose={onModalClose}>
-              <IngredientDetails />
+              <IngredientDetails onClose={onModalClose}/>
             </Modal>
           )}
         </Route>
@@ -31,8 +33,8 @@ const ModalRoutes: React.FC = () => {
       {background && (
         <ProtectedRoute path={`/profile/orders/:number`}>
           {ingredients.length && (
-            <Modal onClose={onModalClose}>
-              <SelectedOrder />
+            <Modal onClose={onModalClose} title={title}>
+              <SelectedOrder onClose={onModalClose} />
             </Modal>
           )}
         </ProtectedRoute>
@@ -40,8 +42,8 @@ const ModalRoutes: React.FC = () => {
       {background && (
         <Route path={`/feed/:number`}>
           {ingredients.length && (
-            <Modal onClose={onModalClose}>
-              <SelectedOrder />
+            <Modal onClose={onModalClose} title={title}>
+              <SelectedOrder onClose={onModalClose} />
             </Modal>
           )}
         </Route>

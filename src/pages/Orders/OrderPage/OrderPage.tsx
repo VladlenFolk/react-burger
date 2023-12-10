@@ -1,6 +1,6 @@
 import style from "./OrderPage.module.css";
 import { useAppSelector } from "../../../hooks/typesHooks";
-import CardOrders from "../Card/CardOrders";
+import CardOrders from "../../../components/CardOrders/CardOrders";
 
 const OrderPage =() => {
   const { orders } = useAppSelector((state) => state.wsSlice);

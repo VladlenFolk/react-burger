@@ -9,7 +9,7 @@ interface ICounter {
 }
 
 const BurgerIngredients = () => {
-  // const window = useAppSelector((state) => state.windowSlice.windowSize);
+  
   const [tab, setTab] = useState("1");
 
   // нахожу якоря для скрола в DOM

@@ -1,86 +1,75 @@
 import styleFeed from "./Feed.module.css";
-import CardFeed from "./Card/CardFeed";
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useAppSelector, useAppDispatch } from "../../hooks/typesHooks";
 import {
   wsConnectionStart,
   wsClosed,
 } from "../../services/reduxToolkit/webSocketSlice";
+import FeedOrderPage from "./FeedOrderPage/FeedOrderPage";
+import OrderStatus from "./OrderStatus/OrderStatus";
 
 function Feed() {
+  //загружаем заказы при переходе на страницу
   const dispatch = useAppDispatch();
-  const { orders, total, totalToday } = useAppSelector((state) => state.wsSlice);
-
   const feedUrl = "wss://norma.nomoreparties.space/orders/all";
-
   useEffect(() => {
     dispatch(wsConnectionStart(feedUrl));
     return () => {
       dispatch(wsClosed());
     };
-  }, []);
+  }, [dispatch]);
+  
+
+  //переключение между страницами
+  const [tab, setTab] = useState("1");
+  const handleOrdersClick = () => {
+    setTab("1");
+  };
+  const handleStatisticClick = () => {
+    setTab("2");
+  };
+  const tabOrders = useRef<HTMLDivElement>(null);
+  const tabStatistic = useRef<HTMLDivElement>(null);
+  const ordersTab =
+    tab === "1" ? styleFeed.tab_menu_type_current : styleFeed.noselected;
+  const listsTab =
+    tab === "2" ? styleFeed.tab_menu_type_current : styleFeed.noselected;
 
   return (
     <section className={styleFeed.feed}>
       <div className={styleFeed.container}>
-        <div className={styleFeed.scrollContainer}>
-          <div className={styleFeed.title}>
-            <h2 className="text text_type_main-large ml-20">Лента заказов</h2>
+        <div className={styleFeed.titleMobile}>
+          <h2 className="text text_type_main-large ml-20">Лента заказов</h2>
+        </div>
+        <div id="menu" className={`${styleFeed.tabs}`}>
+          <div
+            className={`${styleFeed.tab_menu} ${ordersTab}`}
+            onClick={handleOrdersClick}
+            ref={tabOrders}
+          >
+            <span className="text text_type_main-default">Заказы</span>
           </div>
-          <div className={styleFeed.scroll}>
-            <ul className={styleFeed.cardsList}>
-              {orders.map((order) => (
-                <CardFeed key={order._id} order={order} />
-              ))}
-            </ul>
+          <div
+            className={`${styleFeed.tab_menu} ${listsTab}`}
+            onClick={handleStatisticClick}
+            ref={tabStatistic}
+          >
+            <span className="text text_type_main-default">Статистика</span>
           </div>
         </div>
-        <div className={styleFeed.store}>
-          <div className={styleFeed.orders}>
-            <div className={styleFeed.done}>
-              <p className="text text_type_main-medium">Готовы:</p>
-              <div className={styleFeed.doneOrder}>
-                {orders.map(
-                  (order) =>
-                    order.status === "done" && (
-                      <p
-                        key={order._id}
-                        className="text text_type_digits-default"
-                      >
-                        {order.number}
-                      </p>
-                    )
-                )}
-              </div>
+        {window.innerWidth > 1060 && (
+          <div className={styleFeed.feedOrderContainer}>
+            <div className={styleFeed.title}>
+              <h2 className="text text_type_main-large ml-20">Лента заказов</h2>
             </div>
-            <div className={styleFeed.inProcess}>
-              <p className="text text_type_main-medium"> В работе:</p>
-              <div className={styleFeed.inProcessOrder}>
-                {orders.map(
-                  (order) =>
-                    order.status === "pending" && (
-                      <p
-                        key={order.number}
-                        className="text text_type_digits-default"
-                      >
-                        {order.number}
-                      </p>
-                    )
-                )}
-              </div>
+            <div className={styleFeed.wrapper}>
+              <FeedOrderPage />
+              <OrderStatus />
             </div>
           </div>
-          <div className={styleFeed.readyAlltime}>
-            <p className="text text_type_main-medium">
-              Выполнено за все время:
-            </p>
-            <p className="text text_type_digits-large">{total}</p>
-          </div>
-          <div className={styleFeed.readyToday}>
-            <p className="text text_type_main-medium">Выполнено за сегодня:</p>
-            <p className="text text_type_digits-large">{totalToday}</p>
-          </div>
-        </div>
+        )}
+        {window.innerWidth < 1060 && tab === "1" && <FeedOrderPage />}
+        {window.innerWidth < 1060 && tab === "2" && <OrderStatus />}
       </div>
     </section>
   );

@@ -50,6 +50,7 @@
   position: absolute;
   right: 0;
   display: flex;
+  align-items: center;
   gap: 8px;
 }
 
@@ -112,4 +113,122 @@
 
 .title {
   margin: 0;
+}
+
+.bottomMobile,
+.headerModalMobile {
+  display: none;
+}
+
+@media only screen and (max-width: 1060px) {
+  .container {
+    margin: 0;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    align-items: normal;
+    background-color: #131316;
+    padding: 0;
+    justify-content: center;
+    padding: 0 18px;
+  }
+  .number {
+    font-size: 22px;
+    line-height: 24px;
+    margin-bottom: 24px;
+  }
+  .name {
+    font-size: 20px;
+    line-height: 24px;
+    margin-top: 0;
+  }
+  .done {
+    margin: 0 0 24px 0;
+    min-width: 640px;
+  }
+
+  .total {
+    position: initial;
+    display: flex;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .headerModalMobile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding: 8px 0;
+    justify-content: space-between;
+  }
+  .scroll {
+    max-height: 53vh;
+    padding: 0;
+    margin: 8px 0;
+    width: auto;
+  }
+  .scroll h2 {
+    margin: 0;
+  }
+  .scroll::-webkit-scrollbar {
+    width: 0;
+  }
+  .scroll::-webkit-scrollbar-thumb {
+    background-color: transparent;
+  }
+  .bottom {
+    display: none;
+  }
+  .bottomMobile {
+    width: 100%;
+    display: flex;
+    margin-top: auto;
+    padding: 8px 18px;
+    background-color: #1c1c21;
+    align-self: normal;
+    align-items: center;
+    margin-left: -18px;
+  }
+
+  .bottomMobile > p {
+    font-size: 14px;
+  }
+  .total > p {
+    font-size: 22px;
+  }
+  .title {
+    font-size: 28px;
+  }
+  .ingredient {
+    width: 32px;
+    height: 32px;
+  }
+  .list {
+    margin: 0;
+    padding: 8px 0;
+  }
+  .list > p {
+    font-size: 14px;
+    line-height: 20px;
+    margin-left: 8px;
+  }
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 660px) {
+  .container {
+    padding: 0 8px;
+  }
+}
+
+@media only screen and (max-width: 490px) {
+  .list > p {
+    max-width: 144px;
+  }
 }
